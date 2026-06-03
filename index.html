@@ -163,7 +163,7 @@
 
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 380px;
+      grid-template-columns: minmax(0, 1fr) 360px;
       gap: 20px;
       align-items: start;
     }
@@ -197,7 +197,7 @@
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 12px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
     .stat {
@@ -235,6 +235,30 @@
     .stat .value {
       font-size: 1.35rem;
       font-weight: 900;
+    }
+
+    .top-sections {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 4px 0 14px;
+    }
+
+    .panel-card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .panel-card.wide {
+      grid-column: 1 / -1;
+    }
+
+    .panel-card h2 {
+      margin: 0 0 10px;
+      font-size: 1.02rem;
+      letter-spacing: -0.02em;
     }
 
     .progress-wrap {
@@ -429,11 +453,6 @@
       background: #6b7280;
     }
 
-    h2 {
-      margin: 0 0 12px;
-      letter-spacing: -0.025em;
-    }
-
     .journal-prompt {
       background: linear-gradient(135deg, var(--accent-soft), #f5f3ff);
       color: #3730a3;
@@ -447,7 +466,7 @@
 
     textarea {
       width: 100%;
-      min-height: 180px;
+      min-height: 150px;
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 12px;
@@ -476,12 +495,41 @@
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+    }
+
+    .weight-compare {
+      margin-bottom: 10px;
+      border-radius: 12px;
+      padding: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      color: #334155;
+    }
+
+    .weight-compare.up {
+      background: #fff1f2;
+      border-color: #fecdd3;
+      color: #9f1239;
+    }
+
+    .weight-compare.down {
+      background: #ecfdf5;
+      border-color: #bbf7d0;
+      color: #065f46;
+    }
+
+    .weight-compare.same {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+      color: #1d4ed8;
     }
 
     .weight-list,
     .history-list {
-      max-height: 240px;
+      max-height: 220px;
       overflow: auto;
       border: 1px solid var(--border);
       border-radius: 16px;
@@ -579,10 +627,12 @@
       border-radius: 16px;
       background: #f9fafb;
       border: 1px solid var(--border);
-      margin-top: 12px;
+      margin-top: 10px;
       line-height: 1.5;
       overflow-wrap: anywhere;
       word-break: break-word;
+      max-height: 230px;
+      overflow: auto;
     }
 
     .history-entry strong {
@@ -616,6 +666,10 @@
 
       .stats-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .top-sections {
+        grid-template-columns: 1fr;
       }
 
       .block {
@@ -739,7 +793,7 @@
       <div class="title-block">
         <h1>🌞 Daily Life Tracker</h1>
         <p>
-          ✅ Check off blocks · ⏱ run timers · 📓 journal with history · ⚖️ track weight · 🚿 follow routines · 🔗 open learning resources.
+          ✅ Check off blocks · ⏱ run timers · 📓 journal/history · ⚖️ compare weight vs previous day · 🧠 anxiety offload notes.
         </p>
       </div>
 
@@ -780,6 +834,71 @@
           </div>
         </div>
 
+        <!-- TOP SECTIONS (as requested): Weight, Previous Days, Journal + mind offload -->
+        <div class="top-sections">
+          <section class="panel-card">
+            <h2>⚖️ Daily Weight</h2>
+            <div class="weight-form">
+              <input id="weightInput" type="number" step="0.1" placeholder="Weight, e.g. 175.4">
+              <button id="saveWeightBtn">💾 Save</button>
+            </div>
+            <div class="weight-compare" id="weightCompare">
+              Save a weight to compare with the previous day.
+            </div>
+            <div class="weight-list">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Weight</th>
+                  </tr>
+                </thead>
+                <tbody id="weightTable"></tbody>
+              </table>
+            </div>
+            <p class="small-note">Auto-comparison uses selected date vs previous day.</p>
+          </section>
+
+          <section class="panel-card">
+            <h2>🗓 Previous Days</h2>
+            <div class="history-list" id="historyList"></div>
+            <div class="history-entry" id="historyPreview">
+              <strong>👀 Day Preview</strong>
+              Select a previous day to view its summary.
+            </div>
+          </section>
+
+          <section class="panel-card wide">
+            <h2>📓 Journal</h2>
+            <div class="journal-prompt" id="journalPrompt"></div>
+            <textarea id="journalText" placeholder="Type your journal entry here..."></textarea>
+            <div class="journal-actions">
+              <span class="save-status" id="saveStatus">Autosaves as you type ✨</span>
+              <button id="saveJournalBtn">💾 Save Journal</button>
+            </div>
+          </section>
+
+          <section class="panel-card wide">
+            <h2>🧾 Later To Do Items</h2>
+            <textarea id="laterTodoText" placeholder="Brain dump tasks here so you can release them for later..."></textarea>
+            <div class="journal-actions">
+              <span class="save-status" id="todoStatus">Autosaves as you type ✨</span>
+              <button id="saveTodoBtn">💾 Save To-Do</button>
+            </div>
+            <p class="small-note">Use this as an anxiety offload list: “I won’t forget this; it’s captured.”</p>
+          </section>
+
+          <section class="panel-card wide">
+            <h2>🪞 What Mr. Perfect Is Telling Me</h2>
+            <textarea id="perfectText" placeholder="Log intrusive perfectionistic thoughts here..."></textarea>
+            <div class="journal-actions">
+              <span class="save-status" id="perfectStatus">Autosaves as you type ✨</span>
+              <button id="savePerfectBtn">💾 Save Thoughts</button>
+            </div>
+            <p class="small-note">Name it, externalize it, and reduce its control.</p>
+          </section>
+        </div>
+
         <div class="progress-wrap">
           <div class="progress-bar" id="progressBar"></div>
         </div>
@@ -788,46 +907,6 @@
       </main>
 
       <aside class="side">
-        <section class="card">
-          <h2>📓 Journal</h2>
-          <div class="journal-prompt" id="journalPrompt"></div>
-          <textarea id="journalText" placeholder="Type your journal entry here..."></textarea>
-          <div class="journal-actions">
-            <span class="save-status" id="saveStatus">Autosaves as you type ✨</span>
-            <button id="saveJournalBtn">💾 Save Journal</button>
-          </div>
-          <p class="small-note">Saved for the selected date. Use the date picker or history panel to revisit past days.</p>
-        </section>
-
-        <section class="card">
-          <h2>🗓 Previous Days</h2>
-          <div class="history-list" id="historyList"></div>
-          <div class="history-entry" id="historyPreview">
-            <strong>👀 Day Preview</strong>
-            Select a previous day to view its summary.
-          </div>
-        </section>
-
-        <section class="card">
-          <h2>⚖️ Daily Weight</h2>
-          <div class="weight-form">
-            <input id="weightInput" type="number" step="0.1" placeholder="Weight, e.g. 175.4">
-            <button id="saveWeightBtn">💾 Save</button>
-          </div>
-          <div class="weight-list">
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Weight</th>
-                </tr>
-              </thead>
-              <tbody id="weightTable"></tbody>
-            </table>
-          </div>
-          <p class="small-note">Tip: weigh under similar conditions each morning 🌅.</p>
-        </section>
-
         <section class="card">
           <h2>🔗 Tech News Links</h2>
           <div class="resource-grid">
@@ -849,7 +928,7 @@
             <button class="secondary" id="exportBtn">📤 Export JSON Backup</button>
             <button class="danger" id="clearAllBtn">🧨 Clear All Saved Data</button>
           </div>
-          <p class="small-note">This saves locally in your browser. The Mac app version can save to an app data file.</p>
+          <p class="small-note">This saves locally in your browser.</p>
         </section>
       </aside>
     </div>
@@ -1341,9 +1420,15 @@ ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
     const timeStat = document.getElementById("timeStat");
     const weightInput = document.getElementById("weightInput");
     const weightTable = document.getElementById("weightTable");
+    const weightCompare = document.getElementById("weightCompare");
     const categorySummary = document.getElementById("categorySummary");
     const historyList = document.getElementById("historyList");
     const historyPreview = document.getElementById("historyPreview");
+
+    const laterTodoText = document.getElementById("laterTodoText");
+    const todoStatus = document.getElementById("todoStatus");
+    const perfectText = document.getElementById("perfectText");
+    const perfectStatus = document.getElementById("perfectStatus");
 
     function todayISO() {
       const d = new Date();
@@ -1365,6 +1450,14 @@ ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
         day: "numeric",
         year: "numeric"
       });
+    }
+
+    function addDaysISO(iso, days) {
+      const d = new Date(iso + "T12:00:00");
+      d.setDate(d.getDate() + days);
+      const offset = d.getTimezoneOffset();
+      const local = new Date(d.getTime() - offset * 60000);
+      return local.toISOString().split("T")[0];
     }
 
     function getKey(prefix, date = datePicker.value) {
@@ -1402,15 +1495,11 @@ ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
     function blockDurationMinutes(range) {
       const parts = range.split(/[–-]/);
       if (parts.length < 2) return 0;
-
       let start = parseTimeToMinutes(parts[0]);
       let end = parseTimeToMinutes(parts[1]);
-
       if (start < 8 * 60) start += 12 * 60;
       if (end < 8 * 60) end += 12 * 60;
-
       if (end <= start) end += 12 * 60;
-
       return end - start;
     }
 
@@ -1446,6 +1535,15 @@ ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
       return block.details || "";
     }
 
+    function touchDate(date) {
+      const dates = storageGet("trackedDates", []);
+      if (!dates.includes(date)) {
+        dates.push(date);
+        dates.sort((a, b) => b.localeCompare(a));
+        storageSet("trackedDates", dates);
+      }
+    }
+
     function saveJournal(manual = false) {
       storageSet(getKey("journal"), journalText.value);
       touchDate(datePicker.value);
@@ -1456,13 +1554,24 @@ ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
       renderHistory();
     }
 
-    function touchDate(date) {
-      const dates = storageGet("trackedDates", []);
-      if (!dates.includes(date)) {
-        dates.push(date);
-        dates.sort((a, b) => b.localeCompare(a));
-        storageSet("trackedDates", dates);
-      }
+    function saveLaterTodo(manual = false) {
+      storageSet(getKey("laterTodo"), laterTodoText.value);
+      touchDate(datePicker.value);
+      todoStatus.textContent = manual ? "Saved manually 💾✨" : "Autosaved ✨";
+      setTimeout(() => {
+        todoStatus.textContent = "Autosaves as you type ✨";
+      }, 1600);
+      renderHistory();
+    }
+
+    function saveMrPerfect(manual = false) {
+      storageSet(getKey("mrPerfect"), perfectText.value);
+      touchDate(datePicker.value);
+      perfectStatus.textContent = manual ? "Saved manually 💾✨" : "Autosaved ✨";
+      setTimeout(() => {
+        perfectStatus.textContent = "Autosaves as you type ✨";
+      }, 1600);
+      renderHistory();
     }
 
     function getDoneState(date = datePicker.value, day = daySelect.value) {
@@ -1487,6 +1596,41 @@ ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
       }
 
       return migrated;
+    }
+
+    function renderWeightComparison() {
+      const weights = storageGet("weights", {});
+      const currentDate = datePicker.value;
+      const prevDate = addDaysISO(currentDate, -1);
+      const currentW = weights[currentDate];
+      const prevW = weights[prevDate];
+
+      weightCompare.className = "weight-compare";
+
+      if (!currentW) {
+        weightCompare.textContent = "Save a weight for this date to compare with the previous day.";
+        return;
+      }
+
+      if (!prevW) {
+        weightCompare.textContent = `No weight logged for previous day (${prevDate}).`;
+        return;
+      }
+
+      const diff = Number(currentW) - Number(prevW);
+      if (Math.abs(diff) < 0.05) {
+        weightCompare.classList.add("same");
+        weightCompare.textContent = `↔️ No meaningful change vs ${prevDate} (about the same).`;
+        return;
+      }
+
+      if (diff > 0) {
+        weightCompare.classList.add("up");
+        weightCompare.textContent = `⬆️ Up ${diff.toFixed(1)} vs ${prevDate}.`;
+      } else {
+        weightCompare.classList.add("down");
+        weightCompare.textContent = `⬇️ Down ${Math.abs(diff).toFixed(1)} vs ${prevDate}.`;
+      }
     }
 
     function render() {
@@ -1569,13 +1713,18 @@ ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
 
       journalPromptEl.textContent = journalPrompts[day];
       journalText.value = storageGet(getKey("journal"), "");
+      laterTodoText.value = storageGet(getKey("laterTodo"), "");
+      perfectText.value = storageGet(getKey("mrPerfect"), "");
+
       waterStat.textContent = `${water} oz`;
       timeStat.textContent = formatDuration(totalMins);
+
       loadWeightForDate();
       updateStats();
       renderWeights();
       renderCategorySummary();
       renderHistory();
+      renderWeightComparison();
     }
 
     function handleTimer(id, action) {
@@ -1663,6 +1812,8 @@ ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
         done: completedTitles.length,
         completedTitles,
         journal: storageGet(getKey("journal", date), ""),
+        laterTodo: storageGet(getKey("laterTodo", date), ""),
+        mrPerfect: storageGet(getKey("mrPerfect", date), ""),
         weight: storageGet("weights", {})[date] || ""
       };
     }
@@ -1677,17 +1828,23 @@ ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
       storageSet("trackedDates", dates);
 
       if (!dates.length) {
-        historyList.innerHTML = `<div class="history-day"><div class="history-date">No saved days yet 🌱</div><div class="history-meta">Start checking off blocks or writing in your journal.</div></div>`;
+        historyList.innerHTML = `<div class="history-day"><div class="history-date">No saved days yet 🌱</div><div class="history-meta">Start checking off blocks or writing notes.</div></div>`;
         return;
       }
 
-      historyList.innerHTML = dates.slice(0, 45).map(date => {
+      historyList.innerHTML = dates.slice(0, 60).map(date => {
         const s = getDaySummary(date);
         const pct = s.total ? Math.round((s.done / s.total) * 100) : 0;
+        const flags = [
+          s.weight ? "⚖️" : "",
+          s.journal ? "📓" : "",
+          s.laterTodo ? "🧾" : "",
+          s.mrPerfect ? "🪞" : ""
+        ].filter(Boolean).join(" ");
         return `
           <div class="history-day" data-date="${date}">
             <div class="history-date">${date === todayISO() ? "📍 " : "🗓 "} ${friendlyDate(date)}</div>
-            <div class="history-meta">✅ ${s.done}/${s.total} · 📈 ${pct}% ${s.weight ? `· ⚖️ ${s.weight}` : ""} ${s.journal ? "· 📓 Journal" : ""}</div>
+            <div class="history-meta">✅ ${s.done}/${s.total} · 📈 ${pct}% ${s.weight ? `· ${s.weight}` : ""} ${flags ? `· ${flags}` : ""}</div>
           </div>
         `;
       }).join("");
@@ -1716,6 +1873,8 @@ ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
         <div>${s.weight ? `⚖️ Weight: ${s.weight}` : "⚖️ No weight saved"}</div>
         <div style="margin-top:8px;"><strong>🏁 What you did:</strong>${completed}</div>
         <div style="margin-top:8px;"><strong>📓 Journal:</strong><br>${s.journal ? escapeHTML(s.journal).replace(/\n/g, "<br>") : "No journal entry yet."}</div>
+        <div style="margin-top:8px;"><strong>🧾 Later To Do Items:</strong><br>${s.laterTodo ? escapeHTML(s.laterTodo).replace(/\n/g, "<br>") : "None saved."}</div>
+        <div style="margin-top:8px;"><strong>🪞 Mr. Perfect Thoughts:</strong><br>${s.mrPerfect ? escapeHTML(s.mrPerfect).replace(/\n/g, "<br>") : "None saved."}</div>
       `;
     }
 
@@ -1754,13 +1913,14 @@ ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
     function loadWeightForDate() {
       const weights = storageGet("weights", {});
       weightInput.value = weights[datePicker.value] || "";
+      renderWeightComparison();
     }
 
     function renderWeights() {
       const weights = storageGet("weights", {});
       const rows = Object.entries(weights)
         .sort(([a], [b]) => b.localeCompare(a))
-        .slice(0, 30)
+        .slice(0, 40)
         .map(([date, weight]) => `<tr><td>${date}</td><td>${weight}</td></tr>`)
         .join("");
 
@@ -1776,13 +1936,13 @@ ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
       render();
     }
 
-    journalText.addEventListener("input", () => {
-      saveJournal(false);
-    });
+    journalText.addEventListener("input", () => saveJournal(false));
+    laterTodoText.addEventListener("input", () => saveLaterTodo(false));
+    perfectText.addEventListener("input", () => saveMrPerfect(false));
 
-    document.getElementById("saveJournalBtn").addEventListener("click", () => {
-      saveJournal(true);
-    });
+    document.getElementById("saveJournalBtn").addEventListener("click", () => saveJournal(true));
+    document.getElementById("saveTodoBtn").addEventListener("click", () => saveLaterTodo(true));
+    document.getElementById("savePerfectBtn").addEventListener("click", () => saveMrPerfect(true));
 
     document.getElementById("saveWeightBtn").addEventListener("click", () => {
       const val = weightInput.value;
@@ -1793,6 +1953,7 @@ ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
       touchDate(datePicker.value);
       renderWeights();
       renderHistory();
+      renderWeightComparison();
       saveStatus.textContent = "Weight saved ⚖️";
       setTimeout(() => {
         saveStatus.textContent = "Autosaves as you type ✨";
@@ -1800,10 +1961,12 @@ ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
     });
 
     document.getElementById("resetDayBtn").addEventListener("click", () => {
-      const ok = confirm("Reset checkboxes and journal for this date?");
+      const ok = confirm("Reset checkboxes + text areas for this date?");
       if (!ok) return;
       localStorage.removeItem(getKey("done"));
       localStorage.removeItem(getKey("journal"));
+      localStorage.removeItem(getKey("laterTodo"));
+      localStorage.removeItem(getKey("mrPerfect"));
       resetTimersAndRender();
     });
 
