@@ -1,0 +1,1730 @@
+<!DOCTYPE html><html lang="en"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌞 Daily Life Tracker</title>
+  <style>
+    :root {
+      --bg: #f7f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #6366f1;
+      --accent-dark: #4338ca;
+      --accent-soft: #eef2ff;
+      --green: #10b981;
+      --green-soft: #ecfdf5;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --rose-soft: #fff1f2;
+      --blue-soft: #eff6ff;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.09);
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(99, 102, 241, 0.18), transparent 32rem),
+        radial-gradient(circle at top right, rgba(16, 185, 129, 0.14), transparent 28rem),
+        linear-gradient(135deg, #f7f7fb 0%, #eef2ff 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .app {
+      width: min(1450px, 100%);
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: clamp(1.9rem, 4vw, 3.25rem);
+      letter-spacing: -0.055em;
+      line-height: 1;
+    }
+
+    .title-block p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 720px;
+      line-height: 1.45;
+    }
+
+    .top-controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    select,
+    input,
+    textarea,
+    button {
+      font: inherit;
+    }
+
+    select,
+    input[type="date"],
+    input[type="number"],
+    input[type="text"] {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 11px 13px;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--text);
+      outline: none;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+    }
+
+    select:focus,
+    input:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 11px 15px;
+      cursor: pointer;
+      font-weight: 800;
+      background: var(--accent);
+      color: white;
+      transition: 0.2s ease;
+      box-shadow: 0 7px 18px rgba(99, 102, 241, 0.2);
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(99, 102, 241, 0.28);
+    }
+
+    button.secondary {
+      background: #111827;
+      box-shadow: 0 7px 18px rgba(17, 24, 39, 0.18);
+    }
+
+    button.ghost {
+      background: white;
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: none;
+    }
+
+    button.danger {
+      background: var(--red);
+      box-shadow: 0 7px 18px rgba(239, 68, 68, 0.2);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(229, 231, 235, 0.82);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .main-card {
+      padding: 18px;
+    }
+
+    .side {
+      display: grid;
+      gap: 20px;
+      position: sticky;
+      top: 16px;
+    }
+
+    .side .card {
+      padding: 18px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .stat {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 15px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat::after {
+      content: "";
+      position: absolute;
+      inset: auto -20px -32px auto;
+      width: 90px;
+      height: 90px;
+      background: var(--accent-soft);
+      border-radius: 999px;
+      z-index: 0;
+    }
+
+    .stat .label,
+    .stat .value {
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat .label {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 6px;
+    }
+
+    .stat .value {
+      font-size: 1.35rem;
+      font-weight: 900;
+    }
+
+    .progress-wrap {
+      background: #e5e7eb;
+      border-radius: 999px;
+      height: 15px;
+      overflow: hidden;
+      margin-bottom: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--green), var(--accent));
+      transition: width 0.25s ease;
+    }
+
+    .schedule {
+      display: grid;
+      gap: 12px;
+    }
+
+    .block {
+      display: grid;
+      grid-template-columns: 34px 140px minmax(0, 1fr) 190px;
+      gap: 14px;
+      align-items: start;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+      transition: 0.2s ease;
+    }
+
+    .block:hover {
+      border-color: rgba(99, 102, 241, 0.35);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+    }
+
+    .block.done {
+      opacity: 0.68;
+      background: #f9fafb;
+    }
+
+    .block.done .block-title {
+      text-decoration: line-through;
+    }
+
+    .check {
+      width: 24px;
+      height: 24px;
+      accent-color: var(--green);
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    .time {
+      font-weight: 900;
+      color: var(--accent);
+      font-size: 0.95rem;
+      padding-top: 3px;
+    }
+
+    .block-title {
+      font-size: 1.06rem;
+      font-weight: 900;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .block-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin-bottom: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border-radius: 999px;
+      padding: 4px 9px;
+      background: var(--accent-soft);
+      color: #3730a3;
+      font-weight: 800;
+      font-size: 0.76rem;
+    }
+
+    .details {
+      color: #374151;
+      line-height: 1.6;
+      white-space: pre-line;
+      font-size: 0.92rem;
+    }
+
+    .details a,
+    .exercise-list a,
+    .resource-link,
+    .history-entry a {
+      color: #4f46e5;
+      font-weight: 800;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(79, 70, 229, 0.28);
+    }
+
+    .details a:hover,
+    .exercise-list a:hover,
+    .resource-link:hover,
+    .history-entry a:hover {
+      color: #3730a3;
+      border-bottom-color: #3730a3;
+    }
+
+    .exercise-list {
+      display: grid;
+      gap: 6px;
+      margin-top: 8px;
+      padding: 10px;
+      background: var(--green-soft);
+      border: 1px solid rgba(16, 185, 129, 0.18);
+      border-radius: 14px;
+      white-space: normal;
+    }
+
+    .exercise-list div {
+      line-height: 1.45;
+    }
+
+    .routine-box {
+      margin-top: 9px;
+      padding: 11px 12px;
+      background: var(--blue-soft);
+      border: 1px solid rgba(59, 130, 246, 0.16);
+      border-radius: 14px;
+      white-space: pre-line;
+    }
+
+    .timer {
+      display: grid;
+      gap: 8px;
+      justify-items: stretch;
+    }
+
+    .timer-display {
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 950;
+      font-variant-numeric: tabular-nums;
+      background: #f3f4f6;
+      border-radius: 13px;
+      padding: 8px;
+    }
+
+    .timer-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .timer-controls button {
+      font-size: 0.8rem;
+      padding: 8px;
+      border-radius: 11px;
+    }
+
+    .timer-controls .start {
+      background: var(--green);
+    }
+
+    .timer-controls .pause {
+      background: var(--yellow);
+    }
+
+    .timer-controls .reset {
+      background: #6b7280;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      letter-spacing: -0.025em;
+    }
+
+    .journal-prompt {
+      background: linear-gradient(135deg, var(--accent-soft), #f5f3ff);
+      color: #3730a3;
+      border-radius: 16px;
+      padding: 12px;
+      font-weight: 900;
+      line-height: 1.4;
+      margin-bottom: 12px;
+      border: 1px solid rgba(99, 102, 241, 0.15);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 180px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      resize: vertical;
+      outline: none;
+      background: white;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .journal-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .save-status {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .weight-form {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .weight-list,
+    .history-list {
+      max-height: 240px;
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: white;
+    }
+
+    .history-list {
+      display: grid;
+    }
+
+    .history-day {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      gap: 5px;
+      cursor: pointer;
+      background: white;
+      transition: 0.18s ease;
+    }
+
+    .history-day:hover {
+      background: var(--accent-soft);
+    }
+
+    .history-day:last-child {
+      border-bottom: none;
+    }
+
+    .history-date {
+      font-weight: 900;
+    }
+
+    .history-meta {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .category-summary {
+      display: grid;
+      gap: 8px;
+    }
+
+    .category-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .category-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .small-note {
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.45;
+    }
+
+    .history-entry {
+      padding: 12px;
+      border-radius: 16px;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    .history-entry strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .resource-link {
+      display: block;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    @media (max-width: 1100px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .side {
+        position: static;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .block {
+        grid-template-columns: 34px 1fr;
+      }
+
+      .time,
+      .timer {
+        grid-column: 2;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .app {
+        padding: 14px;
+      }
+
+      .stats-grid,
+      .resource-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .top-controls {
+        width: 100%;
+      }
+
+      .top-controls > * {
+        flex: 1 1 100%;
+      }
+
+      .journal-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="title-block">
+        <h1>🌞 Daily Life Tracker</h1>
+        <p>
+          ✅ Check off blocks · ⏱ run timers · 📓 journal with history · ⚖️ track weight · 🚿 follow routines · 🔗 open learning resources.
+        </p>
+      </div>
+
+      <div class="top-controls">
+        <input id="datePicker" type="date">
+        <select id="daySelect">
+          <option value="Mon">🌕 Monday</option>
+          <option value="Tue">🔥 Tuesday</option>
+          <option value="Wed">🌊 Wednesday</option>
+          <option value="Thu">⚡ Thursday</option>
+          <option value="Fri">🎉 Friday</option>
+          <option value="Sat">🛠 Saturday</option>
+          <option value="Sun">🌞 Sunday</option>
+        </select>
+        <button class="ghost" id="todayBtn">📍 Today</button>
+        <button class="ghost" id="resetDayBtn">♻️ Reset Day</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <main class="card main-card">
+        <div class="stats-grid">
+          <div class="stat">
+            <div class="label">✅ Completed</div>
+            <div class="value" id="completedStat">0/0</div>
+          </div>
+          <div class="stat">
+            <div class="label">📈 Progress</div>
+            <div class="value" id="progressStat">0%</div>
+          </div>
+          <div class="stat">
+            <div class="label">💧 Planned Water</div>
+            <div class="value" id="waterStat">0 oz</div>
+          </div>
+          <div class="stat">
+            <div class="label">⏳ Planned Time</div>
+            <div class="value" id="timeStat">0h</div>
+          </div>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <section class="schedule" id="schedule"></section>
+      </main>
+
+      <aside class="side">
+        <section class="card">
+          <h2>📓 Journal</h2>
+          <div class="journal-prompt" id="journalPrompt"></div>
+          <textarea id="journalText" placeholder="Type your journal entry here..."></textarea>
+          <div class="journal-actions">
+            <span class="save-status" id="saveStatus">Autosaves as you type ✨</span>
+            <button id="saveJournalBtn">💾 Save Journal</button>
+          </div>
+          <p class="small-note">Saved for the selected date. Use the date picker or history panel to revisit past days.</p>
+        </section>
+
+        <section class="card">
+          <h2>🗓 Previous Days</h2>
+          <div class="history-list" id="historyList"></div>
+          <div class="history-entry" id="historyPreview">
+            <strong>👀 Day Preview</strong>
+            Select a previous day to view its summary.
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>⚖️ Daily Weight</h2>
+          <div class="weight-form">
+            <input id="weightInput" type="number" step="0.1" placeholder="Weight, e.g. 175.4">
+            <button id="saveWeightBtn">💾 Save</button>
+          </div>
+          <div class="weight-list">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Weight</th>
+                </tr>
+              </thead>
+              <tbody id="weightTable"></tbody>
+            </table>
+          </div>
+          <p class="small-note">Tip: weigh under similar conditions each morning 🌅.</p>
+        </section>
+
+        <section class="card">
+          <h2>🔗 Tech News Links</h2>
+          <div class="resource-grid">
+            <a class="resource-link" href="https://tldr.tech/" target="_blank" rel="noopener noreferrer">⚡ TLDR</a>
+            <a class="resource-link" href="https://semiengineering.com/" target="_blank" rel="noopener noreferrer">🧩 SemiEngineering</a>
+            <a class="resource-link" href="https://www.viksnewsletter.com/" target="_blank" rel="noopener noreferrer">🧠 Vik’s Newsletter</a>
+            <a class="resource-link" href="https://medium.com/tag/technology" target="_blank" rel="noopener noreferrer">📰 Medium Tech</a>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>🏷 Category Summary</h2>
+          <div class="category-summary" id="categorySummary"></div>
+        </section>
+
+        <section class="card">
+          <h2>💾 Data</h2>
+          <div style="display:grid; gap:8px;">
+            <button class="secondary" id="exportBtn">📤 Export JSON Backup</button>
+            <button class="danger" id="clearAllBtn">🧨 Clear All Saved Data</button>
+          </div>
+          <p class="small-note">This saves locally in your browser. The Mac app version can save to an app data file.</p>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const links = {
+      sam: '<a href="https://www.youtube.com/user/sambenyaakov/videos" target="_blank" rel="noopener noreferrer">Sam Ben-Yaakov</a>',
+      threeBlue: '<a href="https://www.youtube.com/@3blue1brown" target="_blank" rel="noopener noreferrer">3Blue1Brown</a>',
+      jay: '<a href="https://www.youtube.com/@JayAlammar" target="_blank" rel="noopener noreferrer">Jay Alammar</a>',
+      karpathy: '<a href="https://www.youtube.com/@AndrejKarpathy" target="_blank" rel="noopener noreferrer">Andrej Karpathy</a>',
+      crashCourse: '<a href="https://www.youtube.com/@crashcourse" target="_blank" rel="noopener noreferrer">Crash Course</a>',
+      coreDumped: '<a href="https://www.youtube.com/results?search_query=Core+Dumped+computer+science" target="_blank" rel="noopener noreferrer">Core Dumped</a>',
+      benEater: '<a href="https://www.youtube.com/@BenEater" target="_blank" rel="noopener noreferrer">Ben Eater</a>',
+      greatScott: '<a href="https://www.youtube.com/@greatscottlab" target="_blank" rel="noopener noreferrer">GreatScott!</a>',
+      electronoobs: '<a href="https://www.youtube.com/@ELECTRONOOBS" target="_blank" rel="noopener noreferrer">Electronoobs</a>',
+      brianDouglas: '<a href="https://www.youtube.com/user/ControlLectures" target="_blank" rel="noopener noreferrer">Brian Douglas / Control Systems Lectures</a>',
+      brunton: '<a href="https://www.youtube.com/@Eigensteve" target="_blank" rel="noopener noreferrer">Steve Brunton / Eigensteve</a>',
+      matlab: '<a href="https://www.youtube.com/@MATLAB" target="_blank" rel="noopener noreferrer">MATLAB</a>',
+      yannic: '<a href="https://www.youtube.com/@YannicKilcher" target="_blank" rel="noopener noreferrer">Yannic Kilcher</a>',
+      umar: '<a href="https://www.youtube.com/@umarjamilai" target="_blank" rel="noopener noreferrer">Umar Jamil</a>',
+      feelingGood: '<a href="https://www.youtube.com/results?search_query=Feeling+Good+Podcast+David+Burns" target="_blank" rel="noopener noreferrer">Feeling Good</a>',
+      anxietyCoaches: '<a href="https://www.youtube.com/results?search_query=Anxiety+Coaches+Podcast" target="_blank" rel="noopener noreferrer">Anxiety Coaches</a>',
+      tenPercent: '<a href="https://www.youtube.com/results?search_query=Ten+Percent+Happier+Podcast" target="_blank" rel="noopener noreferrer">Ten Percent Happier</a>',
+      oneYouFeed: '<a href="https://www.youtube.com/results?search_query=The+One+You+Feed+Podcast" target="_blank" rel="noopener noreferrer">The One You Feed</a>',
+      tara: '<a href="https://www.youtube.com/@TaraBrach-meditation" target="_blank" rel="noopener noreferrer">Tara Brach</a>',
+      lex: '<a href="https://www.youtube.com/@lexfridman" target="_blank" rel="noopener noreferrer">Lex Fridman</a>',
+      therapyNutshell: '<a href="https://www.youtube.com/@TherapyinaNutshell" target="_blank" rel="noopener noreferrer">Therapy in a Nutshell</a>',
+      russHarris: '<a href="https://www.youtube.com/results?search_query=Dr+Russ+Harris+ACT" target="_blank" rel="noopener noreferrer">Dr. Russ Harris</a>',
+      charisma: '<a href="https://www.youtube.com/@Charismaoncommand" target="_blank" rel="noopener noreferrer">Charisma on Command</a>',
+      vanessa: '<a href="https://www.youtube.com/@ScienceOfPeople" target="_blank" rel="noopener noreferrer">Vanessa Van Edwards / Science of People</a>',
+      improvementPill: '<a href="https://www.youtube.com/@ImprovementPill" target="_blank" rel="noopener noreferrer">Improvement Pill</a>',
+      edgeImpulse: '<a href="https://www.youtube.com/@EdgeImpulse" target="_blank" rel="noopener noreferrer">Edge Impulse</a>',
+      shawnHymel: '<a href="https://www.youtube.com/@ShawnHymel" target="_blank" rel="noopener noreferrer">Shawn Hymel</a>',
+      asianometry: '<a href="https://www.youtube.com/@Asianometry" target="_blank" rel="noopener noreferrer">Asianometry</a>',
+      freeCodeCamp: '<a href="https://www.youtube.com/@freecodecamp" target="_blank" rel="noopener noreferrer">freeCodeCamp</a>',
+      paulMcWhorter: '<a href="https://www.youtube.com/@paulmcwhorter" target="_blank" rel="noopener noreferrer">Paul McWhorter</a>',
+      dronebot: '<a href="https://www.youtube.com/@Dronebotworkshop" target="_blank" rel="noopener noreferrer">DroneBot Workshop</a>',
+      phil: '<a href="https://www.youtube.com/@PhilsLab" target="_blank" rel="noopener noreferrer">Phil’s Lab</a>',
+      jeff: '<a href="https://www.youtube.com/@JeffGeerling" target="_blank" rel="noopener noreferrer">Jeff Geerling</a>',
+      explainingComputers: '<a href="https://www.youtube.com/@ExplainingComputers" target="_blank" rel="noopener noreferrer">ExplainingComputers</a>',
+      sentdex: '<a href="https://www.youtube.com/@sentdex" target="_blank" rel="noopener noreferrer">Sentdex</a>',
+      tldr: '<a href="https://tldr.tech/" target="_blank" rel="noopener noreferrer">TLDR</a>',
+      semieng: '<a href="https://semiengineering.com/" target="_blank" rel="noopener noreferrer">Semiconductor Engineering</a>',
+      vik: '<a href="https://www.viksnewsletter.com/" target="_blank" rel="noopener noreferrer">Vik’s Newsletter</a>',
+      mediumTech: '<a href="https://medium.com/tag/technology" target="_blank" rel="noopener noreferrer">Medium Tech</a>'
+    };
+
+    const gif = {
+      dbPress: "https://exrx.net/WeightExercises/DeltoidAnterior/DBShoulderPress",
+      lateralRaise: "https://exrx.net/WeightExercises/DeltoidLateral/DBLateralRaise",
+      frontRaise: "https://exrx.net/WeightExercises/DeltoidAnterior/DBFrontRaise",
+      reverseFly: "https://exrx.net/WeightExercises/DeltoidPosterior/DBRearLateralRaise",
+      plank: "https://exrx.net/WeightExercises/RectusAbdominis/BWFrontPlank",
+      hangingKneeRaise: "https://exrx.net/WeightExercises/HipFlexors/BWHangingKneeRaise",
+      cableCrunch: "https://exrx.net/WeightExercises/RectusAbdominis/CBKneelingCrunch",
+      benchPress: "https://exrx.net/WeightExercises/PectoralSternal/BBBenchPress",
+      chestFly: "https://exrx.net/WeightExercises/PectoralSternal/DBFly",
+      bicepCurl: "https://exrx.net/WeightExercises/Biceps/DBCurl",
+      tricepExtension: "https://exrx.net/WeightExercises/Triceps/DBTriExt",
+      pushup: "https://exrx.net/WeightExercises/PectoralSternal/BWPushup",
+      bicycleCrunch: "https://www.youtube.com/results?search_query=proper+bicycle+crunch+form",
+      toeTouch: "https://www.youtube.com/results?search_query=proper+toe+touch+crunch+form",
+      deadBug: "https://www.youtube.com/results?search_query=proper+dead+bug+exercise+form",
+      crunch: "https://exrx.net/WeightExercises/RectusAbdominis/BWCrunch",
+      legRaise: "https://exrx.net/WeightExercises/HipFlexors/BWLyingLegRaise",
+      hollowHold: "https://www.youtube.com/results?search_query=proper+hollow+body+hold+form",
+      russianTwist: "https://www.youtube.com/results?search_query=proper+russian+twist+form",
+      hammerCurl: "https://exrx.net/WeightExercises/Brachioradialis/DBHammerCurl",
+      concentrationCurl: "https://exrx.net/WeightExercises/Biceps/DBConcentrationCurl",
+      tricepKickback: "https://exrx.net/WeightExercises/Triceps/DBKickback",
+      wristCurl: "https://exrx.net/WeightExercises/WristFlexors/DBWristCurl",
+      sidePlank: "https://www.youtube.com/results?search_query=proper+side+plank+form",
+      inclineBench: "https://exrx.net/WeightExercises/PectoralClavicular/DBInclineBenchPress",
+      arnoldPress: "https://www.youtube.com/results?search_query=proper+arnold+press+form",
+      pullover: "https://exrx.net/WeightExercises/PectoralSternal/DBPullover",
+      mountainClimbers: "https://www.youtube.com/results?search_query=proper+mountain+climber+exercise+form",
+      vUps: "https://www.youtube.com/results?search_query=proper+v+up+exercise+form",
+      cobra: "https://www.youtube.com/results?search_query=proper+cobra+stretch+form"
+    };
+
+    function ex(name, url) {
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`;
+    }
+
+    function exerciseBox(items) {
+      return `<div class="exercise-list">🏋️ <strong>Exercise Form Links</strong>${items.map(item => `<div>• ${item}</div>`).join("")}</div>`;
+    }
+
+    const showerRoutine = `
+<div class="routine-box">🚿 <strong>Shower Routine</strong>
+🧼 Body wash
+🧴 Shampoo 2–3x/week, conditioner as needed
+🪒 Beard line / grooming check
+🦷 Brush teeth
+🧴 Post-shower body lotion if dry
+🌞 AM face: cleanse/rinse → niacinamide → moisturizer → SPF
+🌙 PM face depends on nightly skincare block</div>`;
+
+    const baseSchedule = [
+      {
+        time: "8:00–8:15",
+        title: "🌅 Wake & Hydrate",
+        category: "Wake",
+        water: 16,
+        details: `Morning Reset
+💧 16 oz water · 🧘 2 min stretch · 🌬 3 slow breaths
+📵 No phone · 🎯 1 intention
+
+☀️ If sleep-deprived, get 10–15 min outdoor sunlight.`
+      },
+      {
+        time: "8:15–8:55",
+        title: "🎬 Visual Learning A",
+        category: "Learn",
+        detailsByDay: {
+          Mon: `⚡ Power Electronics — ${links.sam}`,
+          Tue: `🧠 NLP / Transformers — ${links.threeBlue} · ${links.jay} · ${links.karpathy}`,
+          Wed: `💻 Computing Fundamentals — ${links.crashCourse} · ${links.coreDumped} · ${links.benEater}`,
+          Thu: `⚡ Power Electronics — ${links.greatScott} · ${links.electronoobs}`,
+          Fri: `🎛 Control Theory — ${links.brianDouglas} · ${links.brunton} · ${links.matlab}`,
+          Sat: `🌐 SOTA AI — ${links.yannic} · ${links.umar}`,
+          Sun: "Sunday has a separate Maker Day plan."
+        }
+      },
+      {
+        time: "8:55–9:40",
+        title: "🚶‍♀️💨 Walk #1 · ~3,000 steps",
+        category: "Walk",
+        detailsByDay: {
+          Mon: `☀️ Outdoors early. Podcast: ${links.feelingGood}.`,
+          Tue: `☀️ Outdoors early. Podcast: ${links.anxietyCoaches}.`,
+          Wed: `☀️ Outdoors early. Podcast: ${links.tenPercent}.`,
+          Thu: `☀️ Outdoors early. Podcast: ${links.oneYouFeed}.`,
+          Fri: `☀️ Outdoors early. Podcast: ${links.tara} 🌸.`,
+          Sat: `☀️ Outdoors early. Podcast: ${links.lex}.`,
+          Sun: `☀️ Outdoors early. Podcast: ${links.lex}. Prime Maker Day.`
+        }
+      },
+      {
+        time: "9:40–10:40",
+        title: "🤖 Deep Thinking with AI",
+        category: "DeepThink",
+        detailsByDay: {
+          Mon: "Transformers & Attention. Loop: 7 min intuition → 20 min rebuild → 25 min Claude quiz → 8 min log.",
+          Tue: `Tokenizers + Backprop. Use ${links.karpathy} as the main reference. Loop: intuition → rebuild → AI quiz → log.`,
+          Wed: "OS internals + Networking. Loop: intuition → rebuild → AI quiz → log.",
+          Thu: "VLMs & VLA. Focus: CLIP-style contrastive learning and visual-language alignment.",
+          Fri: "Diffusion + LoRA fine-tuning. Loop: intuition → rebuild → AI quiz → log.",
+          Sat: "RAG pipelines + Sensors. Loop: intuition → rebuild → AI quiz → log.",
+          Sun: "Deep topic thinking later in the evening after Maker Day."
+        }
+      },
+      {
+        time: "10:40–11:00",
+        title: "☕ Break",
+        category: "Break",
+        details: "👀 Stand · look 20 ft away · stretch shoulders · sip water."
+      },
+      {
+        time: "11:00–11:45",
+        title: "⚡ Course Prep",
+        category: "Learn",
+        detailsByDay: {
+          Mon: "ECE 302: use AI to analyze reviews. Check/update slides, HW, labs. Post HW/labs to Gradescope & Canvas. Work on midterm/final exams.",
+          Tue: "ECE 115: use AI to analyze reviews. Check/update slides, HW, labs. Post HW/labs to Gradescope & Canvas. Work on midterm/final exams.",
+          Wed: "ECE 302: use AI to analyze reviews. Check/update slides, HW, labs. Post HW/labs to Gradescope & Canvas. Work on midterm/final exams.",
+          Thu: "ECE 115: use AI to analyze reviews. Check/update slides, HW, labs. Post HW/labs to Gradescope & Canvas. Work on midterm/final exams.",
+          Fri: "ECE 302: use AI to analyze reviews. Check/update slides, HW, labs. Post HW/labs to Gradescope & Canvas. Work on midterm/final exams.",
+          Sat: "ECE 115: use AI to analyze reviews. Check/update slides, HW, labs. Post HW/labs to Gradescope & Canvas. Work on midterm/final exams.",
+          Sun: "Sunday uses Maker Day schedule."
+        }
+      },
+      {
+        time: "11:45–12:05",
+        title: "☕ Break",
+        category: "Break",
+        water: 16,
+        details: "🚶 Walk indoors · 💧 refill water."
+      },
+      {
+        time: "12:05–12:45",
+        title: "📄 Research Skills",
+        category: "Learn",
+        detailsByDay: {
+          Mon: "One Paper, Three Passes: Pass 1 → 3-sentence summary.",
+          Tue: "One Paper, Three Passes: Pass 2 → methods + experiments.",
+          Wed: "🎨 FREE — read for pleasure.",
+          Thu: "One Paper, Three Passes: Pass 3 → deep read + critique.",
+          Fri: "🆕 New paper: Pass 1.",
+          Sat: "Pass 2 of Friday's paper.",
+          Sun: "Sunday uses Maker Day schedule."
+        }
+      },
+      {
+        time: "12:45–1:05",
+        title: "☕ Break",
+        category: "Break",
+        details: "🧍 Stand · 🌬 breathe · 💧 water."
+      },
+      {
+        time: "1:05–1:35",
+        title: "💗 Mental Health",
+        category: "Mental",
+        detailsByDay: {
+          Mon: `📖 30 min workbook + 1 written exercise. Backup: ${links.therapyNutshell}.`,
+          Tue: `📖 30 min workbook + 1 written exercise. Backup: ${links.russHarris}.`,
+          Wed: `📖 30 min workbook + 1 written exercise. Backup: ${links.therapyNutshell}.`,
+          Thu: `📖 30 min workbook + 1 written exercise. Backup: ${links.russHarris}.`,
+          Fri: `📖 30 min workbook + 1 written exercise. Backup: ${links.therapyNutshell}.`,
+          Sat: `📖 30 min workbook + 1 written exercise. Backup: ${links.tara}.`,
+          Sun: "📖 30 min workbook + 1 written exercise. Be kind to yourself."
+        }
+      },
+      {
+        time: "1:35–2:20",
+        title: "💪 Strength · Posture · Face/Neck",
+        category: "Exercise",
+        detailsByDay: {
+          Mon: `Shoulders & Posture
+• DB Press · Lateral / Front Raises · Reverse Fly
+• Wall Angels · Plank
+• ABS: Hanging Knee Raises · Cable/Band Crunch
+${exerciseBox([
+  ex("DB Shoulder Press", gif.dbPress),
+  ex("Lateral Raise", gif.lateralRaise),
+  ex("Front Raise", gif.frontRaise),
+  ex("Reverse Fly", gif.reverseFly),
+  ex("Plank", gif.plank),
+  ex("Hanging Knee Raise", gif.hangingKneeRaise),
+  ex("Cable Crunch", gif.cableCrunch)
+])}`,
+          Tue: `Chest & Arms
+• Bench · Chest Fly
+• Bicep Curl · Tricep Extension
+• Knee Push-ups · Grippers
+• ABS: Bicycle Crunches · Toe Touches
+${exerciseBox([
+  ex("Bench Press", gif.benchPress),
+  ex("Chest Fly", gif.chestFly),
+  ex("Bicep Curl", gif.bicepCurl),
+  ex("Tricep Extension", gif.tricepExtension),
+  ex("Knee Push-up", gif.pushup),
+  ex("Bicycle Crunch", gif.bicycleCrunch),
+  ex("Toe Touches", gif.toeTouch)
+])}`,
+          Wed: `Face / Neck & CORE FOCUS
+• Chin Tucks · Neck Flex/Ext
+• ABS DAY: Dead Bug · Crunches · Leg Raises · Hollow Hold · Russian Twists
+${exerciseBox([
+  ex("Dead Bug", gif.deadBug),
+  ex("Crunch", gif.crunch),
+  ex("Lying Leg Raise", gif.legRaise),
+  ex("Hollow Hold", gif.hollowHold),
+  ex("Russian Twist", gif.russianTwist)
+])}`,
+          Thu: `Arms & Grip
+• Hammer Curls · Concentration Curls
+• Kickbacks · Grippers to failure · Wrist Curls
+• ABS: Plank · Side Plank
+${exerciseBox([
+  ex("Hammer Curl", gif.hammerCurl),
+  ex("Concentration Curl", gif.concentrationCurl),
+  ex("Tricep Kickback", gif.tricepKickback),
+  ex("Wrist Curl", gif.wristCurl),
+  ex("Plank", gif.plank),
+  ex("Side Plank", gif.sidePlank)
+])}`,
+          Fri: `Chest / Shoulders / CORE
+• Incline Bench · Front Raise
+• Arnold Press · Pullover
+• ABS: Russian Twists · Mountain Climbers · V-Ups · Grippers
+${exerciseBox([
+  ex("Incline Dumbbell Bench Press", gif.inclineBench),
+  ex("Front Raise", gif.frontRaise),
+  ex("Arnold Press", gif.arnoldPress),
+  ex("Dumbbell Pullover", gif.pullover),
+  ex("Russian Twist", gif.russianTwist),
+  ex("Mountain Climbers", gif.mountainClimbers),
+  ex("V-Ups", gif.vUps)
+])}`,
+          Sat: `Active Recovery
+• Vibration plate · Doorway Stretch
+• Wall Angels · Scapular Squeezes · Cobra
+${exerciseBox([
+  ex("Cobra Stretch", gif.cobra)
+])}`,
+          Sun: "Rest — hydrate & sleep well 😴."
+        }
+      },
+      {
+        time: "2:20–2:50",
+        title: "🚿 Shower + Skincare AM",
+        category: "Self-Care",
+        details: `Shower rotation + AM face: Niacinamide → Vanicream Moisturizer → SPF. Beard oil. Hair styling as needed.
+${showerRoutine}`
+      },
+      {
+        time: "2:50–3:35",
+        title: "🍽 Lunch + Rest",
+        category: "Meal",
+        details: "Protein + vegetable + carb. No work. Slow eating. Keep protein high and portions moderate."
+      },
+      {
+        time: "3:35–4:15",
+        title: "😴 Healthy Nap",
+        category: "Rest",
+        details: "Dark room · phone DND · alarm 30–40 min max. Optional coffee nap."
+      },
+      {
+        time: "4:15–4:35",
+        title: "☕ Break",
+        category: "Break",
+        water: 16,
+        details: "Walk indoors · water · look outside 2 min."
+      },
+      {
+        time: "4:35–5:05",
+        title: "📰 Tech News Scan",
+        category: "Tech News",
+        details: `30 min, no rabbit holes:
+${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}
+📝 Log 1 takeaway.`
+      },
+      {
+        time: "5:05–5:25",
+        title: "☕ Break",
+        category: "Break",
+        details: "Stand · stretch · water."
+      },
+      {
+        time: "5:25–6:05",
+        title: "🔬 AI / ML Deep Dive",
+        category: "Research",
+        detailsByDay: {
+          Mon: "TinyML paper deep-dive.",
+          Tue: "RL — Stanford CS224R · Hugging Face Deep RL · David Silver.",
+          Wed: "🎨 FREE.",
+          Thu: `RL — Hugging Face Deep RL Ch.3–4 · ${links.sentdex}.`,
+          Fri: "SOTA — CLIP · VLM/VLA · contrastive learning.",
+          Sat: "AI Tools — Cursor + Claude · NotebookLM · Manus.",
+          Sun: "Sunday uses Maker Day schedule."
+        }
+      },
+      {
+        time: "6:05–6:25",
+        title: "☕ Break",
+        category: "Break",
+        details: "Walk indoors · breathe."
+      },
+      {
+        time: "6:25–7:05",
+        title: "✨ Charm / Social Skills",
+        category: "Social",
+        detailsByDay: {
+          Mon: `Small talk — Fine Art of Small Talk · F.O.R.D. Optional: ${links.charisma}.`,
+          Tue: "Social anxiety — S&SA Workbook · Dare app.",
+          Wed: "Rest.",
+          Thu: `Charm — Models · Captivate. Optional: ${links.vanessa}.`,
+          Fri: "Networking — Never Eat Alone · 1 cold email/day.",
+          Sat: `Review + 1 real-world rep. Optional: ${links.improvementPill}.`,
+          Sun: "Sunday uses Maker Day schedule."
+        }
+      },
+      {
+        time: "7:05–7:25",
+        title: "☕ Break",
+        category: "Break",
+        details: "Breathe · water · neck rolls."
+      },
+      {
+        time: "7:25–8:05",
+        title: "🛠 Hardware & Software Systems",
+        category: "Core Tech",
+        detailsByDay: {
+          Mon: `Embedded / TinyML — ${links.edgeImpulse} · ${links.shawnHymel}`,
+          Tue: `Front End — HTML / CSS / JS via ${links.freeCodeCamp}. Build with Claude.`,
+          Wed: `Computing Foundations — Nand2Tetris + Linux terminal. Visual references: ${links.coreDumped} · ${links.benEater}.`,
+          Thu: "Back End + Servers — APIs · Node / Python. Build AI-first.",
+          Fri: "Databases & SQL — SQLBolt · Mode. Practice with Claude.",
+          Sat: `Accelerators & SoC — GPUs · Systolic Arrays · FPGAs. Visual reference: ${links.asianometry}.`,
+          Sun: "Maker Day — embedded systems mastery."
+        }
+      },
+      {
+        time: "8:05–8:50",
+        title: "🚶‍♀️💨 Walk #2 · 3,500 steps",
+        category: "Walk",
+        details: "Brisk pace · stress reset · podcast or silence."
+      },
+      {
+        time: "8:50–9:35",
+        title: "🍽 Dinner",
+        category: "Meal",
+        details: "Protein + veg + carb · no screens · slow. Front-load protein and keep portions moderate."
+      },
+      {
+        time: "9:35–9:55",
+        title: "🤖 AI Experimentation",
+        category: "AI Tools",
+        detailsByDay: {
+          Mon: "Claude mastery — Projects · Artifacts · Claude Code · Skills · MCP · sub-agents.",
+          Tue: "Google AI Studio — Gemini · multimodal · Imagen/Veo · Live API · Opal.",
+          Wed: "Suno + ElevenLabs — music, voice, TTS pipelines.",
+          Thu: "Video AI — Higgsfield · Veo · Sora · Runway · Kling.",
+          Fri: "Image AI — Freepik · Midjourney · Krea · Recraft · Ideogram.",
+          Sat: "Agentic stacks — Cursor · Codex CLI · OpenCode · Manus · Replit Agent · v0 · Lovable · Bolt.",
+          Sun: "Multi-model hubs — NotebookLM · Perplexity · Poe · OpenRouter."
+        }
+      },
+      {
+        time: "9:55–10:25",
+        title: "🧘 Meditation & PM Skincare",
+        category: "Meditation",
+        water: 16,
+        detailsByDay: {
+          Mon: `Meditation + tretinoin night.
+🌙 PM face: Cleanse → wait 20–30 min → tretinoin → ceramide moisturizer → minoxidil to dry scalp.`,
+          Tue: "Meditation + cleanse → Restore moisturizer. No tretinoin.",
+          Wed: `Meditation + tretinoin night.
+🌙 PM face: Cleanse → wait 20–30 min → tretinoin → ceramide moisturizer → minoxidil to dry scalp.`,
+          Thu: "Meditation + cleanse → Restore moisturizer. No tretinoin.",
+          Fri: `Meditation + tretinoin night.
+🌙 PM face: Cleanse → wait 20–30 min → tretinoin → ceramide moisturizer → minoxidil to dry scalp.`,
+          Sat: "Meditation + gentle cleanse → salicylic 2% masque T-zone ≤10 min → rinse → moisturizer. No tretinoin.",
+          Sun: "Meditation + moisturizer only. No tretinoin."
+        }
+      },
+      {
+        time: "10:25–11:00",
+        title: "🌙 Wind Down",
+        category: "WindDown",
+        details: "No screens after 10:30 PM · lights low · stretching OK · sleep target: 11:00 PM. You did enough today 🌙."
+      }
+    ];
+
+    const sundaySchedule = [
+      { time: "8:00–8:20", title: "🌅 Wake & Hydrate", category: "Wake", water: 16, details: "Morning reset + Sun journal: letter to past self." },
+      { time: "8:20–9:00", title: "🚿 Breakfast + AM Skincare", category: "Self-Care", details: `Protein breakfast. AM face: niacinamide → moisturizer → SPF.${showerRoutine}` },
+      { time: "9:00–9:45", title: "🚶 Walk #1", category: "Walk", details: `Outdoors early. Podcast: ${links.lex}. Prime Maker Day.` },
+      { time: "9:45–10:00", title: "🔧 Bench Setup & Hydrate", category: "Maker", water: 16, details: "Lay out gear: DPO4032 scope · Hantek CC-650 · Wanptek supply · DUT + leads. Open Lab Log. Predict before measuring." },
+      { time: "10:00–10:15", title: "🧠 Cold-Open Recall", category: "Maker", details: "Claude quizzes last 1–2 weeks. Answer from memory first, then check." },
+      { time: "10:15–11:05", title: "🎥 Video Block", category: "Maker", details: `Watch this week's list — ${links.paulMcWhorter} + topic channel such as ${links.greatScott}, ${links.sam}, ${links.brianDouglas}, ${links.shawnHymel}, ${links.dronebot}, or ${links.phil}. Take 3-bullet notes only.` },
+      { time: "11:05–11:40", title: "🛠 Rebuild + Ask AI", category: "Maker", details: "Explain concept, sketch circuit/code/power tree, ask Claude to sharpen your prediction." },
+      { time: "11:40–11:55", title: "☕ Break", category: "Break", details: "Stand, look 20 ft away, stretch, sip water." },
+      { time: "11:55–1:15", title: "🔧 Bench Experiment", category: "Maker", details: "Predict → wire → measure with gear → log trace + values. Brief high-current tests must stay short." },
+      { time: "1:15–2:00", title: "🍽 Lunch + Rest", category: "Meal", details: "Protein + vegetable + carb. No screens. Let results settle." },
+      { time: "2:00–2:15", title: "📓 Lab Log + Exit Quiz", category: "Maker", details: "Write peak A, time-constant, steady A, or the week’s key metric. Answer quiz. Note surprise vs prediction." },
+      { time: "2:15–2:25", title: "☕ Break", category: "Break", details: "Walk indoors · water." },
+      { time: "2:25–3:55", title: "🚗 ECE 115 Rover Build", category: "Maker", details: "Fold today's concept into robot. Common ground · separate motor supply · measure current. Fix at least one integration issue." },
+      { time: "3:55–4:00", title: "🏁 Maker Day Done", category: "Maker", details: "Log: I finally get ___. Photograph wiring + traces." },
+      { time: "4:00–4:40", title: "😴 Healthy Nap", category: "Rest", details: "Dark room. Phone DND. Alarm 30–40 min." },
+      { time: "4:40–5:00", title: "☕ Break", category: "Break", water: 16, details: "Walk indoors · water · look outside." },
+      { time: "5:00–5:30", title: "💗 Mental Health", category: "Mental", details: `Workbook + one written exercise. Backup: ${links.tara}.` },
+      { time: "5:30–6:10", title: "📰 Tech News + Saved Reads", category: "Tech News", details: `Scan ${links.tldr} · ${links.semieng} · ${links.vik} · ${links.mediumTech}. Deep-read 2–3 saved articles. Log 1 takeaway.` },
+      { time: "6:10–6:55", title: "🌐 AI Experimentation", category: "AI Tools", details: "Multi-model hubs: NotebookLM · Perplexity · Poe · OpenRouter. Feed lab log to NotebookLM and quiz yourself." },
+      { time: "6:55–7:40", title: "🚶 Walk #2", category: "Walk", details: "Brisk pace · stress reset." },
+      { time: "7:40–8:25", title: "🍽 Dinner", category: "Meal", details: "Protein + veg + carb. No screens." },
+      { time: "8:25–8:55", title: "🌇 Walk #3", category: "Walk", details: "Easy post-dinner walk." },
+      { time: "8:55–9:35", title: "🧠 Deep Topic Thinking", category: "DeepThink", details: "Re-derive today's hardest idea from scratch. Have Claude quiz the math. Log: I finally get ___." },
+      { time: "9:35–9:55", title: "🗂 Week Setup + Log Tidy", category: "Core Tech", details: "File measurements + photos. Preview next Sunday. Restock/charge parts." },
+      { time: "9:55–10:25", title: "🧘 Meditation & PM Skincare", category: "Meditation", water: 16, details: "Meditation + cleanse → Restore ceramide moisturizer. No tretinoin tonight." },
+      { time: "10:25–11:00", title: "🌙 Wind Down", category: "WindDown", details: "No screens after 10:30 PM. Lights low. Sleep target 11:00 PM. You did enough today 🌙." }
+    ];
+
+    const journalPrompts = {
+      Mon: "🌕 One thing I did well ✨",
+      Tue: "🔥 Self-critical thought + reframe 💭",
+      Wed: "🌊 One value I lived 💎",
+      Thu: "⚡ Evidence against “I'm behind” 🛡",
+      Fri: "🎉 One specific gratitude 🙏",
+      Sat: "🛠 A worry + likelihood 0–100% 📊",
+      Sun: "🌞 Letter to past self 💌"
+    };
+
+    const timers = {};
+    let activeTimerId = null;
+
+    const datePicker = document.getElementById("datePicker");
+    const daySelect = document.getElementById("daySelect");
+    const scheduleEl = document.getElementById("schedule");
+    const journalPromptEl = document.getElementById("journalPrompt");
+    const journalText = document.getElementById("journalText");
+    const saveStatus = document.getElementById("saveStatus");
+    const completedStat = document.getElementById("completedStat");
+    const progressStat = document.getElementById("progressStat");
+    const progressBar = document.getElementById("progressBar");
+    const waterStat = document.getElementById("waterStat");
+    const timeStat = document.getElementById("timeStat");
+    const weightInput = document.getElementById("weightInput");
+    const weightTable = document.getElementById("weightTable");
+    const categorySummary = document.getElementById("categorySummary");
+    const historyList = document.getElementById("historyList");
+    const historyPreview = document.getElementById("historyPreview");
+
+    function todayISO() {
+      const d = new Date();
+      const offset = d.getTimezoneOffset();
+      const local = new Date(d.getTime() - offset * 60000);
+      return local.toISOString().split("T")[0];
+    }
+
+    function dayFromDate(iso) {
+      const d = new Date(iso + "T12:00:00");
+      return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][d.getDay()];
+    }
+
+    function friendlyDate(iso) {
+      const d = new Date(iso + "T12:00:00");
+      return d.toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+      });
+    }
+
+    function getKey(prefix, date = datePicker.value) {
+      return `${prefix}:${date}`;
+    }
+
+    function getBlockKey(index, date = datePicker.value, day = daySelect.value) {
+      return `${date}:${day}:block-${index}`;
+    }
+
+    function storageGet(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch {
+        return fallback;
+      }
+    }
+
+    function storageSet(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch {}
+    }
+
+    function parseTimeToMinutes(t) {
+      const clean = t.trim().toLowerCase();
+      const match = clean.match(/(\d{1,2})(?::(\d{2}))?/);
+      if (!match) return 0;
+      let hour = Number(match[1]);
+      const min = Number(match[2] || 0);
+      return hour * 60 + min;
+    }
+
+    function blockDurationMinutes(range) {
+      const parts = range.split(/[–-]/);
+      if (parts.length < 2) return 0;
+
+      let start = parseTimeToMinutes(parts[0]);
+      let end = parseTimeToMinutes(parts[1]);
+
+      if (start < 8 * 60) start += 12 * 60;
+      if (end < 8 * 60) end += 12 * 60;
+
+      if (end <= start) end += 12 * 60;
+
+      return end - start;
+    }
+
+    function formatDuration(mins) {
+      const h = Math.floor(mins / 60);
+      const m = mins % 60;
+      if (h && m) return `${h}h ${m}m`;
+      if (h) return `${h}h`;
+      return `${m}m`;
+    }
+
+    function secondsToClock(seconds) {
+      const s = Math.max(0, seconds);
+      const h = Math.floor(s / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = s % 60;
+      if (h > 0) {
+        return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+      }
+      return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+    }
+
+    function scheduleForDay(day) {
+      return day === "Sun" ? sundaySchedule : baseSchedule;
+    }
+
+    function currentSchedule() {
+      return scheduleForDay(daySelect.value);
+    }
+
+    function detailFor(block, day) {
+      if (block.detailsByDay) return block.detailsByDay[day] || "";
+      return block.details || "";
+    }
+
+    function saveJournal(manual = false) {
+      storageSet(getKey("journal"), journalText.value);
+      touchDate(datePicker.value);
+      saveStatus.textContent = manual ? "Saved manually 💾✨" : "Autosaved ✨";
+      setTimeout(() => {
+        saveStatus.textContent = "Autosaves as you type ✨";
+      }, 1600);
+      renderHistory();
+    }
+
+    function touchDate(date) {
+      const dates = storageGet("trackedDates", []);
+      if (!dates.includes(date)) {
+        dates.push(date);
+        dates.sort((a, b) => b.localeCompare(a));
+        storageSet("trackedDates", dates);
+      }
+    }
+
+    function getDoneState(date = datePicker.value, day = daySelect.value) {
+      const saved = storageGet(getKey("done", date), {});
+      const migrated = {};
+      let changed = false;
+
+      Object.entries(saved).forEach(([key, value]) => {
+        if (key.startsWith(`${date}:${day}:block-`)) {
+          migrated[key] = value;
+        } else if (/^block-\d+$/.test(key)) {
+          const newKey = `${date}:${day}:${key}`;
+          migrated[newKey] = value;
+          changed = true;
+        } else {
+          migrated[key] = value;
+        }
+      });
+
+      if (changed) {
+        storageSet(getKey("done", date), migrated);
+      }
+
+      return migrated;
+    }
+
+    function render() {
+      const day = daySelect.value;
+      const date = datePicker.value;
+      const schedule = currentSchedule();
+      const doneState = getDoneState(date, day);
+      scheduleEl.innerHTML = "";
+
+      touchDate(datePicker.value);
+
+      let totalMins = 0;
+      let water = 0;
+
+      schedule.forEach((block, index) => {
+        const duration = blockDurationMinutes(block.time);
+        totalMins += duration;
+        water += Number(block.water || 0);
+
+        const id = `block-${index}`;
+        const blockKey = getBlockKey(index, date, day);
+
+        if (!timers[id]) {
+          timers[id] = {
+            remaining: duration * 60,
+            original: duration * 60,
+            interval: null
+          };
+        } else {
+          timers[id].original = duration * 60;
+          if (!timers[id].interval) timers[id].remaining = duration * 60;
+        }
+
+        const el = document.createElement("article");
+        el.className = "block" + (doneState[blockKey] ? " done" : "");
+        el.dataset.blockId = id;
+
+        el.innerHTML = `
+          <input class="check" type="checkbox" ${doneState[blockKey] ? "checked" : ""} aria-label="Complete block" />
+          <div class="time">${block.time}</div>
+          <div>
+            <div class="block-title">${block.title}</div>
+            <div class="block-meta">
+              <span class="pill">${block.category}</span>
+              <span>⏳ ${formatDuration(duration)}</span>
+              ${block.water ? `<span>💧 ${block.water} oz</span>` : ""}
+            </div>
+            <div class="details">${detailFor(block, day)}</div>
+          </div>
+          <div class="timer">
+            <div class="timer-display" id="timer-${id}">${secondsToClock(timers[id].remaining)}</div>
+            <div class="timer-controls">
+              <button class="start" data-action="start">▶️</button>
+              <button class="pause" data-action="pause">⏸️</button>
+              <button class="reset" data-action="reset">↩️</button>
+            </div>
+          </div>
+        `;
+
+        el.querySelector(".check").addEventListener("change", e => {
+          const state = getDoneState(datePicker.value, daySelect.value);
+          const currentBlockKey = getBlockKey(index, datePicker.value, daySelect.value);
+          state[currentBlockKey] = e.target.checked;
+          storageSet(getKey("done"), state);
+          touchDate(datePicker.value);
+          el.classList.toggle("done", e.target.checked);
+          updateStats();
+          renderCategorySummary();
+          renderHistory();
+        });
+
+        el.querySelectorAll(".timer-controls button").forEach(btn => {
+          btn.addEventListener("click", () => {
+            handleTimer(id, btn.dataset.action);
+          });
+        });
+
+        scheduleEl.appendChild(el);
+      });
+
+      journalPromptEl.textContent = journalPrompts[day];
+      journalText.value = storageGet(getKey("journal"), "");
+      waterStat.textContent = `${water} oz`;
+      timeStat.textContent = formatDuration(totalMins);
+      loadWeightForDate();
+      updateStats();
+      renderWeights();
+      renderCategorySummary();
+      renderHistory();
+    }
+
+    function handleTimer(id, action) {
+      const t = timers[id];
+      const display = document.getElementById(`timer-${id}`);
+      if (!t || !display) return;
+
+      if (action === "start") {
+        if (activeTimerId && activeTimerId !== id) {
+          handleTimer(activeTimerId, "pause");
+        }
+        activeTimerId = id;
+
+        if (t.interval) return;
+
+        t.interval = setInterval(() => {
+          t.remaining -= 1;
+          display.textContent = secondsToClock(t.remaining);
+
+          if (t.remaining <= 0) {
+            clearInterval(t.interval);
+            t.interval = null;
+            t.remaining = 0;
+            display.textContent = "Done! 🎉";
+            activeTimerId = null;
+          }
+        }, 1000);
+      }
+
+      if (action === "pause") {
+        if (t.interval) {
+          clearInterval(t.interval);
+          t.interval = null;
+        }
+        if (activeTimerId === id) activeTimerId = null;
+      }
+
+      if (action === "reset") {
+        if (t.interval) {
+          clearInterval(t.interval);
+          t.interval = null;
+        }
+        t.remaining = t.original;
+        display.textContent = secondsToClock(t.remaining);
+        if (activeTimerId === id) activeTimerId = null;
+      }
+    }
+
+    function updateStats() {
+      const date = datePicker.value;
+      const day = daySelect.value;
+      const schedule = currentSchedule();
+      const doneState = getDoneState(date, day);
+      let doneCount = 0;
+
+      schedule.forEach((block, index) => {
+        if (doneState[getBlockKey(index, date, day)]) {
+          doneCount += 1;
+        }
+      });
+
+      const total = schedule.length;
+      const percent = total ? Math.round((doneCount / total) * 100) : 0;
+
+      completedStat.textContent = `${doneCount}/${total}`;
+      progressStat.textContent = `${percent}%`;
+      progressBar.style.width = `${percent}%`;
+    }
+
+    function getDaySummary(date) {
+      const day = dayFromDate(date);
+      const schedule = scheduleForDay(day);
+      const doneState = getDoneState(date, day);
+      const completedTitles = [];
+
+      schedule.forEach((block, index) => {
+        if (doneState[getBlockKey(index, date, day)] || doneState[`block-${index}`]) {
+          completedTitles.push(block.title);
+        }
+      });
+
+      return {
+        day,
+        total: schedule.length,
+        done: completedTitles.length,
+        completedTitles,
+        journal: storageGet(getKey("journal", date), ""),
+        weight: storageGet("weights", {})[date] || ""
+      };
+    }
+
+    function renderHistory() {
+      const dates = storageGet("trackedDates", []);
+      const weights = storageGet("weights", {});
+      Object.keys(weights).forEach(date => {
+        if (!dates.includes(date)) dates.push(date);
+      });
+      dates.sort((a, b) => b.localeCompare(a));
+      storageSet("trackedDates", dates);
+
+      if (!dates.length) {
+        historyList.innerHTML = `<div class="history-day"><div class="history-date">No saved days yet 🌱</div><div class="history-meta">Start checking off blocks or writing in your journal.</div></div>`;
+        return;
+      }
+
+      historyList.innerHTML = dates.slice(0, 45).map(date => {
+        const s = getDaySummary(date);
+        const pct = s.total ? Math.round((s.done / s.total) * 100) : 0;
+        return `
+          <div class="history-day" data-date="${date}">
+            <div class="history-date">${date === todayISO() ? "📍 " : "🗓 "} ${friendlyDate(date)}</div>
+            <div class="history-meta">✅ ${s.done}/${s.total} · 📈 ${pct}% ${s.weight ? `· ⚖️ ${s.weight}` : ""} ${s.journal ? "· 📓 Journal" : ""}</div>
+          </div>
+        `;
+      }).join("");
+
+      historyList.querySelectorAll(".history-day[data-date]").forEach(el => {
+        el.addEventListener("click", () => {
+          const date = el.dataset.date;
+          showHistoryPreview(date);
+          datePicker.value = date;
+          daySelect.value = dayFromDate(date);
+          resetTimersAndRender();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+    }
+
+    function showHistoryPreview(date) {
+      const s = getDaySummary(date);
+      const completed = s.completedTitles.length
+        ? `<ul>${s.completedTitles.slice(0, 10).map(t => `<li>${t}</li>`).join("")}</ul>${s.completedTitles.length > 10 ? `<p>+ ${s.completedTitles.length - 10} more completed blocks</p>` : ""}`
+        : "<p>No completed blocks saved yet.</p>";
+
+      historyPreview.innerHTML = `
+        <strong>👀 ${friendlyDate(date)} Preview</strong>
+        <div>✅ Completed: ${s.done}/${s.total}</div>
+        <div>${s.weight ? `⚖️ Weight: ${s.weight}` : "⚖️ No weight saved"}</div>
+        <div style="margin-top:8px;"><strong>🏁 What you did:</strong>${completed}</div>
+        <div style="margin-top:8px;"><strong>📓 Journal:</strong><br>${s.journal ? escapeHTML(s.journal).replace(/\n/g, "<br>") : "No journal entry yet."}</div>
+      `;
+    }
+
+    function escapeHTML(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function renderCategorySummary() {
+      const date = datePicker.value;
+      const day = daySelect.value;
+      const schedule = currentSchedule();
+      const doneState = getDoneState(date, day);
+      const counts = {};
+
+      schedule.forEach((block, idx) => {
+        if (!counts[block.category]) counts[block.category] = { total: 0, done: 0 };
+        counts[block.category].total += 1;
+        if (doneState[getBlockKey(idx, date, day)]) counts[block.category].done += 1;
+      });
+
+      categorySummary.innerHTML = Object.entries(counts)
+        .map(([cat, val]) => `
+          <div class="category-row">
+            <strong>${cat}</strong>
+            <span>${val.done}/${val.total}</span>
+          </div>
+        `)
+        .join("");
+    }
+
+    function loadWeightForDate() {
+      const weights = storageGet("weights", {});
+      weightInput.value = weights[datePicker.value] || "";
+    }
+
+    function renderWeights() {
+      const weights = storageGet("weights", {});
+      const rows = Object.entries(weights)
+        .sort(([a], [b]) => b.localeCompare(a))
+        .slice(0, 30)
+        .map(([date, weight]) => `<tr><td>${date}</td><td>${weight}</td></tr>`)
+        .join("");
+
+      weightTable.innerHTML = rows || `<tr><td colspan="2">No weights yet.</td></tr>`;
+    }
+
+    function resetTimersAndRender() {
+      Object.values(timers).forEach(t => {
+        if (t.interval) clearInterval(t.interval);
+      });
+      Object.keys(timers).forEach(k => delete timers[k]);
+      activeTimerId = null;
+      render();
+    }
+
+    journalText.addEventListener("input", () => {
+      saveJournal(false);
+    });
+
+    document.getElementById("saveJournalBtn").addEventListener("click", () => {
+      saveJournal(true);
+    });
+
+    document.getElementById("saveWeightBtn").addEventListener("click", () => {
+      const val = weightInput.value;
+      if (!val) return;
+      const weights = storageGet("weights", {});
+      weights[datePicker.value] = Number(val).toFixed(1);
+      storageSet("weights", weights);
+      touchDate(datePicker.value);
+      renderWeights();
+      renderHistory();
+      saveStatus.textContent = "Weight saved ⚖️";
+      setTimeout(() => {
+        saveStatus.textContent = "Autosaves as you type ✨";
+      }, 1400);
+    });
+
+    document.getElementById("resetDayBtn").addEventListener("click", () => {
+      const ok = confirm("Reset checkboxes and journal for this date?");
+      if (!ok) return;
+      localStorage.removeItem(getKey("done"));
+      localStorage.removeItem(getKey("journal"));
+      resetTimersAndRender();
+    });
+
+    document.getElementById("todayBtn").addEventListener("click", () => {
+      datePicker.value = todayISO();
+      daySelect.value = dayFromDate(datePicker.value);
+      resetTimersAndRender();
+    });
+
+    document.getElementById("clearAllBtn").addEventListener("click", () => {
+      const ok = confirm("Clear ALL saved tracker data?");
+      if (!ok) return;
+      localStorage.clear();
+      location.reload();
+    });
+
+    document.getElementById("exportBtn").addEventListener("click", () => {
+      const data = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        data[key] = localStorage.getItem(key);
+      }
+
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `daily-life-tracker-backup-${datePicker.value}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    datePicker.addEventListener("change", () => {
+      daySelect.value = dayFromDate(datePicker.value);
+      resetTimersAndRender();
+    });
+
+    daySelect.addEventListener("change", () => {
+      resetTimersAndRender();
+    });
+
+    datePicker.value = todayISO();
+    daySelect.value = dayFromDate(datePicker.value);
+    render();
+  </script>
+
+
+</body></html>
