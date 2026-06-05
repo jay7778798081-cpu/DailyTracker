@@ -500,11 +500,11 @@
     const aiFocus = `Explain it, Confirm with Claude, Ask Claude to quiz you (Socratic pushback).
 
 🎯 Focus — pick ONE:
-• Research Prep: Quantization, Pruning, Distillation, LoRA, Power Meters
-• Mental AI Chat
-• Course Prep: Control Theory, DC Motors, Gate Drivers
-• Tools: Colab, GitHub, HuggingFace, AI Studio
-• SOTA Topics: LLMs · Tokenization · VLM · VLA · RL · Q-Learning · REINFORCE · A2C · Double Q-Learning · Computer Vision · YOLO · SSD · MoE · Mamba · RoPE · KV-Cache · FlashAttn · RLHF · DPO · Diffusion · CLIP · ViT`;
+- Research Prep: Quantization, Pruning, Distillation, LoRA, Power Meters
+- Mental AI Chat
+- Course Prep: Control Theory, DC Motors, Gate Drivers
+- Tools: Colab, GitHub, HuggingFace, AI Studio
+- SOTA Topics: LLMs · Tokenization · VLM · VLA · RL · Q-Learning · REINFORCE · A2C · Double Q-Learning · Computer Vision · YOLO · SSD · MoE · Mamba · RoPE · KV-Cache · FlashAttn · RLHF · DPO · Diffusion · CLIP · ViT`;
 
     const warmup = `🏋️ Warm-up (5 min): vibration plate / light cardio (2–3 min) · Band Pull-Aparts 2×20 · Cat-Cow 1×10 · Chin Tucks 2×12 (sneaks posture + neck work into every day)`;
 
@@ -512,6 +512,93 @@
 🧔 Beard: 4 drops beard oil.
 🌬 Blow-dry → Style: Sea Salt Spray (Mon/Fri) or Matte Paste.
 👉 Apply SPF before Walk #1.`;
+
+    /* ====================================================================
+       COURSE PREP BY DATE  (from Summer Calendar tab — PlanV3)
+       The 11:15–12:15 Course Prep block reads its task straight from here,
+       keyed by the ACTUAL selected date (YYYY-MM-DD).
+       ==================================================================== */
+    const coursePrepByDate = {
+      "2026-06-04": "ECE 115 Labs",
+      "2026-06-05": "ECE 115 Labs",
+      "2026-06-08": "ECE 115 Labs",
+      "2026-06-09": "Travel",
+      "2026-06-15": "Travel",
+      "2026-06-19": "Dentist",
+      "2026-06-22": "ECE 115, Lab 1 Revise",
+      "2026-06-23": "ECE 302 New Syllabus",
+      "2026-06-24": "ECE 115, Lab 2 Revise",
+      "2026-06-25": "ECE 302 New Syllabus",
+      "2026-06-26": "ECE 115, Lab 3 Revise",
+      "2026-06-27": "ECE 302 New Tutorial",
+      "2026-06-29": "ECE 115, Lab 4 Revise",
+      "2026-06-30": "ECE 302 New Tutorial",
+      "2026-07-01": "Dentist",
+      "2026-07-02": "ECE 302 New Tutorial",
+      "2026-07-03": "ECE 115, Lab 5 Revise",
+      "2026-07-04": "ECE 302 New MOSFET Notes",
+      "2026-07-06": "ECE 115, Lab 6 Revise",
+      "2026-07-07": "Dentist",
+      "2026-07-08": "ECE 115, Lab 7 Revise",
+      "2026-07-09": "ECE 302 New MOSFET Notes",
+      "2026-07-10": "ECE 115, Lab 8 Revise",
+      "2026-07-11": "ECE 302 PID Notes",
+      "2026-07-13": "ECE 115, Lab 9 Revise",
+      "2026-07-14": "ECE 302 PID Notes",
+      "2026-07-15": "ECE 115, HW 1 Revise",
+      "2026-07-16": "ECE 302 PID Notes",
+      "2026-07-17": "ECE 115, HW 2 Revise",
+      "2026-07-18": "ECE 302 Timer Notes",
+      "2026-07-20": "Dentist",
+      "2026-07-21": "ECE 302 Timer Notes",
+      "2026-07-22": "ECE 115, HW 3 Revise",
+      "2026-07-23": "ECE 302 PWM Notes",
+      "2026-07-24": "ECE 115, HW 4 Revise",
+      "2026-07-25": "ECE 302 Interrupt",
+      "2026-07-27": "ECE 115, HW 5 Revise",
+      "2026-07-28": "ECE 302 Interrupt",
+      "2026-07-29": "Dentist",
+      "2026-07-30": "ECE 302 Interrupt",
+      "2026-07-31": "ECE 115, HW 6 Revise",
+      "2026-08-01": "ECE 302 Interrupt",
+      "2026-08-03": "ECE 115, HW 7 Revise",
+      "2026-08-04": "ECE 302 UART",
+      "2026-08-05": "ECE 115, HW 8 Revise",
+      "2026-08-06": "ECE 302 LM1881",
+      "2026-08-07": "ECE 115, HW 9 Revise",
+      "2026-08-08": "ECE 302 LM1881",
+      "2026-08-10": "ECE 115, HW 10 Revise",
+      "2026-08-11": "2-Weeks Prior Syllabus",
+      "2026-08-12": "ECE 115, Chap. 1 Revise",
+      "2026-08-13": "2-Weeks Prior Syllabus",
+      "2026-08-14": "ECE 115, Chap. 2 Revise",
+      "2026-08-15": "ECE 302 Revise Notes",
+      "2026-08-17": "ECE 115, Chap. 3 Revise",
+      "2026-08-18": "ECE 302 Revise Notes\nIf time permits 206 Labs",
+      "2026-08-19": "ECE 115, Chap. 4 Revise",
+      "2026-08-20": "ECE 302 Revise Notes\nIf time permits 206 Labs",
+      "2026-08-21": "ECE 115, Chap. 5 Revise",
+      "2026-08-22": "Post 115 & 302 Assignments",
+      "2026-08-24": "ECE 115, Chap. 6 Revise",
+      "2026-08-25": "ECE 302 Revise Notes\nIf time permits 206 Labs",
+      "2026-08-26": "ECE 115, Chap. 7 Revise",
+      "2026-08-27": "ECE 302 Revise Notes\nIf time permits 206 Labs",
+      "2026-08-28": "ECE 115, Chap. 8 Revise"
+    };
+
+    function coursePrepDetails(date) {
+      const task = coursePrepByDate[date];
+      const isECE115 = task && /ECE\s*115/i.test(task);
+      const isECE302 = task && /ECE\s*302/i.test(task);
+      const trackLine = isECE115 ? "🔧 ECE 115" : isECE302 ? "🔌 ECE 302" : "📚 Course Prep";
+      if (!task) {
+        return `📋 Follow the Course Prep Roadmap.\n\n${trackLine}\nNo specific course task scheduled for ${date} on the Summer Calendar.\n🤖 Use AI to analyze Reviews · Check & Update Slides / HW / Labs · Post to Gradescope & Canvas · Build Midterm & Final.`;
+      }
+      if (!isECE115 && !isECE302) {
+        return `📋 Course Prep block.\n\n📌 ${task}`;
+      }
+      return `📋 Follow the Course Prep Roadmap.\n\n📌 Today: ${task}\n\n${trackLine}\n🤖 Use AI to analyze Reviews\n• Check & Update Slides\n• Check & Update HW\n• Check & Update Labs\n• Post HW & Labs to Gradescope & Canvas\n• Make Midterm and Final Exams`;
+    }
 
     /* ====================================================================
        MONDAY–SATURDAY SCHEDULE  (rebuilt from NEW-PLAN.xlsx → MasterPlan)
@@ -568,15 +655,7 @@ ${aiFocus}
 🧘 Breathing Meditation (~10 min) · 👀 screen detox · 🙆 stretch shoulders.`
       },
       {
-        time: "11:15–12:15", title: "⚡ Course Prep", category: "Learn",
-        detailsByDay: {
-          Mon: `📋 Follow the Course Prep Roadmap.\n\n🔧 ECE 302\n🤖 Use AI to analyze Reviews\n• Check & Update Slides\n• Check & Update HW\n• Check & Update Labs\n• Post HW & Labs to Gradescope & Canvas\n• Make Midterm and Final Exams`,
-          Tue: `📋 Follow the Course Prep Roadmap.\n\n🔌 ECE 115\n🤖 Use AI to analyze Reviews\n• Check & Update Slides\n• Check & Update HW\n• Check & Update Labs\n• Post HW & Labs to Gradescope & Canvas\n• Make Midterm and Final Exams`,
-          Wed: `📋 Follow the Course Prep Roadmap.\n\n🔧 ECE 302\n🤖 Use AI to analyze Reviews\n• Check & Update Slides\n• Check & Update HW\n• Check & Update Labs\n• Post HW & Labs to Gradescope & Canvas\n• Make Midterm and Final Exams`,
-          Thu: `📋 Follow the Course Prep Roadmap.\n\n🔌 ECE 115\n🤖 Use AI to analyze Reviews\n• Check & Update Slides\n• Check & Update HW\n• Check & Update Labs\n• Post HW & Labs to Gradescope & Canvas\n• Make Midterm and Final Exams`,
-          Fri: `📋 Follow the Course Prep Roadmap.\n\n🔧 ECE 302\n🤖 Use AI to analyze Reviews\n• Check & Update Slides\n• Check & Update HW\n• Check & Update Labs\n• Post HW & Labs to Gradescope & Canvas\n• Make Midterm and Final Exams`,
-          Sat: `📋 Follow the Course Prep Roadmap.\n\n🔌 ECE 115\n🤖 Use AI to analyze Reviews\n• Check & Update Slides\n• Check & Update HW\n• Check & Update Labs\n• Post HW & Labs to Gradescope & Canvas\n• Make Midterm and Final Exams`
-        }
+        time: "11:15–12:15", title: "⚡ Course Prep", category: "Learn", coursePrep: true
       },
       {
         time: "12:15–12:35", title: "📧 Check Emails", category: "Admin",
@@ -601,12 +680,12 @@ ${aiFocus}
           Mon: `${warmup}
 
 💪 Shoulders & Posture
-• DB Shoulder Press — 3×10
-• Lateral Raises — 3×12
-• Front Raises — 3×12
-• ⭐ Face Pulls — 3×15 (the single best posture exercise — don't skip)
-• Reverse Fly — 3×12
-• Wall Angels — 3×12
+- DB Shoulder Press — 3×10
+- Lateral Raises — 3×12
+- Front Raises — 3×12
+- ⭐ Face Pulls — 3×15 (the single best posture exercise — don't skip)
+- Reverse Fly — 3×12
+- Wall Angels — 3×12
 🔥 ABS: Hanging Knee Raises 3×12 · Cable Crunch 3×15
 ${exerciseBox([
   ex("DB Shoulder Press", fp("dumbbell-shoulder-press")),
@@ -621,13 +700,13 @@ ${exerciseBox([
           Tue: `${warmup}
 
 💪 Back & Biceps (pull = posture + arms)
-• Single-Arm DB Row — 3×10 each
-• Bent-Over Row — 3×10
-• Lat Pulldown / Band-Assisted Pull-up — 3×10
-• Bicep Curl — 3×10
-• Hammer Curls — 3×12
-• Concentration Curls — 3×8 each
-• Dead Hang — 3×20–30s + Grippers 3× to failure
+- Single-Arm DB Row — 3×10 each
+- Bent-Over Row — 3×10
+- Lat Pulldown / Band-Assisted Pull-up — 3×10
+- Bicep Curl — 3×10
+- Hammer Curls — 3×12
+- Concentration Curls — 3×8 each
+- Dead Hang — 3×20–30s + Grippers 3× to failure
 🔥 ABS: Bicycle Crunches 3×20 · Hollow Hold 3×30s
 ${exerciseBox([
   ex("Single-Arm DB Row", gImg("one arm dumbbell row")),
@@ -645,11 +724,11 @@ ${exerciseBox([
           Wed: `${warmup}
 
 🦵 Legs, Core & HIIT (fat-loss engine)
-• HIIT (jump rope / bike / burpees) — 15–20 min intervals
-• Goblet Squat — 3×12
-• Romanian Deadlift — 3×10 (posterior chain → upright posture)
-• Reverse Lunges — 3×10 each
-• Glute Bridge / Hip Thrust — 3×15
+- HIIT (jump rope / bike / burpees) — 15–20 min intervals
+- Goblet Squat — 3×12
+- Romanian Deadlift — 3×10 (posterior chain → upright posture)
+- Reverse Lunges — 3×10 each
+- Glute Bridge / Hip Thrust — 3×15
 🔥 ABS DAY: Dead Bug 3×10 · Leg Raises 3×12 · Russian Twists 3×20 (weighted) · Plank 3×45s · Mountain Climbers 3×30s
 ${exerciseBox([
   ex("Burpee", gImg("burpee")),
@@ -666,13 +745,13 @@ ${exerciseBox([
           Thu: `${warmup}
 
 💪 Chest & Triceps (push + arms)
-• Push-ups — 3× max (knee → full → feet-elevated)
-• DB Bench Press — 3×10
-• Incline DB Press — 3×10
-• Chest Fly — 3×12
-• Overhead Tricep Extension — 3×12
-• Tricep Kickbacks — 3×12
-• Bench Dips — 3×10
+- Push-ups — 3× max (knee → full → feet-elevated)
+- DB Bench Press — 3×10
+- Incline DB Press — 3×10
+- Chest Fly — 3×12
+- Overhead Tricep Extension — 3×12
+- Tricep Kickbacks — 3×12
+- Bench Dips — 3×10
 🔥 ABS: Toe Touches 3×15 · Side Plank 2×30s each
 ${exerciseBox([
   ex("Push-up", fp("push-up")),
@@ -688,13 +767,13 @@ ${exerciseBox([
           Fri: `${warmup}
 
 💪 Arms, Grip & Shoulders (definition day)
-• Arnold Press — 3×10
-• Lateral Raises — 3×15
-• Incline DB Curl — 3×10
-• Hammer Curls — 3×12
-• Overhead Extension + Kickbacks superset — 3×12 each
-• Wrist Curls — 3×15 + Reverse Wrist Curls — 3×15
-• Farmer's Carry — 3×40s (grip + forearms + traps + posture)
+- Arnold Press — 3×10
+- Lateral Raises — 3×15
+- Incline DB Curl — 3×10
+- Hammer Curls — 3×12
+- Overhead Extension + Kickbacks superset — 3×12 each
+- Wrist Curls — 3×15 + Reverse Wrist Curls — 3×15
+- Farmer's Carry — 3×40s (grip + forearms + traps + posture)
 🔥 ABS: V-Ups 3×12 · Russian Twists 3×20 · Grippers to failure
 ${exerciseBox([
   ex("Arnold Press", fp("arnold-press")),
@@ -711,13 +790,13 @@ ${exerciseBox([
   ex("Grippers", gImg("hand gripper"))
 ])}`,
           Sat: `🧘 Active Recovery, Neck & Mobility
-• Brisk incline walk / light cardio — 20–30 min (burns fat without adding fatigue)
-• Doorway Pec Stretch — 2×30s (opens tight chest = better posture)
-• Wall Angels — 2×12
-• Scapular Squeezes — 2×15
-• Thoracic Extension / Foam Roll — 2×10
-• Cobra Stretch — 2×20s
-• Neck Flexion/Extension 2×12 · Neck Lateral Flexion 2×10 each · Chin Tucks 3×12
+- Brisk incline walk / light cardio — 20–30 min (burns fat without adding fatigue)
+- Doorway Pec Stretch — 2×30s (opens tight chest = better posture)
+- Wall Angels — 2×12
+- Scapular Squeezes — 2×15
+- Thoracic Extension / Foam Roll — 2×10
+- Cobra Stretch — 2×20s
+- Neck Flexion/Extension 2×12 · Neck Lateral Flexion 2×10 each · Chin Tucks 3×12
 ${exerciseBox([
   ex("Doorway Pec Stretch", gImg("doorway pec stretch")),
   ex("Wall Angels", gImg("wall angels")),
@@ -827,8 +906,8 @@ ${aiFocus}
       {
         time: "10:15–10:30", title: "🧘 Meditation & Review", category: "Meditation",
         details: `🧘 Meditation (~15 min)
-• W1–3 Body Scan · W6–8 RAIN
-• W9–11 Loving-Kindness · W12–15 Open Awareness
+- W1–3 Body Scan · W6–8 RAIN
+- W9–11 Loving-Kindness · W12–15 Open Awareness
 
 📓 What worked today: "I finally get ___" + 1 win + 1 gap.
 
@@ -857,35 +936,27 @@ ${aiFocus}
     ];
 
     /* ====================================================================
-       SUNDAY MAKER DAY SCHEDULE  (Sunday Micro / Macro Plan — unchanged)
+       SUNDAY MAKER DAY SCHEDULE  (matches Sunday Micro Plan exactly)
+       The main theme + Watch / Tinker / Ask AI / Quiz are injected per-date
+       from sundayMacroData via macroKey / macroKey2.
        ==================================================================== */
     const sundaySchedule = [
-      { time: "8:00–8:20", title: "🌅 Wake & Hydrate", category: "Wake", water: 16, details: `Morning Reset — 💧 16 oz water · 🧘 2 min stretch · 🌬 3 slow breaths · 📵 no phone · 🎯 1 intention.\n📓 Sun journal: 💌 letter to past self (set in the Journal box above).\n☀️ If sleep-deprived, get 10–15 min outdoor sunlight.` },
-      { time: "8:20–9:00", title: "🚿 Breakfast + AM Skincare", category: "Self-Care", details: `🍳 Protein breakfast — fuel the build (eggs / Greek yogurt + carb).\n🚿 Sun shower: water-rinse · Conditioner (2 min) · Body Wash.\n${amFace}` },
-      { time: "9:00–9:45", title: "🚶 Walk #1 · ~3,000 steps", category: "Walk", details: `☀️ OUTDOORS early — morning cortisol + mood, before peak UV.\n🎧 Sun podcast: ${links.lex}.\n🧠 Prime the day: What is today's Maker topic, and what NUMBER will you predict & measure?` },
-      { time: "9:45–10:00", title: "🔧 Bench Setup & Hydrate", category: "Maker", water: 16, details: `Lay out gear: DPO4032 scope · Hantek CC-650 (ZERO it) · Wanptek supply (set CC limit = safety net) · DUT + leads.\n📓 Open your Lab Log. 💧 Refill 16 oz.\n📏 Golden rule: never end today without ONE measurement — and predict it first.` },
-      { time: "10:00–10:15", title: "🧠 Cold-Open Recall (REVIEW)", category: "Maker", macroKey: "topic", details: `🛠 MAKER DAY BEGINS.\nClaude quizzes the last 1–2 weeks (Quiz column, Sunday Plans). Answer FROM MEMORY first, then check.` },
-      { time: "10:15–11:05", title: "🎥 Video Block (WATCH)", category: "Maker", macroKey: "watch", details: `Watch this week's list — ${links.paulMcWhorter} + the topic channel (${links.greatScott}, ${links.sam}, ${links.brianDouglas}, ${links.shawnHymel}, ${links.dronebot}, ${links.phil}).\n📝 3-bullet notes only. No rabbit holes 🐇.` },
-      { time: "11:05–11:40", title: "🛠 Rebuild + Ask AI (TINKER PREP)", category: "Maker", macroKey: "askAI", details: `Explain today's concept back in your own words — no notes.\n✏️ Sketch the circuit / code / power tree.\n🤖 Paste this week's "Ask AI" prompt to Claude; sharpen your mental model and your prediction.` },
-      { time: "11:40–11:55", title: "☕ Break", category: "Break", details: `👀 Stand · look 20 ft away · 🙆 stretch shoulders · 💧 sip water.` },
-      { time: "11:55–1:15", title: "🔧 Bench Experiment (TINKER)", category: "Maker", macroKey: "tinker", details: `PREDICT the number BEFORE you measure.\nWire it → measure with your gear (CC-650 @10 mV/A, DPO4032, Wanptek CC limit) → log trace + values.\nBrief stall / high-current tests = <1 s.` },
-      { time: "1:15–2:00", title: "🍽 Lunch + Rest", category: "Meal", details: `🥗 Protein + vegetable + carb · 📵 no screens · 🐢 slow eating.\nLet the morning's results settle before you write them up.` },
-      { time: "2:00–2:15", title: "📓 Lab Log + Exit Quiz (QUIZ)", category: "Maker", macroKey: "quiz", details: `Write up the trace: peak A, time-constant, steady A (or the week's key metric).\n❓ Answer this week's Quiz column. Note any surprise vs. your prediction.` },
-      { time: "2:15–2:25", title: "☕ Break", category: "Break", details: `🚶 Walk indoors · 💧 water.` },
-      { time: "2:25–3:55", title: "🚗 ECE 115 Rover Build", category: "Maker", details: `This week's rover task — fold today's concept into the robot.\n⚡ Common ground · separate motor supply · measure current as you go.\nFind & fix ≥1 integration issue with the scope / CC-650.` },
-      { time: "3:55–4:00", title: "🏁 Maker Day Done", category: "Maker", details: `Log one line: "I finally get ___."\n📷 Photograph wiring + traces for the record. Done — 5 hrs of real engineering.` },
-      { time: "4:00–4:40", title: "😴 Healthy Nap", category: "Rest", details: `🌑 Dark room · 📵 phone DND · ⏰ alarm 30–40 min.\n☕ Optional coffee nap (caffeine 5 min before).` },
-      { time: "4:40–5:00", title: "☕ Break", category: "Break", water: 16, details: `🚶 Walk indoors · 💧 water · 👀 look outside 2 min.` },
-      { time: "5:00–5:30", title: "💗 Mental Health", category: "Mental", details: `📖 30 min workbook + 1 written exercise.\n🎬 Sun backup (10 min): ${links.tara} 🌸.\n💛 Be kind to yourself — you did hard technical work today.` },
-      { time: "5:30–6:10", title: "📰 Tech News + Saved Reads", category: "Tech News", details: `🗞 30 min scan: ${links.tldr} · ${links.semieng} · ${links.vik}.\n📚 Then deep-read the 2–3 articles you saved during the week (Sat-style).\n📝 Log 1 takeaway.` },
-      { time: "6:10–6:55", title: "🌐 AI Experimentation", category: "AI Tools", details: `🧪 Sun: Multi-model hubs — chatllm.abacus · NotebookLM · Perplexity · Poe · OpenRouter.\n📝 AI Playbook: 1 prompt pattern + 1 gotcha + 1 use case.\n💡 Tip: feed today's lab log to NotebookLM and quiz yourself.` },
-      { time: "6:55–7:40", title: "🚶 Walk #2 · 3,500 steps", category: "Walk", details: `⚡ Brisk pace · 🧠 stress reset · 🎧 podcast or 🤫 silence.` },
-      { time: "7:40–8:25", title: "🍽 Dinner", category: "Meal", details: `🥩🥦🍚 Protein + veg + carb · 📵 no screens · 🐢 slow.` },
-      { time: "8:25–8:55", title: "🌇 Walk #3 · 2,500 steps", category: "Walk", details: `🐢 Easy pace post-dinner — aids digestion + sleep.\n☀️ Summer 2026 sunset ~7:50–8:30 PM.` },
-      { time: "8:55–9:35", title: "🧠 Deep Topic Thinking", category: "DeepThink", details: `Sun: rolls out of Maker Day.\nRe-derive today's HARDEST idea from scratch (intuition → math).\n🤖 Have Claude quiz the math. 📓 Log "I finally get ___."` },
-      { time: "9:35–9:55", title: "🗂 Week Setup + Log Tidy", category: "Core Tech", details: `File today's measurements + photos. Preview NEXT Sunday's topic, video list & gear. Restock / charge parts so next week starts clean.` },
-      { time: "9:55–10:25", title: "🧘 Meditation & PM Skincare", category: "Meditation", water: 16, details: `🧘 ~20 min (Body Scan / RAIN / Loving-Kindness per week).\n🌙 Sun PM face: Cleanse → Restore ceramide moisturizer (NO tretinoin tonight).` },
-      { time: "10:25–11:00", title: "🌙 Wind Down & Night Reflection", category: "WindDown", reflection: true, details: `📵 No screens after 10:30 PM · 🕯 lights low · 🧘 light stretching OK.\n😴 Sleep target: 11:00 PM.\n💛 You did enough today.` }
+      { time: "8:00–8:15", title: "🌅 Wake & Hydrate", category: "Wake", water: 16, details: `Morning Reset\n💧 16 oz water · 🧘 2 min stretch · 🌬 3 slow breaths\n📵 No phone · 🎯 1 intention\n\n📓 Journal: 💌 Letter to past self (set in the Journal box above).\n\n☀️ Energy tip: if sleep-deprived, get 10–15 min outdoor sunlight to anchor your circadian rhythm.` },
+      { time: "8:15–9:00", title: "🚿 Breakfast + AM Skincare", category: "Self-Care", details: `🍳 Protein breakfast — fuel the build (eggs / Greek yogurt + carb).\n🚿 Sun shower: water-rinse · Conditioner (2 min) · Body Wash.\n${amFace}` },
+      { time: "9:00–9:45", title: "🚶 Walk #1 · ~3,000 steps", category: "Walk", details: `☀️ OUTDOORS early.` },
+      { time: "9:45–10:00", title: "🔧 Bench Setup & 💧 16 oz water", category: "Maker", water: 16, details: `Lay out gear: DPO4032 scope · Hantek CC-650 (ZERO it) · Wanptek supply (set CC limit = safety net) · DUT + leads.\n📓 Open your Lab Log. 💧 Refill 16 oz.\n📏 Golden rule: never end today without ONE measurement — and predict it first.` },
+      { time: "10:00–10:15", title: "🧠 Cold-Open Recall (REVIEW)", category: "Maker", details: `🛠 MAKER DAY BEGINS\nClaude quizzes the last 1–2 weeks (see ❓ Quiz column).\nAnswer FROM MEMORY first, then check. Spaced review keeps the chain cumulative.` },
+      { time: "10:15–11:15", title: "🤖 Deep AI Thinking", category: "Maker", macroKey: "watch", macroKey2: "askAI", details: `Deep AI Thinking with Claude about what you're about to tinker and test.` },
+      { time: "11:15–11:30", title: "☕ Rest & 💧 16 oz water", category: "Break", water: 16, details: `💧 16 oz water · 🙆 stretch · 👀 look outside.` },
+      { time: "11:30–1:30", title: "🛠 Build + Ask AI (TINKER)", category: "Maker", macroKey: "tinker", details: `Explain today's concept back in your own words — no notes.\n✏️ Sketch the circuit / code / power tree.\n🤖 Paste this week's "Ask AI" prompt to Claude; sharpen your mental model and your prediction.` },
+      { time: "1:30–2:00", title: "🍽 Lunch + Rest", category: "Meal", details: `🥗 Protein + vegetable + carb · 📵 no screens · 🐢 slow eating.\nLet the morning's results settle before you write them up.` },
+      { time: "2:00–3:30", title: "😴 Nap / Write-Up", category: "Maker", macroKey: "quiz", details: `Write up the trace: peak A, time-constant, steady A (or the week's key metric).\n❓ Answer this week's Quiz column. Note any surprise vs. your prediction.` },
+      { time: "3:30–4:30", title: "🤖 Deep AI Thinking", category: "Maker", details: `Deep AI Thinking with Claude about what you're about to tinker and test.` },
+      { time: "4:30–4:45", title: "☕ Rest & 💧 16 oz water", category: "Break", water: 16, details: `💧 16 oz water · 🙆 stretch · 👀 look outside.` },
+      { time: "4:45–6:45", title: "🛠 Build + Ask AI (TINKER)", category: "Maker", details: `Explain today's concept back in your own words — no notes.\n✏️ Sketch the circuit / code / power tree.\n🤖 Paste this week's "Ask AI" prompt to Claude; sharpen your mental model and your prediction.` },
+      { time: "6:45–7:45", title: "🚶 Walk", category: "Walk", details: `⚡ Brisk pace · 🧠 stress reset.` },
+      { time: "7:45–8:00", title: "💧 16 oz water", category: "Break", water: 16, details: `💧 16 oz water.` },
+      { time: "8:00–10:00", title: "🎬 Movie for Fun", category: "WindDown", details: `🍿 Whiplash (2014) · Dead Poets Society · Ford v Ferrari (2019) · Rush (2013) · Shutter Island · F1 · Guy Ritchie's The Covenant (2023) · Mosul (2019) …` }
     ];
 
     const sundayMacroData = {
@@ -1137,14 +1208,19 @@ ${aiFocus}
     function currentSchedule() { return scheduleForDay(daySelect.value); }
 
     function detailFor(block, day, date) {
+      if (block.coursePrep) { return coursePrepDetails(date); }
       let text = block.detailsByDay ? (block.detailsByDay[day] || "") : (block.details || "");
-      if (day === "Sun" && block.macroKey) {
-         if (sundayMacroData[date] && sundayMacroData[date][block.macroKey]) {
-           const macroText = sundayMacroData[date][block.macroKey];
-           text += `\n\n<div class="routine-box"><strong>📅 Today's Macro Plan:</strong>\n${macroText}</div>`;
-         } else {
-           text += `\n\n<div class="routine-box"><strong>📅 Today's Macro Plan:</strong>\n<em>No specific macro plan loaded for this date. Check your master schedule.</em></div>`;
-         }
+      if (day === "Sun" && (block.macroKey || block.macroKey2)) {
+        const data = sundayMacroData[date];
+        const labels = { watch: "🎥 Watch", tinker: "🛠 Tinker / Bench", askAI: "🤖 Ask AI", quiz: "❓ Quiz & Spaced Review", topic: "📌 Topic" };
+        [block.macroKey, block.macroKey2].forEach(k => {
+          if (!k) return;
+          if (data && data[k]) {
+            text += `\n\n<div class="routine-box"><strong>${labels[k] || "📅 Today"}:</strong>\n${data[k]}</div>`;
+          } else {
+            text += `\n\n<div class="routine-box"><strong>${labels[k] || "📅 Today"}:</strong>\n<em>No plan loaded for this date.</em></div>`;
+          }
+        });
       }
       return text;
     }
@@ -1247,6 +1323,18 @@ ${aiFocus}
       const doneState = getDoneState(date, day);
       scheduleEl.innerHTML = "";
       touchDate(datePicker.value);
+
+      // Sunday: show the Main Theme banner for the selected date
+      if (day === "Sun") {
+        const macro = sundayMacroData[date];
+        const themeBanner = document.createElement("div");
+        themeBanner.className = "journal-prompt";
+        themeBanner.style.gridColumn = "1 / -1";
+        themeBanner.innerHTML = macro
+          ? `🛠 Sunday Maker Day · ${friendlyDate(date)}<br><span style="font-weight:900;">Main Theme: ${escapeHTML(macro.topic)}</span><br><span style="font-weight:600; font-size:0.85rem;">Flow: 🧠 Review → 🎥 Watch → 🛠 Tinker → 📓 Quiz · Core Maker Day ≈ 5 hrs · 📏 Predict the number BEFORE you measure.</span>`
+          : `🛠 Sunday Maker Day · ${friendlyDate(date)}<br><span style="font-weight:600;">No Maker theme scheduled for this date.</span>`;
+        scheduleEl.appendChild(themeBanner);
+      }
 
       let totalMins = 0;
       let water = 0;
