@@ -147,6 +147,12 @@
 
     .routine-box { margin-top: 9px; padding: 11px 12px; background: var(--blue-soft); border: 1px solid rgba(59, 130, 246, 0.16); border-radius: 14px; white-space: pre-line; overflow-wrap: anywhere; word-break: break-word; }
 
+    /* inline block textbox (used for night reflection right after its block) */
+    .block-note { grid-column: 1 / -1; margin-top: 4px; display: grid; gap: 8px; padding: 12px; background: linear-gradient(135deg, #eef2ff, #e0e7ff); border: 1px solid rgba(99,102,241,0.2); border-radius: 16px; }
+    .block-note .journal-prompt { margin-bottom: 0; }
+    .block-note textarea { min-height: 120px; }
+    .block-note .save-status { font-size: 0.82rem; }
+
     .timer { display: grid; gap: 8px; justify-items: stretch; }
     .timer-display { text-align: center; font-size: 1.2rem; font-weight: 950; font-variant-numeric: tabular-nums; background: #f3f4f6; border-radius: 13px; padding: 8px; }
     .timer-controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
@@ -181,10 +187,6 @@
     th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }
     tr:last-child td { border-bottom: none; }
     th { color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
-
-    .category-summary { display: grid; gap: 8px; }
-    .category-row { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-size: 0.9rem; }
-    .category-row:last-child { border-bottom: none; padding-bottom: 0; }
 
     .small-note { color: var(--muted); font-size: 0.85rem; line-height: 1.45; overflow-wrap: anywhere; }
 
@@ -387,20 +389,6 @@
         </div>
 
         <section class="schedule" id="schedule"></section>
-
-        <!-- NIGHT REFLECTION (at the end) -->
-        <section class="panel-card wide" style="margin-top:16px;">
-          <h2>🌙 Night Reflection</h2>
-          <div class="journal-prompt night-prompt">
-            Close the day kindly: 1 win 🏆 · 1 thing I learned 💡 · 1 thing I’m grateful for 🙏 · 1 worry I’m putting down for the night 🌧→🌙
-          </div>
-          <textarea id="nightText" placeholder="How did today actually go? Wins, lessons, gratitude, and what I'm letting go of before sleep..."></textarea>
-          <div class="journal-actions">
-            <span class="save-status" id="nightStatus">Autosaves as you type ✨</span>
-            <button id="saveNightBtn">💾 Save Reflection</button>
-          </div>
-          <p class="small-note">💛 You did enough today.</p>
-        </section>
       </main>
 
       <aside class="side">
@@ -412,11 +400,6 @@
             <a class="resource-link" href="https://www.viksnewsletter.com/" target="_blank" rel="noopener noreferrer">🧠 Vik’s Newsletter</a>
             <a class="resource-link" href="https://medium.com/tag/technology" target="_blank" rel="noopener noreferrer">📰 Medium Tech</a>
           </div>
-        </section>
-
-        <section class="card">
-          <h2>🏷 Category Summary</h2>
-          <div class="category-summary" id="categorySummary"></div>
         </section>
 
         <section class="card">
@@ -448,7 +431,6 @@
     function search(q) { return `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`; }
 
     const links = {
-      // Visual Learning + AI
       powerElectronics:   a('https://www.youtube.com/watch?v=jgh0TNfx0gQ&list=PLbA9oPNWUnEA8SyMSeKnBLRXxfi7SlMYB', 'Power Electronics Playlist'),
       engineeringMindset: a('https://www.youtube.com/@TheEngineeringMindset', 'The Engineering Mindset'),
       electrArc:          a('https://www.youtube.com/@electrarc240', 'ElectrArc240'),
@@ -466,7 +448,6 @@
       mutualInfo:         a('https://www.youtube.com/@Mutual_Information', 'Mutual Information'),
       firstPrinciplesCV:  a(search('First Principles of Computer Vision'), 'First Principles of CV'),
       evolvingAI:         a('https://www.youtube.com/@EvolviingAI', 'EvolvingAI'),
-      // Embedded & hardware
       lowLevel:           a(search('Low Level Learning programming'), 'Low Level'),
       artfulBytes:        a(search('Artful Bytes embedded systems'), 'Artful Bytes'),
       electronoobs:       a('https://www.youtube.com/@ELECTRONOOBS', 'Electronoobs'),
@@ -481,7 +462,6 @@
       zeroMean:           a(search('0Mean1Sigma CUDA GPU'), '0Mean1Sigma'),
       jeffGeerling:       a('https://www.youtube.com/@JeffGeerling', 'Jeff Geerling'),
       byteByteGo:         a('https://www.youtube.com/@ByteByteGo', 'ByteByteGo'),
-      // Sunday Maker Day + misc
       paulMcWhorter:      a('https://www.youtube.com/@paulmcwhorter', 'Paul McWhorter'),
       greatScott:         a('https://www.youtube.com/@greatscottlab', 'GreatScott!'),
       sam:                a('https://www.youtube.com/@sambenyaakov', 'Sam Ben-Yaakov'),
@@ -500,9 +480,7 @@
       lewis:              a(search("Lewis' Electronics"), "Lewis' Electronics")
     };
 
-    /* ---------- exercise form-GIF links ----------
-       fp()   -> fitnessprogramer.com exercise page (pictorial proper-form GIF guide)
-       gImg() -> Google image/GIF search (reliable fallback for niche moves)         */
+    /* ---------- exercise form-GIF links ---------- */
     function fp(slug) { return `https://fitnessprogramer.com/exercise/${slug}/`; }
     function gImg(q) { return `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(q + ' exercise gif')}`; }
     function ex(name, url) { return `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`; }
@@ -519,17 +497,14 @@
 📓 Mind Over Mood (Aug 16 – 29)
 👂 Listen actively — pause to note one usable idea.`;
 
-    const loop = `Loop:
-1️⃣ 7 min — explain it in your own words (no notes)
-2️⃣ 20 min — rebuild it: derive, sketch, or re-implement
-3️⃣ 25 min — Claude quizzes you (Socratic pushback)
-4️⃣ 8 min — log "I finally get ___" + 1 gap`;
+    const aiFocus = `Explain it, Confirm with Claude, Ask Claude to quiz you (Socratic pushback).
 
-    const sotaFocus = `🎯 Focus — pick ONE:
-LLMs · Tokenization · VLM · VLA · RL · Q-Learning · REINFORCE · A2C · Double Q-Learning · Computer Vision · YOLO · SSD · MoE · Mamba · RoPE · KV-Cache · FlashAttn · RLHF · DPO · Diffusion · CLIP · ViT`;
-
-    const embeddedFocus = `🎯 Focus — Embedded & HW, pick ONE:
-MCU registers · Timers/PWM · Interrupts/ISR · ADC & sensors · UART/I²C/SPI · FPGA/RTL · Power electronics (${links.powerElectronics}) · GPU/CUDA · Accelerators (TPU/NPU)`;
+🎯 Focus — pick ONE:
+• Research Prep: Quantization, Pruning, Distillation, LoRA, Power Meters
+• Mental AI Chat
+• Course Prep: Control Theory, DC Motors, Gate Drivers
+• Tools: Colab, GitHub, HuggingFace, AI Studio
+• SOTA Topics: LLMs · Tokenization · VLM · VLA · RL · Q-Learning · REINFORCE · A2C · Double Q-Learning · Computer Vision · YOLO · SSD · MoE · Mamba · RoPE · KV-Cache · FlashAttn · RLHF · DPO · Diffusion · CLIP · ViT`;
 
     const warmup = `🏋️ Warm-up (5 min): vibration plate / light cardio (2–3 min) · Band Pull-Aparts 2×20 · Cat-Cow 1×10 · Chin Tucks 2×12 (sneaks posture + neck work into every day)`;
 
@@ -538,7 +513,9 @@ MCU registers · Timers/PWM · Interrupts/ISR · ADC & sensors · UART/I²C/SPI 
 🌬 Blow-dry → Style: Sea Salt Spray (Mon/Fri) or Matte Paste.
 👉 Apply SPF before Walk #1.`;
 
-    /* ---------- Monday–Saturday schedule (MasterPlan) ---------- */
+    /* ====================================================================
+       MONDAY–SATURDAY SCHEDULE  (rebuilt from NEW-PLAN.xlsx → MasterPlan)
+       ==================================================================== */
     const baseSchedule = [
       {
         time: "8:00–8:15", title: "🌅 Wake & Hydrate", category: "Wake", water: 16,
@@ -562,31 +539,36 @@ MCU registers · Timers/PWM · Interrupts/ISR · ADC & sensors · UART/I²C/SPI 
         }
       },
       {
-        time: "8:45–9:15", title: "🚶‍♀️💨 Walk #1 · ~3,000 steps", category: "Walk",
+        time: "8:45–9:00", title: "🥤 Break · Water + Protein", category: "Break", water: 16,
+        details: `💧 16 oz water & Protein Shake.`
+      },
+      {
+        time: "9:00–9:30", title: "🚶‍♀️💨 Walk #1 · ~3,000 steps", category: "Walk",
         details: `☀️ OUTDOORS — early to optimize morning cortisol & mood, and avoid peak UV.
 🧴 Apply SPF BEFORE you leave.
 
 ${mckay}`
       },
       {
-        time: "9:15–10:15", title: "🧠 Deep AI Thinking #1 · SOTA Architectures", category: "DeepThink",
+        time: "9:30–9:45", title: "🥤 Break · Water", category: "Break", water: 16,
+        details: `💧 16 oz water.`
+      },
+      {
+        time: "9:45–10:45", title: "🧠 Deep AI Thinking #1", category: "DeepThink",
         details: `🧠 1 hour — use AI to deepen understanding, not just consume.
 
-${loop}
-
-${sotaFocus}
+${aiFocus}
 
 📰 Prime with a SOTA recap: ${links.evolvingAI}.
 💡 Use Projects + Artifacts in Claude for persistent concept maps.`
       },
       {
-        time: "10:15–10:45", title: "☕ Break", category: "Break", water: 16,
-        details: `👀 Screen detox
-🧘 10-minute breathing meditation
-🙆 Stretch shoulders · 💧 sip water`
+        time: "10:45–11:15", title: "☕ Break · Water + Meditate", category: "Break", water: 16,
+        details: `💧 16 oz water.
+🧘 Breathing Meditation (~10 min) · 👀 screen detox · 🙆 stretch shoulders.`
       },
       {
-        time: "10:45–11:45", title: "⚡ Course Prep", category: "Learn",
+        time: "11:15–12:15", title: "⚡ Course Prep", category: "Learn",
         detailsByDay: {
           Mon: `📋 Follow the Course Prep Roadmap.\n\n🔧 ECE 302\n🤖 Use AI to analyze Reviews\n• Check & Update Slides\n• Check & Update HW\n• Check & Update Labs\n• Post HW & Labs to Gradescope & Canvas\n• Make Midterm and Final Exams`,
           Tue: `📋 Follow the Course Prep Roadmap.\n\n🔌 ECE 115\n🤖 Use AI to analyze Reviews\n• Check & Update Slides\n• Check & Update HW\n• Check & Update Labs\n• Post HW & Labs to Gradescope & Canvas\n• Make Midterm and Final Exams`,
@@ -597,19 +579,24 @@ ${sotaFocus}
         }
       },
       {
-        time: "11:45–1:45", title: "🍲🛌 Lunch & Nap", category: "Meal",
-        details: `🥗 Real Food — protein + vegetable + carb
-📵 no work · 🐢 slow eating
-
-😴 Healthy Nap
-🌑 dark room · 📵 phone DND
-⏰ alarm 30–40 min max — avoids grogginess
-☕ Optional coffee nap (caffeine 5 min before)
+        time: "12:15–12:35", title: "📧 Check Emails", category: "Admin",
+        details: `Check & respond to emails. Keep it tight — triage, reply, archive.`
+      },
+      {
+        time: "12:35–12:50", title: "🍲 Lunch", category: "Meal",
+        details: `🥗 Eggs or Tuna or a Sandwich.
+📵 no work · 🐢 slow eating.
 
 🎯 6-pack note: keep protein high (≈1 g per lb body-weight), slight caloric deficit.`
       },
       {
-        time: "1:45–2:15", title: "💪 Exercise", category: "Exercise",
+        time: "12:50–2:00", title: "😴 Healthy Nap", category: "Rest",
+        details: `🌑 dark room · 📵 phone DND
+⏰ alarm 30–40 min max — avoids grogginess
+☕ Optional coffee nap (caffeine 5 min before).`
+      },
+      {
+        time: "2:00–2:25", title: "💪 Exercise", category: "Exercise",
         detailsByDay: {
           Mon: `${warmup}
 
@@ -743,7 +730,11 @@ ${exerciseBox([
         }
       },
       {
-        time: "2:15–3:00", title: "🚿 Shower + Skincare AM", category: "Self-Care",
+        time: "2:25–2:30", title: "🥤 Break · Water + Protein", category: "Break", water: 16,
+        details: `💧 16 oz water & one protein shake.`
+      },
+      {
+        time: "2:30–3:00", title: "🚿 Shower + Skincare AM", category: "Self-Care",
         detailsByDay: {
           Mon: `🚿 Vanicream Shampoo (2 min) · ACURE Conditioner (2 min) · Body Wash · CeraVe Cleanser (30–60 s) → towel-dry hair & face\n\n${amFace}`,
           Tue: `🚿 Water-rinse scalp · beard rinse · Body Wash · cleanse if oily → towel-dry\n\n${amFace}`,
@@ -765,32 +756,40 @@ ${exerciseBox([
         }
       },
       {
-        time: "3:45–4:00", title: "☕ Break", category: "Break", water: 16,
-        details: `🚶 Walk indoors · 💧 water · 👀 look outside 2 min.`
+        time: "3:45–4:00", title: "☕ Break", category: "Break",
+        details: `🚶 Walk indoors · 👀 look outside 2 min.`
       },
       {
         time: "4:00–5:00", title: "🧠 Deep AI Thinking #2", category: "DeepThink",
         details: `🧠 1 hour — same Loop as Deep AI #1 (intuition → rebuild → Claude quiz → log).
 
-${sotaFocus}
+${aiFocus}
 
 🤖 Ask Claude to quiz you & explain stuck math.`
       },
       {
-        time: "5:00–5:30", title: "🚶‍♀️💨 Walk #2 · Mindset & Growth", category: "Walk",
+        time: "5:00–5:05", title: "☕ Break", category: "Break",
+        details: `🧍 Stand · stretch · reset.`
+      },
+      {
+        time: "5:05–5:30", title: "🚶‍♀️💨 Walk #2 · Mindset & Growth", category: "Walk",
         details: `⚡ Brisk pace · 🧠 stress reset
 
 ${mckay}`
       },
       {
-        time: "5:30–6:15", title: "🎬 Visual Learning C · Embedded & Hardware", category: "Core Tech",
+        time: "5:30–5:35", title: "🥤 Break · Water", category: "Break", water: 16,
+        details: `💧 16 oz water.`
+      },
+      {
+        time: "5:35–6:15", title: "🎬 Visual Learning C · Embedded & Hardware", category: "Core Tech",
         detailsByDay: {
-          Mon: `🎥 45 min — visuals focused on Embedded & Hardware.\n🔌 Embedded C — ${links.lowLevel} · ${links.artfulBytes}`,
-          Tue: `🎥 45 min — visuals focused on Embedded & Hardware.\n🛠 Hardware Troubleshooting — ${links.electronoobs} · ${links.electronicWizard} · ${links.diodeGoneWild} · ${links.lapfix} · ${links.jayz}`,
-          Wed: `🎥 45 min — visuals focused on Embedded & Hardware.\n💻 C++ — ${links.cherno} · ${links.freeCodeCamp}`,
-          Thu: `🎥 45 min — visuals focused on Embedded & Hardware.\n🧩 FPGA — ${links.nandland} · ${links.fpga4student} · ${links.freeCodeCamp}`,
-          Fri: `🎥 45 min — visuals focused on Embedded & Hardware.\n⚡ CUDA & GPU — ${links.zeroMean} · ${links.freeCodeCamp}`,
-          Sat: `🎥 45 min — visuals focused on Embedded & Hardware.\n🧠 TPU & NPU + Power — ${links.asianometry} · ${links.electrArc}`
+          Mon: `🎥 40 min — visuals focused on Embedded & Hardware.\n🔌 Embedded C — ${links.lowLevel} · ${links.artfulBytes}`,
+          Tue: `🎥 40 min — visuals focused on Embedded & Hardware.\n🛠 Hardware Troubleshooting — ${links.electronoobs} · ${links.electronicWizard} · ${links.diodeGoneWild} · ${links.lapfix} · ${links.jayz}`,
+          Wed: `🎥 40 min — visuals focused on Embedded & Hardware.\n💻 C++ — ${links.cherno} · ${links.freeCodeCamp}`,
+          Thu: `🎥 40 min — visuals focused on Embedded & Hardware.\n🧩 FPGA — ${links.nandland} · ${links.fpga4student} · ${links.freeCodeCamp}`,
+          Fri: `🎥 40 min — visuals focused on Embedded & Hardware.\n⚡ CUDA & GPU — ${links.zeroMean} · ${links.freeCodeCamp}`,
+          Sat: `🎥 40 min — visuals focused on Embedded & Hardware.\n🧠 TPU & NPU + Power — ${links.asianometry} · ${links.electrArc}`
         }
       },
       {
@@ -806,12 +805,16 @@ ${mckay}`
         time: "7:15–8:15", title: "🧠 Deep AI Thinking #3 · Embedded & HW", category: "DeepThink",
         details: `🧠 1 hour — same Loop (intuition → rebuild → Claude quiz → log).
 
-${embeddedFocus}
+${aiFocus}
 
 🤖 Ask Claude to set tiny projects & review your code.`
       },
       {
-        time: "8:30–10:00", title: "🎬 Visual Learning D · Systems Deep-Dive", category: "Core Tech",
+        time: "8:15–8:45", title: "📧 Check Emails", category: "Admin",
+        details: `Respond to emails. Clear the inbox before the evening deep-dive.`
+      },
+      {
+        time: "8:45–10:15", title: "🎬 Visual Learning D · Systems Deep-Dive", category: "Core Tech",
         detailsByDay: {
           Mon: `🎥 90 min — systems & deep-dive visuals.\n🧱 Systems & SBCs — ${links.coreDumped} · ${links.jeffGeerling}\n\n📝 Save 2–3 to deep-read Saturday.`,
           Tue: `🎥 90 min — systems & deep-dive visuals.\n🌐 Networking & Internet — ${links.byteByteGo}\n\n📝 Save 2–3 to deep-read Saturday.`,
@@ -822,7 +825,7 @@ ${embeddedFocus}
         }
       },
       {
-        time: "10:00–10:30", title: "🧘 Meditation & Review", category: "Meditation",
+        time: "10:15–10:30", title: "🧘 Meditation & Review", category: "Meditation",
         details: `🧘 Meditation (~15 min)
 • W1–3 Body Scan · W6–8 RAIN
 • W9–11 Loving-Kindness · W12–15 Open Awareness
@@ -843,7 +846,7 @@ ${embeddedFocus}
         }
       },
       {
-        time: "11:00", title: "🌙 Sleep", category: "WindDown",
+        time: "11:00", title: "🌙 Sleep & Night Reflection", category: "WindDown", reflection: true,
         details: `🌙 Wind Down
 📵 No screens after 10:30 PM
 🕯 lights low · 🧘 light stretching OK
@@ -853,7 +856,9 @@ ${embeddedFocus}
       }
     ];
 
-    /* ---------- Sunday Maker Day schedule (Micro/Macro Plan) ---------- */
+    /* ====================================================================
+       SUNDAY MAKER DAY SCHEDULE  (Sunday Micro / Macro Plan — unchanged)
+       ==================================================================== */
     const sundaySchedule = [
       { time: "8:00–8:20", title: "🌅 Wake & Hydrate", category: "Wake", water: 16, details: `Morning Reset — 💧 16 oz water · 🧘 2 min stretch · 🌬 3 slow breaths · 📵 no phone · 🎯 1 intention.\n📓 Sun journal: 💌 letter to past self (set in the Journal box above).\n☀️ If sleep-deprived, get 10–15 min outdoor sunlight.` },
       { time: "8:20–9:00", title: "🚿 Breakfast + AM Skincare", category: "Self-Care", details: `🍳 Protein breakfast — fuel the build (eggs / Greek yogurt + carb).\n🚿 Sun shower: water-rinse · Conditioner (2 min) · Body Wash.\n${amFace}` },
@@ -880,7 +885,7 @@ ${embeddedFocus}
       { time: "8:55–9:35", title: "🧠 Deep Topic Thinking", category: "DeepThink", details: `Sun: rolls out of Maker Day.\nRe-derive today's HARDEST idea from scratch (intuition → math).\n🤖 Have Claude quiz the math. 📓 Log "I finally get ___."` },
       { time: "9:35–9:55", title: "🗂 Week Setup + Log Tidy", category: "Core Tech", details: `File today's measurements + photos. Preview NEXT Sunday's topic, video list & gear. Restock / charge parts so next week starts clean.` },
       { time: "9:55–10:25", title: "🧘 Meditation & PM Skincare", category: "Meditation", water: 16, details: `🧘 ~20 min (Body Scan / RAIN / Loving-Kindness per week).\n🌙 Sun PM face: Cleanse → Restore ceramide moisturizer (NO tretinoin tonight).` },
-      { time: "10:25–11:00", title: "🌙 Wind Down", category: "WindDown", details: `📵 No screens after 10:30 PM · 🕯 lights low · 🧘 light stretching OK.\n😴 Sleep target: 11:00 PM.\n💛 You did enough today.` }
+      { time: "10:25–11:00", title: "🌙 Wind Down & Night Reflection", category: "WindDown", reflection: true, details: `📵 No screens after 10:30 PM · 🕯 lights low · 🧘 light stretching OK.\n😴 Sleep target: 11:00 PM.\n💛 You did enough today.` }
     ];
 
     const sundayMacroData = {
@@ -1019,7 +1024,6 @@ ${embeddedFocus}
     const weightInput = document.getElementById("weightInput");
     const weightTable = document.getElementById("weightTable");
     const weightCompare = document.getElementById("weightCompare");
-    const categorySummary = document.getElementById("categorySummary");
     const historyList = document.getElementById("historyList");
     const historyPreview = document.getElementById("historyPreview");
 
@@ -1027,8 +1031,6 @@ ${embeddedFocus}
     const todoStatus = document.getElementById("todoStatus");
     const perfectText = document.getElementById("perfectText");
     const perfectStatus = document.getElementById("perfectStatus");
-    const nightText = document.getElementById("nightText");
-    const nightStatus = document.getElementById("nightStatus");
 
     const calorieTotalEl = document.getElementById("calorieTotal");
     const calorieInput = document.getElementById("calorieInput");
@@ -1067,6 +1069,7 @@ ${embeddedFocus}
 
     function getKey(prefix, date = datePicker.value) { return `${prefix}:${date}`; }
     function getBlockKey(index, date = datePicker.value, day = daySelect.value) { return `${date}:${day}:block-${index}`; }
+    function getReflectionKey(index, date = datePicker.value, day = daySelect.value) { return `${date}:${day}:reflection-${index}`; }
 
     function storageGet(key, fallback) {
       try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }
@@ -1132,9 +1135,9 @@ ${embeddedFocus}
 
     function scheduleForDay(day) { return day === "Sun" ? sundaySchedule : baseSchedule; }
     function currentSchedule() { return scheduleForDay(daySelect.value); }
-    
-    function detailFor(block, day, date) { 
-      let text = block.detailsByDay ? (block.detailsByDay[day] || "") : (block.details || ""); 
+
+    function detailFor(block, day, date) {
+      let text = block.detailsByDay ? (block.detailsByDay[day] || "") : (block.details || "");
       if (day === "Sun" && block.macroKey) {
          if (sundayMacroData[date] && sundayMacroData[date][block.macroKey]) {
            const macroText = sundayMacroData[date][block.macroKey];
@@ -1143,7 +1146,7 @@ ${embeddedFocus}
            text += `\n\n<div class="routine-box"><strong>📅 Today's Macro Plan:</strong>\n<em>No specific macro plan loaded for this date. Check your master schedule.</em></div>`;
          }
       }
-      return text; 
+      return text;
     }
 
     function touchDate(date) {
@@ -1163,7 +1166,6 @@ ${embeddedFocus}
     function saveJournal(manual = false) { storageSet(getKey("journal"), journalText.value); touchDate(datePicker.value); flashStatus(saveStatus, manual); renderHistory(); }
     function saveLaterTodo(manual = false) { storageSet(getKey("laterTodo"), laterTodoText.value); touchDate(datePicker.value); flashStatus(todoStatus, manual); renderHistory(); }
     function saveMrPerfect(manual = false) { storageSet(getKey("mrPerfect"), perfectText.value); touchDate(datePicker.value); flashStatus(perfectStatus, manual); renderHistory(); }
-    function saveNight(manual = false) { storageSet(getKey("nightReflection"), nightText.value); touchDate(datePicker.value); flashStatus(nightStatus, manual); renderHistory(); }
 
     function getDoneState(date = datePicker.value, day = daySelect.value) {
       const saved = storageGet(getKey("done", date), {});
@@ -1268,6 +1270,19 @@ ${embeddedFocus}
         el.className = "block" + (doneState[blockKey] ? " done" : "");
         el.dataset.blockId = id;
 
+        const reflectionHTML = block.reflection ? `
+          <div class="block-note">
+            <div class="journal-prompt night-prompt">
+              Close the day kindly: 1 win 🏆 · 1 thing I learned 💡 · 1 thing I’m grateful for 🙏 · 1 worry I’m putting down for the night 🌧→🌙
+            </div>
+            <textarea class="reflection-text" data-refindex="${index}" placeholder="How did today actually go? Wins, lessons, gratitude, and what I'm letting go of before sleep..."></textarea>
+            <div class="journal-actions">
+              <span class="save-status reflection-status" data-refstatus="${index}">Autosaves as you type ✨</span>
+              <button class="save-reflection-btn" data-refsave="${index}">💾 Save Reflection</button>
+            </div>
+            <p class="small-note">💛 You did enough today.</p>
+          </div>` : "";
+
         el.innerHTML = `
           <input class="check" type="checkbox" ${doneState[blockKey] ? "checked" : ""} aria-label="Complete block" />
           <div class="time">${block.time}</div>
@@ -1288,6 +1303,7 @@ ${embeddedFocus}
               <button class="reset" data-action="reset">↩️</button>
             </div>
           </div>
+          ${reflectionHTML}
         `;
 
         el.querySelector(".check").addEventListener("change", e => {
@@ -1298,13 +1314,27 @@ ${embeddedFocus}
           touchDate(datePicker.value);
           el.classList.toggle("done", e.target.checked);
           updateStats();
-          renderCategorySummary();
           renderHistory();
         });
 
         el.querySelectorAll(".timer-controls button").forEach(btn => {
           btn.addEventListener("click", () => handleTimer(id, btn.dataset.action));
         });
+
+        if (block.reflection) {
+          const refArea = el.querySelector(".reflection-text");
+          const refStatus = el.querySelector(".reflection-status");
+          const refBtn = el.querySelector(".save-reflection-btn");
+          refArea.value = storageGet(getReflectionKey(index, date, day), "");
+          const saveRef = (manual) => {
+            storageSet(getReflectionKey(index, datePicker.value, daySelect.value), refArea.value);
+            touchDate(datePicker.value);
+            flashStatus(refStatus, manual);
+            renderHistory();
+          };
+          refArea.addEventListener("input", () => saveRef(false));
+          refBtn.addEventListener("click", () => saveRef(true));
+        }
 
         scheduleEl.appendChild(el);
       });
@@ -1313,7 +1343,6 @@ ${embeddedFocus}
       journalText.value = storageGet(getKey("journal"), "");
       laterTodoText.value = storageGet(getKey("laterTodo"), "");
       perfectText.value = storageGet(getKey("mrPerfect"), "");
-      nightText.value = storageGet(getKey("nightReflection"), "");
 
       waterStat.textContent = `${water} oz`;
       timeStat.textContent = formatDuration(totalMins);
@@ -1321,7 +1350,6 @@ ${embeddedFocus}
       loadWeightForDate();
       updateStats();
       renderWeights();
-      renderCategorySummary();
       renderHistory();
       renderWeightComparison();
       renderCalories();
@@ -1382,8 +1410,13 @@ ${embeddedFocus}
       const schedule = scheduleForDay(day);
       const doneState = getDoneState(date, day);
       const completedTitles = [];
+      let reflection = "";
       schedule.forEach((block, index) => {
         if (doneState[getBlockKey(index, date, day)] || doneState[`block-${index}`]) completedTitles.push(block.title);
+        if (block.reflection) {
+          const r = storageGet(getReflectionKey(index, date, day), "");
+          if (r) reflection = r;
+        }
       });
       const calories = getCalories(date).reduce((acc, v) => acc + Number(v || 0), 0);
       return {
@@ -1391,7 +1424,7 @@ ${embeddedFocus}
         journal: storageGet(getKey("journal", date), ""),
         laterTodo: storageGet(getKey("laterTodo", date), ""),
         mrPerfect: storageGet(getKey("mrPerfect", date), ""),
-        nightReflection: storageGet(getKey("nightReflection", date), ""),
+        nightReflection: reflection,
         calories,
         weight: storageGet("weights", {})[date] || ""
       };
@@ -1468,22 +1501,6 @@ ${embeddedFocus}
         .replaceAll("'", "&#039;");
     }
 
-    function renderCategorySummary() {
-      const date = datePicker.value;
-      const day = daySelect.value;
-      const schedule = currentSchedule();
-      const doneState = getDoneState(date, day);
-      const counts = {};
-      schedule.forEach((block, idx) => {
-        if (!counts[block.category]) counts[block.category] = { total: 0, done: 0 };
-        counts[block.category].total += 1;
-        if (doneState[getBlockKey(idx, date, day)]) counts[block.category].done += 1;
-      });
-      categorySummary.innerHTML = Object.entries(counts)
-        .map(([cat, val]) => `<div class="category-row"><strong>${cat}</strong><span>${val.done}/${val.total}</span></div>`)
-        .join("");
-    }
-
     function loadWeightForDate() {
       const weights = storageGet("weights", {});
       weightInput.value = weights[datePicker.value] || "";
@@ -1511,12 +1528,10 @@ ${embeddedFocus}
     journalText.addEventListener("input", () => saveJournal(false));
     laterTodoText.addEventListener("input", () => saveLaterTodo(false));
     perfectText.addEventListener("input", () => saveMrPerfect(false));
-    nightText.addEventListener("input", () => saveNight(false));
 
     document.getElementById("saveJournalBtn").addEventListener("click", () => saveJournal(true));
     document.getElementById("saveTodoBtn").addEventListener("click", () => saveLaterTodo(true));
     document.getElementById("savePerfectBtn").addEventListener("click", () => saveMrPerfect(true));
-    document.getElementById("saveNightBtn").addEventListener("click", () => saveNight(true));
 
     /* calorie meter */
     calorieForm.addEventListener("submit", (e) => {
@@ -1568,7 +1583,10 @@ ${embeddedFocus}
     document.getElementById("resetDayBtn").addEventListener("click", async () => {
       const ok = await confirmModal("Reset this date? This clears its checkboxes, journal, to-do, Mr. Perfect notes, night reflection, and the calorie log.");
       if (!ok) return;
-      ["done", "journal", "laterTodo", "mrPerfect", "nightReflection", "calories"].forEach(p => localStorage.removeItem(getKey(p)));
+      const date = datePicker.value, day = daySelect.value;
+      ["done", "journal", "laterTodo", "mrPerfect", "calories"].forEach(p => localStorage.removeItem(getKey(p)));
+      // clear any reflection textboxes for this date/day
+      scheduleForDay(day).forEach((b, i) => { if (b.reflection) localStorage.removeItem(getReflectionKey(i, date, day)); });
       resetTimersAndRender();
     });
 
