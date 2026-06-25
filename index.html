@@ -352,6 +352,39 @@
       .block { animation: none; }
       * { transition: none !important; }
     }
+
+    /* ---------- current-time block highlight ---------- */
+    .block.now-active {
+      opacity: 1;
+      border-color: var(--ch, var(--rest));
+      background: var(--ch-soft, var(--card));
+      box-shadow: 0 0 0 2px var(--ch, var(--rest)),
+                  0 16px 34px -14px rgba(27, 27, 42, 0.30);
+    }
+    .block.now-active::after {
+      content: "\25CF NOW";
+      position: absolute;
+      top: 9px;
+      right: 11px;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #fff;
+      background: var(--ch, var(--rest));
+      padding: 3px 8px;
+      border-radius: 999px;
+      box-shadow: 0 2px 6px -1px rgba(27, 27, 42, 0.35);
+      z-index: 3;
+      animation: nowPulse 2.4s ease-in-out infinite;
+    }
+    @keyframes nowPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.72; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .block.now-active::after { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -1790,6 +1823,7 @@ Tretinoin (pea; avoid eyes, nose creases, lips) → Restore ceramide moisturizer
       datePicker.value = todayISO();
       daySelect.value = dayFromDate(datePicker.value);
       resetTimersAndRender();
+      requestAnimationFrame(() => scrollToNow(true, true));
     });
 
     document.getElementById("clearAllBtn").addEventListener("click", async () => {
@@ -1820,10 +1854,72 @@ Tretinoin (pea; avoid eyes, nose creases, lips) → Restore ceramide moisturizer
     });
     daySelect.addEventListener("change", () => { resetTimersAndRender(); });
 
+    /* ---------- jump to the current time block ---------- */
+    let _lastAutoTop = 0;
+    let _autoScrollLock = false;
+    window.addEventListener("scroll", () => {
+      // Once the user scrolls clearly away from the auto target, stop re-centering.
+      if (Math.abs(window.pageYOffset - _lastAutoTop) > 80) _autoScrollLock = true;
+    }, { passive: true });
+
+    function blockStartMinutes(schedule) {
+      // Absolute minutes-since-midnight for each block's START time.
+      // Times are on a 12-hour clock with no AM/PM but run monotonically through
+      // the day, so we "unroll": each start must be later than the previous one;
+      // when it isn't, it has crossed into the afternoon/evening (+12h).
+      const out = [];
+      let prev = -1, base = 0;
+      for (const b of schedule) {
+        const startStr = String(b.time).split(/[\u2013-]/)[0].trim();
+        const hm = startStr.split(":");
+        const h = parseInt(hm[0], 10) || 0;
+        const m = parseInt(hm[1], 10) || 0;
+        let mins = (h % 12) * 60 + m;
+        while (mins + base <= prev) base += 12 * 60;
+        const abs = mins + base;
+        out.push(abs);
+        prev = abs;
+      }
+      return out;
+    }
+
+    function currentBlockIndex(schedule) {
+      if (!schedule || !schedule.length) return -1;
+      const starts = blockStartMinutes(schedule);
+      const now = new Date();
+      const nowMin = now.getHours() * 60 + now.getMinutes();
+      if (nowMin < starts[0]) return 0;          // before the day begins
+      let idx = 0;
+      for (let i = 0; i < starts.length; i++) {
+        if (starts[i] <= nowMin) idx = i; else break;
+      }
+      return idx;                                 // last block already started
+    }
+
+    function scrollToNow(smooth, force) {
+      // Only auto-jump when the screen is actually showing today.
+      if (datePicker.value !== todayISO()) return;
+      if (daySelect.value !== dayFromDate(todayISO())) return;
+      if (_autoScrollLock && !force) return;
+      const idx = currentBlockIndex(currentSchedule());
+      if (idx < 0) return;
+      const el = scheduleEl.querySelector('[data-block-id="block-' + idx + '"]');
+      if (!el) return;
+      scheduleEl.querySelectorAll(".now-active").forEach(n => n.classList.remove("now-active"));
+      el.classList.add("now-active");
+      if (force) _autoScrollLock = false;
+      const top = el.getBoundingClientRect().top + window.pageYOffset - 12;
+      _lastAutoTop = Math.max(0, top);
+      window.scrollTo({ top: _lastAutoTop, behavior: smooth ? "smooth" : "auto" });
+    }
+
     /* ---------- init ---------- */
     datePicker.value = todayISO();
     daySelect.value = dayFromDate(datePicker.value);
     render();
+    // Land on the time block that matches the current time of day.
+    requestAnimationFrame(() => requestAnimationFrame(() => scrollToNow(false)));
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => scrollToNow(false));
   </script>
 </body>
 </html>
