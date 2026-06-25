@@ -7,41 +7,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
-  <title>🌞 Daily Life Tracker</title>
+  <title>🛠 Summer OS · Daily Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f7f7fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --accent: #6366f1;
-      --accent-dark: #4338ca;
-      --accent-soft: #eef2ff;
-      --green: #10b981;
-      --green-soft: #ecfdf5;
-      --yellow: #f59e0b;
-      --red: #ef4444;
-      --rose-soft: #fff1f2;
-      --blue-soft: #eff6ff;
-      --shadow: 0 18px 45px rgba(15, 23, 42, 0.09);
+      /* ----- canvas & ink ----- */
+      --paper: #FBF8F2;
+      --paper-2: #F4EEE2;
+      --card: #FFFFFF;
+      --ink: #1B1B2A;
+      --ink-soft: #5C5C70;
+      --ink-faint: #8A8A9C;
+      --line: #ECE4D6;
+      --line-2: #E3D9C7;
+
+      /* ----- oscilloscope channels (category coding) ----- */
+      --volt: #E8920C;      --volt-soft: #FDF1DA;     --volt-ink: #8A560A;   /* power · maker · rover */
+      --signal: #1F76C9;    --signal-soft: #E5F0FB;   --signal-ink: #155394; /* AI · learning · deep think */
+      --vital: #15A06B;     --vital-soft: #E2F5EC;    --vital-ink: #0C6644;  /* walk · exercise · body */
+      --calm: #7A57F0;      --calm-soft: #ECE6FD;     --calm-ink: #4C32A8;   /* mind · skincare · sleep */
+      --rest: #B07B4F;      --rest-soft: #F4EBDF;     --rest-ink: #7A5230;   /* breaks · meals · rest */
+      --slate: #5A6B7B;     --slate-soft: #E9EEF2;    --slate-ink: #3A4754;  /* admin · email */
+      --rose: #E0533A;      --rose-soft: #FBE7E1;     --rose-ink: #A8341F;   /* calories · heat */
+
+      --shadow: 0 14px 40px rgba(40, 30, 12, 0.10);
+      --shadow-sm: 0 6px 18px rgba(40, 30, 12, 0.07);
       --radius: 20px;
+      --radius-sm: 14px;
+
+      --font-display: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "Space Mono", ui-monospace, "SF Mono", Menlo, monospace;
     }
 
     * { box-sizing: border-box; min-width: 0; }
-
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
     body {
       margin: 0;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: var(--font-body);
+      color: var(--ink);
       background:
-        radial-gradient(circle at top left, rgba(99, 102, 241, 0.18), transparent 32rem),
-        radial-gradient(circle at top right, rgba(16, 185, 129, 0.14), transparent 28rem),
-        linear-gradient(135deg, #f7f7fb 0%, #eef2ff 100%);
-      color: var(--text);
-      min-height: 100vh;
-      min-height: 100dvh;
+        radial-gradient(60rem 60rem at 8% -8%, rgba(232,146,12,0.10), transparent 60%),
+        radial-gradient(54rem 54rem at 108% 4%, rgba(31,118,201,0.10), transparent 58%),
+        radial-gradient(60rem 60rem at 50% 120%, rgba(122,87,240,0.08), transparent 60%),
+        linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+      background-attachment: fixed;
+      min-height: 100vh; min-height: 100dvh;
       overflow-x: hidden;
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
@@ -49,199 +63,294 @@
       padding-bottom: env(safe-area-inset-bottom);
     }
 
-    .app { width: min(1450px, 100%); margin: 0 auto; padding: 20px; }
+    .app { width: min(1420px, 100%); margin: 0 auto; padding: 18px 18px 60px; }
 
+    /* ===================== HERO HEADER ===================== */
     header {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      gap: 16px; margin-bottom: 20px; flex-wrap: wrap;
+      position: relative; overflow: hidden;
+      border-radius: 26px;
+      padding: 22px 22px 20px;
+      margin-bottom: 18px;
+      color: #fff;
+      background:
+        radial-gradient(40rem 18rem at 0% 0%, rgba(255,221,150,0.55), transparent 60%),
+        radial-gradient(40rem 22rem at 100% 0%, rgba(150,200,255,0.45), transparent 60%),
+        linear-gradient(115deg, #F4A623 0%, #E0533A 26%, #8E47C4 62%, #2E6FD6 100%);
+      box-shadow: var(--shadow);
+    }
+    header::after {
+      content: ""; position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.07) 0 1px, transparent 1px 56px),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.06) 0 1px, transparent 1px 56px);
+      mix-blend-mode: overlay; pointer-events: none;
+    }
+    .title-block { position: relative; z-index: 1; }
+    .eyebrow {
+      font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(255,255,255,0.92);
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,0,0,0.16); padding: 5px 11px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25); margin-bottom: 12px;
+    }
+    .title-block h1 {
+      margin: 0; font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(1.9rem, 7vw, 3.4rem); letter-spacing: -0.03em; line-height: 1.02;
+      text-shadow: 0 2px 18px rgba(20,10,40,0.18);
+    }
+    .title-block p {
+      margin: 10px 0 0; color: rgba(255,255,255,0.95);
+      font-size: 0.98rem; max-width: 760px; line-height: 1.5; font-weight: 500;
     }
 
-    .title-block h1 { margin: 0; font-size: clamp(1.75rem, 6vw, 3.25rem); letter-spacing: -0.055em; line-height: 1.05; }
-    .title-block p { margin: 10px 0 0; color: var(--muted); font-size: 1rem; max-width: 760px; line-height: 1.45; }
-
-    .top-controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: flex-end; }
+    .top-controls {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 9px;
+      margin-top: 18px;
+    }
 
     select, input, textarea, button { font: inherit; }
-
     select, input[type="date"], input[type="number"], input[type="text"] {
-      border: 1px solid var(--border); border-radius: 14px; padding: 11px 13px;
-      background: rgba(255, 255, 255, 0.92); color: var(--text); outline: none;
-      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04); font-size: 16px; min-height: 44px; width: 100%;
+      border: 1px solid rgba(255,255,255,0.5); border-radius: var(--radius-sm);
+      padding: 11px 13px; background: rgba(255,255,255,0.95); color: var(--ink);
+      outline: none; box-shadow: 0 4px 14px rgba(20,10,40,0.10);
+      font-size: 16px; min-height: 46px; width: 100%; font-weight: 600;
     }
-
-    select:focus, input:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12); }
+    select:focus, input:focus, textarea:focus {
+      border-color: var(--signal); box-shadow: 0 0 0 4px rgba(31,118,201,0.18);
+    }
 
     button {
-      border: none; border-radius: 14px; padding: 11px 15px; min-height: 44px; cursor: pointer;
-      font-weight: 800; background: var(--accent); color: white; transition: 0.2s ease;
-      box-shadow: 0 7px 18px rgba(99, 102, 241, 0.2); -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+      border: none; border-radius: var(--radius-sm); padding: 11px 15px; min-height: 46px;
+      cursor: pointer; font-weight: 800; font-family: var(--font-display);
+      letter-spacing: -0.01em; background: var(--ink); color: #fff; transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
+      box-shadow: var(--shadow-sm); -webkit-tap-highlight-color: transparent; touch-action: manipulation;
     }
-    button:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(99, 102, 241, 0.28); }
-    button.secondary { background: #111827; box-shadow: 0 7px 18px rgba(17, 24, 39, 0.18); }
-    button.ghost { background: white; color: var(--text); border: 1px solid var(--border); box-shadow: none; }
-    button.danger { background: var(--red); box-shadow: 0 7px 18px rgba(239, 68, 68, 0.2); }
+    button:hover { transform: translateY(-1px); }
+    button:active { transform: translateY(1px) scale(0.99); }
+    button.ghost {
+      background: rgba(255,255,255,0.95); color: var(--ink);
+      border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 4px 14px rgba(20,10,40,0.10);
+    }
+    button.secondary { background: var(--signal-ink); }
+    button.danger { background: var(--rose); box-shadow: 0 7px 18px rgba(224,83,58,0.25); }
 
-    /* CALORIE METER */
-    .calorie-card { padding: 18px; margin-bottom: 20px; background: rgba(255,255,255,0.92); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid rgba(254,215,170,0.7); border-radius: var(--radius); box-shadow: var(--shadow); }
+    /* ===================== CALORIE METER ===================== */
+    .calorie-card {
+      padding: 18px; margin-bottom: 18px; background: var(--card);
+      border: 1px solid var(--rose-soft); border-left: 6px solid var(--rose);
+      border-radius: var(--radius); box-shadow: var(--shadow-sm);
+    }
     .calorie-head { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
-    .calorie-card h2 { margin:0; font-size:1.2rem; letter-spacing:-0.02em; }
-    .calorie-date-note { color: var(--muted); font-size:0.82rem; }
-    .calorie-main { display:grid; grid-template-columns: auto minmax(0,1fr) auto; gap:16px; align-items:center; }
-    .calorie-total-wrap { background: linear-gradient(135deg,#fff7ed,#ffedd5); border:1px solid #fed7aa; border-radius:18px; padding:14px 20px; text-align:center; }
-    .calorie-total { font-size:2.3rem; font-weight:900; color:#c2410c; line-height:1; font-variant-numeric:tabular-nums; }
-    .calorie-unit { color:#9a3412; font-size:0.8rem; font-weight:800; margin-top:4px; }
+    .calorie-card h2 { margin:0; font-family: var(--font-display); font-size:1.22rem; letter-spacing:-0.02em; }
+    .calorie-date-note { color: var(--ink-faint); font-size:0.8rem; }
+    .calorie-main { display:grid; grid-template-columns: auto minmax(0,1fr) auto; gap:14px; align-items:center; }
+    .calorie-total-wrap {
+      background: linear-gradient(135deg, var(--rose-soft), #FFF3EE);
+      border:1px solid #F6CDC2; border-radius:18px; padding:14px 22px; text-align:center;
+    }
+    .calorie-total { font-family: var(--font-mono); font-size:2.3rem; font-weight:700; color:var(--rose-ink); line-height:1; }
+    .calorie-unit { font-family: var(--font-mono); color:var(--rose); font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; margin-top:5px; }
     .calorie-form { display:flex; gap:8px; }
-    .calorie-form button { background: var(--yellow); white-space:nowrap; box-shadow:0 7px 18px rgba(245,158,11,0.25); }
+    .calorie-form button { background: var(--rose); white-space:nowrap; }
     .calorie-goal-wrap { display:grid; gap:4px; min-width:150px; }
-    .calorie-goal-wrap label { font-size:0.8rem; color:var(--muted); font-weight:800; }
-    .calorie-remaining { font-size:0.84rem; font-weight:900; min-height:1em; }
-    .calorie-remaining.under { color: var(--green); }
-    .calorie-remaining.over { color: var(--red); }
+    .calorie-goal-wrap label { font-size:0.78rem; color:var(--ink-soft); font-weight:800; }
+    .calorie-remaining { font-family: var(--font-mono); font-size:0.82rem; font-weight:700; min-height:1em; }
+    .calorie-remaining.under { color: var(--vital); }
+    .calorie-remaining.over { color: var(--rose); }
     .calorie-entries { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
-    .cal-chip { display:inline-flex; align-items:center; gap:7px; background:#fff7ed; border:1px solid #fed7aa; color:#9a3412; border-radius:999px; padding:5px 6px 5px 12px; font-weight:800; font-size:0.85rem; font-variant-numeric:tabular-nums; }
-    .cal-chip button { all:unset; cursor:pointer; color:#c2410c; font-weight:900; line-height:1; padding:2px 6px; border-radius:999px; }
-    .cal-chip button:hover { background:#fed7aa; }
-    .calorie-empty { color:var(--muted); font-size:0.85rem; }
+    .cal-chip { display:inline-flex; align-items:center; gap:7px; background:var(--rose-soft); border:1px solid #F6CDC2; color:var(--rose-ink); border-radius:999px; padding:5px 6px 5px 13px; font-weight:700; font-size:0.85rem; font-family: var(--font-mono); }
+    .cal-chip button { all:unset; cursor:pointer; color:var(--rose); font-weight:700; line-height:1; padding:2px 7px; border-radius:999px; }
+    .cal-chip button:hover { background:#F6CDC2; }
+    .calorie-empty { color:var(--ink-faint); font-size:0.85rem; }
     .calorie-actions { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
-    .calorie-actions button { padding:8px 12px; min-height:40px; }
+    .calorie-actions button { padding:8px 12px; min-height:42px; background: var(--rest); }
 
-    .layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 20px; align-items: start; }
+    /* ===================== LAYOUT ===================== */
+    .layout { display: grid; grid-template-columns: minmax(0, 1fr) 364px; gap: 18px; align-items: start; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .main-card { padding: 16px; background: transparent; border: none; box-shadow: none; }
+    .side { display: grid; gap: 16px; position: sticky; top: 14px; align-self: start; }
+    .side .card { padding: 16px; }
+    .side .card h2, .panel-card h2 { font-family: var(--font-display); }
 
-    .card { background: rgba(255, 255, 255, 0.88); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid rgba(229, 231, 235, 0.82); border-radius: var(--radius); box-shadow: var(--shadow); }
-    .main-card { padding: 18px; }
-    .side { display: grid; gap: 20px; position: sticky; top: 16px; align-self: start; }
-    .side .card { padding: 18px; }
+    /* ----- section eyebrow ----- */
+    .sec-label {
+      font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink-faint); display:flex; align-items:center; gap:10px; margin: 2px 2px 12px;
+    }
+    .sec-label::after { content:""; flex:1; height:1px; background: var(--line-2); }
 
-    .stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
-    .stat { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 15px; position: relative; overflow: hidden; }
-    .stat::after { content: ""; position: absolute; inset: auto -20px -32px auto; width: 90px; height: 90px; background: var(--accent-soft); border-radius: 999px; z-index: 0; }
-    .stat .label, .stat .value { position: relative; z-index: 1; }
-    .stat .label { color: var(--muted); font-size: 0.82rem; margin-bottom: 6px; }
-    .stat .value { font-size: 1.35rem; font-weight: 900; }
+    /* ===================== STAT INSTRUMENTS ===================== */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .stat {
+      background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 13px 14px;
+      position: relative; overflow: hidden;
+    }
+    .stat::before { content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background: var(--signal); }
+    .stat:nth-child(1)::before { background: var(--vital); }
+    .stat:nth-child(2)::before { background: var(--signal); }
+    .stat:nth-child(3)::before { background: var(--vital); }
+    .stat:nth-child(4)::before { background: var(--volt); }
+    .stat .label { color: var(--ink-faint); font-size: 0.7rem; font-family: var(--font-mono); letter-spacing:0.08em; text-transform:uppercase; margin-bottom: 6px; }
+    .stat .value { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700; letter-spacing:-0.02em; }
 
     .top-sections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 4px 0 14px; }
-    .panel-card { background: rgba(255, 255, 255, 0.96); border: 1px solid var(--border); border-radius: 18px; padding: 14px; }
+    .panel-card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 14px; }
     .panel-card.wide { grid-column: 1 / -1; }
-    .panel-card h2 { margin: 0 0 10px; font-size: 1.02rem; letter-spacing: -0.02em; }
+    .panel-card h2 { margin: 0 0 10px; font-size: 1.04rem; letter-spacing: -0.02em; }
 
-    .progress-wrap { background: #e5e7eb; border-radius: 999px; height: 15px; overflow: hidden; margin-bottom: 18px; border: 1px solid rgba(255, 255, 255, 0.8); }
-    .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--green), var(--accent)); transition: width 0.25s ease; }
+    .progress-wrap { background: var(--line); border-radius: 999px; height: 14px; overflow: hidden; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.7); }
+    .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--vital), var(--signal) 60%, var(--calm)); transition: width 0.3s ease; }
 
+    /* ===================== SCHEDULE BLOCKS (channel cards) ===================== */
     .schedule { display: grid; gap: 12px; }
-    .block { display: grid; grid-template-columns: 34px 140px minmax(0, 1fr) 190px; gap: 14px; align-items: start; background: rgba(255, 255, 255, 0.96); border: 1px solid var(--border); border-radius: 18px; padding: 14px; transition: 0.2s ease; overflow: hidden; }
-    .block:hover { border-color: rgba(99, 102, 241, 0.35); box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06); }
-    .block.done { opacity: 0.68; background: #f9fafb; }
+    .block {
+      display: grid; grid-template-columns: 34px 128px minmax(0, 1fr) 184px; gap: 14px; align-items: start;
+      background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--ch, var(--rest));
+      border-radius: 16px; padding: 14px 15px; transition: box-shadow .2s ease, transform .12s ease, opacity .2s ease;
+      overflow: hidden; position: relative;
+      animation: rise .32s ease both;
+    }
+    @keyframes rise { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+    .block:hover { box-shadow: var(--shadow); }
+    .block.done { opacity: 0.6; background: var(--paper); }
     .block.done .block-title { text-decoration: line-through; }
-    .check { width: 24px; height: 24px; accent-color: var(--green); cursor: pointer; margin-top: 4px; }
-    .time { font-weight: 900; color: var(--accent); font-size: 0.95rem; padding-top: 3px; overflow-wrap: anywhere; }
-    .block-title { font-size: 1.06rem; font-weight: 900; margin-bottom: 4px; letter-spacing: -0.01em; overflow-wrap: anywhere; }
-    .block-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; color: var(--muted); font-size: 0.86rem; margin-bottom: 8px; }
-    .pill { display: inline-flex; align-items: center; gap: 4px; border-radius: 999px; padding: 4px 9px; background: var(--accent-soft); color: #3730a3; font-weight: 800; font-size: 0.76rem; }
 
-    .details { color: #374151; line-height: 1.6; white-space: pre-line; font-size: 0.92rem; overflow-wrap: anywhere; word-break: break-word; }
-    .details a, .exercise-list a, .resource-link, .history-entry a { color: #4f46e5; font-weight: 800; text-decoration: none; border-bottom: 1px solid rgba(79, 70, 229, 0.28); overflow-wrap: anywhere; word-break: break-word; }
-    .details a:hover, .exercise-list a:hover, .resource-link:hover, .history-entry a:hover { color: #3730a3; border-bottom-color: #3730a3; }
+    /* channel tokens */
+    .ch-volt   { --ch: var(--volt);   --ch-soft: var(--volt-soft);   --ch-ink: var(--volt-ink); }
+    .ch-signal { --ch: var(--signal); --ch-soft: var(--signal-soft); --ch-ink: var(--signal-ink); }
+    .ch-vital  { --ch: var(--vital);  --ch-soft: var(--vital-soft);  --ch-ink: var(--vital-ink); }
+    .ch-calm   { --ch: var(--calm);   --ch-soft: var(--calm-soft);   --ch-ink: var(--calm-ink); }
+    .ch-rest   { --ch: var(--rest);   --ch-soft: var(--rest-soft);   --ch-ink: var(--rest-ink); }
+    .ch-slate  { --ch: var(--slate);  --ch-soft: var(--slate-soft);  --ch-ink: var(--slate-ink); }
 
-    .exercise-list { display: grid; gap: 6px; margin-top: 8px; padding: 10px; background: var(--green-soft); border: 1px solid rgba(16, 185, 129, 0.18); border-radius: 14px; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
-    .exercise-list div { line-height: 1.45; }
+    .check { width: 26px; height: 26px; accent-color: var(--ch, var(--vital)); cursor: pointer; margin-top: 3px; }
+    .time {
+      font-family: var(--font-mono); font-weight: 700; color: var(--ch-ink, var(--ink));
+      font-size: 0.92rem; padding-top: 2px; overflow-wrap: anywhere; line-height: 1.3;
+    }
+    .block-title { font-family: var(--font-display); font-size: 1.08rem; font-weight: 600; margin-bottom: 5px; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+    .block-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; color: var(--ink-faint); font-size: 0.82rem; margin-bottom: 8px; font-family: var(--font-mono); }
+    .pill {
+      display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; padding: 3px 10px;
+      background: var(--ch-soft, var(--rest-soft)); color: var(--ch-ink, var(--rest-ink));
+      font-weight: 700; font-size: 0.72rem; font-family: var(--font-mono); letter-spacing: 0.04em;
+      border: 1px solid color-mix(in srgb, var(--ch, var(--rest)) 25%, transparent);
+    }
 
-    .routine-box { margin-top: 9px; padding: 11px 12px; background: var(--blue-soft); border: 1px solid rgba(59, 130, 246, 0.16); border-radius: 14px; white-space: pre-line; overflow-wrap: anywhere; word-break: break-word; }
+    .details { color: #3A3A4A; line-height: 1.62; white-space: pre-line; font-size: 0.92rem; overflow-wrap: anywhere; word-break: break-word; }
+    .details a, .exercise-list a, .resource-link, .history-entry a {
+      color: var(--ch-ink, var(--signal-ink)); font-weight: 700; text-decoration: none;
+      border-bottom: 1.5px solid color-mix(in srgb, var(--ch, var(--signal)) 35%, transparent);
+      overflow-wrap: anywhere; word-break: break-word;
+    }
+    .details a:hover, .exercise-list a:hover, .resource-link:hover, .history-entry a:hover { border-bottom-color: var(--ch, var(--signal)); }
 
-    /* inline block textbox (used for night reflection right after its block) */
-    .block-note { grid-column: 1 / -1; margin-top: 4px; display: grid; gap: 8px; padding: 12px; background: linear-gradient(135deg, #eef2ff, #e0e7ff); border: 1px solid rgba(99,102,241,0.2); border-radius: 16px; }
+    .exercise-list { display: grid; gap: 6px; margin-top: 9px; padding: 11px 12px; background: var(--vital-soft); border: 1px solid color-mix(in srgb, var(--vital) 18%, transparent); border-radius: 14px; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+    .exercise-list div { line-height: 1.5; }
+    .exercise-list a { color: var(--vital-ink); border-bottom-color: color-mix(in srgb, var(--vital) 35%, transparent); }
+
+    .routine-box { margin-top: 10px; padding: 12px; background: var(--ch-soft, var(--signal-soft)); border: 1px solid color-mix(in srgb, var(--ch, var(--signal)) 18%, transparent); border-radius: 14px; white-space: pre-line; overflow-wrap: anywhere; word-break: break-word; }
+    .routine-box strong { font-family: var(--font-display); }
+
+    .block-note { grid-column: 1 / -1; margin-top: 6px; display: grid; gap: 8px; padding: 13px; background: linear-gradient(135deg, var(--calm-soft), #F3EEFE); border: 1px solid color-mix(in srgb, var(--calm) 18%, transparent); border-radius: 16px; }
     .block-note .journal-prompt { margin-bottom: 0; }
     .block-note textarea { min-height: 120px; }
     .block-note .save-status { font-size: 0.82rem; }
 
+    /* ----- timer ----- */
     .timer { display: grid; gap: 8px; justify-items: stretch; }
-    .timer-display { text-align: center; font-size: 1.2rem; font-weight: 950; font-variant-numeric: tabular-nums; background: #f3f4f6; border-radius: 13px; padding: 8px; }
+    .timer-display {
+      text-align: center; font-family: var(--font-mono); font-size: 1.18rem; font-weight: 700;
+      background: var(--ch-soft, #F1EEE7); color: var(--ch-ink, var(--ink));
+      border: 1px solid color-mix(in srgb, var(--ch, var(--rest)) 22%, transparent);
+      border-radius: 13px; padding: 8px; letter-spacing: 0.04em;
+    }
     .timer-controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
-    .timer-controls button { font-size: 0.85rem; padding: 8px; border-radius: 11px; min-height: 40px; }
-    .timer-controls .start { background: var(--green); }
-    .timer-controls .pause { background: var(--yellow); }
-    .timer-controls .reset { background: #6b7280; }
+    .timer-controls button { font-size: 0.95rem; padding: 8px; border-radius: 11px; min-height: 42px; }
+    .timer-controls .start { background: var(--vital); }
+    .timer-controls .pause { background: var(--volt); }
+    .timer-controls .reset { background: var(--slate); }
 
-    .journal-prompt { background: linear-gradient(135deg, var(--accent-soft), #f5f3ff); color: #3730a3; border-radius: 16px; padding: 12px; font-weight: 900; line-height: 1.4; margin-bottom: 12px; border: 1px solid rgba(99, 102, 241, 0.15); }
-    .night-prompt { background: linear-gradient(135deg, #eef2ff, #e0e7ff); }
+    .journal-prompt { background: linear-gradient(135deg, var(--calm-soft), #F3EEFE); color: var(--calm-ink); border-radius: 16px; padding: 13px; font-weight: 700; font-family: var(--font-display); line-height: 1.45; margin-bottom: 12px; border: 1px solid color-mix(in srgb, var(--calm) 16%, transparent); }
+    .night-prompt { background: linear-gradient(135deg, #ECE6FD, #E6DEFB); }
 
-    textarea { width: 100%; min-height: 150px; border: 1px solid var(--border); border-radius: 16px; padding: 12px; resize: vertical; outline: none; background: white; color: var(--text); line-height: 1.5; font-size: 16px; }
+    textarea { width: 100%; min-height: 150px; border: 1px solid var(--line-2); border-radius: 16px; padding: 12px; resize: vertical; outline: none; background: #fff; color: var(--ink); line-height: 1.55; font-size: 16px; font-family: var(--font-body); }
 
     .journal-actions { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; margin-top: 10px; }
-    .save-status { color: var(--muted); font-size: 0.84rem; }
+    .save-status { color: var(--ink-faint); font-size: 0.82rem; font-family: var(--font-mono); }
 
     .weight-form { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-bottom: 10px; }
-    .weight-compare { margin-bottom: 10px; border-radius: 12px; padding: 10px; font-size: 0.9rem; font-weight: 700; background: #f8fafc; border: 1px solid var(--border); color: #334155; }
-    .weight-compare.up { background: #fff1f2; border-color: #fecdd3; color: #9f1239; }
-    .weight-compare.down { background: #ecfdf5; border-color: #bbf7d0; color: #065f46; }
-    .weight-compare.same { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+    .weight-compare { margin-bottom: 10px; border-radius: 12px; padding: 11px; font-size: 0.88rem; font-weight: 700; background: var(--paper-2); border: 1px solid var(--line-2); color: var(--ink-soft); }
+    .weight-compare.up { background: var(--rose-soft); border-color: #F6CDC2; color: var(--rose-ink); }
+    .weight-compare.down { background: var(--vital-soft); border-color: #BDE9D3; color: var(--vital-ink); }
+    .weight-compare.same { background: var(--signal-soft); border-color: #C3DEF6; color: var(--signal-ink); }
 
-    .weight-list, .history-list { max-height: 220px; overflow: auto; border: 1px solid var(--border); border-radius: 16px; background: white; -webkit-overflow-scrolling: touch; }
+    .weight-list, .history-list { max-height: 230px; overflow: auto; border: 1px solid var(--line); border-radius: 16px; background: #fff; -webkit-overflow-scrolling: touch; }
     .history-list { display: grid; }
-    .history-day { padding: 11px 12px; border-bottom: 1px solid var(--border); display: grid; gap: 5px; cursor: pointer; background: white; transition: 0.18s ease; }
-    .history-day:hover { background: var(--accent-soft); }
+    .history-day { padding: 11px 12px; border-bottom: 1px solid var(--line); display: grid; gap: 5px; cursor: pointer; background: #fff; transition: 0.16s ease; }
+    .history-day:hover { background: var(--signal-soft); }
     .history-day:last-child { border-bottom: none; }
-    .history-date { font-weight: 900; overflow-wrap: anywhere; }
-    .history-meta { font-size: 0.84rem; color: var(--muted); line-height: 1.35; overflow-wrap: anywhere; }
+    .history-date { font-weight: 800; font-family: var(--font-display); overflow-wrap: anywhere; }
+    .history-meta { font-size: 0.82rem; color: var(--ink-faint); line-height: 1.4; overflow-wrap: anywhere; font-family: var(--font-mono); }
 
     table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-    th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }
+    th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
     tr:last-child td { border-bottom: none; }
-    th { color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    th { color: var(--ink-faint); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; font-family: var(--font-mono); }
+    td { font-family: var(--font-mono); }
 
-    .small-note { color: var(--muted); font-size: 0.85rem; line-height: 1.45; overflow-wrap: anywhere; }
+    .small-note { color: var(--ink-faint); font-size: 0.83rem; line-height: 1.5; overflow-wrap: anywhere; }
 
-    .history-entry { padding: 12px; border-radius: 16px; background: #f9fafb; border: 1px solid var(--border); margin-top: 10px; line-height: 1.5; overflow-wrap: anywhere; word-break: break-word; max-height: 230px; overflow: auto; }
-    .history-entry strong { display: block; margin-bottom: 6px; }
+    .history-entry { padding: 12px; border-radius: 16px; background: var(--paper); border: 1px solid var(--line); margin-top: 10px; line-height: 1.55; overflow-wrap: anywhere; word-break: break-word; max-height: 240px; overflow: auto; }
+    .history-entry strong { display: block; margin-bottom: 6px; font-family: var(--font-display); }
 
     .resource-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .resource-link { display: block; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 10px; border-bottom: 1px solid var(--border); }
+    .resource-link { display: block; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 11px; font-weight: 700; color: var(--signal-ink); border-bottom: 1px solid var(--line); }
+    .resource-link:hover { border-color: var(--signal); }
 
-    /* CONFIRM MODAL */
-    .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.55); display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 100; }
+    /* ----- confirm modal ----- */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(20,14,8,0.55); display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 100; -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
     .modal-overlay[hidden] { display: none; }
     .modal { background: #fff; border-radius: 18px; padding: 22px; max-width: 440px; width: 100%; box-shadow: var(--shadow); }
     .modal p { margin: 0 0 18px; line-height: 1.55; font-weight: 600; }
     .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
 
+    /* ===================== RESPONSIVE ===================== */
     @media (max-width: 1200px) {
       .layout { grid-template-columns: 1fr; }
       .side { position: static; }
       .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .top-sections { grid-template-columns: 1fr; }
-      .block { grid-template-columns: 34px 1fr; }
-      .time, .timer { grid-column: 2; }
-    }
-
-    @media (max-width: 760px) { .calorie-main { grid-template-columns: 1fr; } }
-
-    @media (max-width: 700px) {
-      .app { padding: 14px; }
-      .main-card, .side .card { padding: 14px; }
-      .resource-grid { grid-template-columns: 1fr; }
-      .top-controls { width: 100%; }
-      .top-controls > * { flex: 1 1 100%; }
-      .stats-grid { grid-template-columns: 1fr; }
-      .block { grid-template-columns: 28px 1fr; gap: 10px; padding: 12px; }
-      .check { width: 26px; height: 26px; }
-      .time { font-size: 0.9rem; }
-      .timer { grid-column: 1 / -1; margin-top: 2px; }
-      .journal-actions, .weight-form { grid-template-columns: 1fr; }
-      table { font-size: 0.84rem; }
-      th, td { padding: 8px; }
-    }
-
-    @media (max-width: 1100px) {
-      .block { grid-template-columns: 34px minmax(0, 1fr); align-items: start; }
+      .block { grid-template-columns: 34px minmax(0, 1fr); }
       .block > .time { grid-column: 2; }
       .block > :nth-child(3) { grid-column: 2; }
       .block > .timer { grid-column: 2; }
-      .block .details, .block .block-title, .block .block-meta { overflow-wrap: anywhere; word-break: break-word; }
+    }
+    @media (max-width: 760px) { .calorie-main { grid-template-columns: 1fr; } }
+    @media (max-width: 700px) {
+      .app { padding: 12px 12px 50px; }
+      header { padding: 20px 18px; border-radius: 22px; }
+      .side .card { padding: 14px; }
+      .resource-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .block { grid-template-columns: 28px minmax(0, 1fr); gap: 11px; padding: 13px; border-left-width: 5px; }
+      .block > .time, .block > :nth-child(3) { grid-column: 2; }
+      .block > .timer { grid-column: 1 / -1; margin-top: 2px; }
+      .check { width: 26px; height: 26px; }
+      .journal-actions, .weight-form { grid-template-columns: 1fr; }
+      table { font-size: 0.82rem; }
+      th, td { padding: 8px; }
+    }
+    @media (max-width: 420px) {
+      .top-controls { grid-template-columns: 1fr 1fr; }
+      .title-block h1 { font-size: 2rem; }
     }
 
-    @media (max-width: 700px) {
-      .block { grid-template-columns: 28px minmax(0, 1fr); gap: 10px; }
-      .block > .time, .block > :nth-child(3) { grid-column: 2; }
-      .block > .timer { grid-column: 1 / -1; }
+    @media (prefers-reduced-motion: reduce) {
+      .block { animation: none; }
+      * { transition: none !important; }
     }
   </style>
 </head>
@@ -249,22 +358,21 @@
   <div class="app">
     <header>
       <div class="title-block">
-        <h1>🌞 Daily Life Tracker</h1>
-        <p>
-          🔥 Track calories · ✅ check off blocks · ⏱ run timers · 📓 journal + 🌙 night reflection · ⚖️ weight vs previous day · 🧠 mind-offload notes.
-        </p>
+        <span class="eyebrow">🛠 Summer 2026 · Maker OS</span>
+        <h1>Daily Plan</h1>
+        <p>One screen for the whole day — ✅ check off blocks · ⏱ run a timer per block · 🔥 log calories · ⚖️ weigh in · 📓 journal &amp; 🌙 reflect. Pick a day below; <strong>Sunday</strong> loads the week's Maker Day lab automatically.</p>
       </div>
 
       <div class="top-controls">
         <input id="datePicker" type="date">
         <select id="daySelect">
-          <option value="Mon">🌕 Monday</option>
-          <option value="Tue">🔥 Tuesday</option>
+          <option value="Mon">🌅 Monday</option>
+          <option value="Tue">🔋 Tuesday</option>
           <option value="Wed">🌊 Wednesday</option>
           <option value="Thu">⚡ Thursday</option>
-          <option value="Fri">🎉 Friday</option>
+          <option value="Fri">✨ Friday</option>
           <option value="Sat">🛠 Saturday</option>
-          <option value="Sun">🌞 Sunday</option>
+          <option value="Sun">🚗 Sunday · Maker</option>
         </select>
         <button class="ghost" id="todayBtn">📍 Today</button>
         <button class="ghost" id="resetDayBtn">♻️ Reset Day</button>
@@ -603,9 +711,41 @@
     /* ====================================================================
        MONDAY–SATURDAY SCHEDULE  (rebuilt from NEW-PLAN.xlsx → MasterPlan)
        ==================================================================== */
+    /* ---------- simplified-plan helpers (Plan-06-24-2026) ---------- */
+    const aiLoop = `Explain it → Confirm with Claude → Ask Claude to quiz you (Socratic pushback).`;
+
+    const hwFocus = `🔋 Power Meters
+🧩 Arduino — Nano 33 · Uno R3 / R4 · Uno Q · Mega
+🍓 Raspberry Pi 3 / 4 / 5
+🧠 Jetson Nano · RTX GPU
+📡 Sensors · IMUs · MOSFETs · Gate Drivers · Regulators
+🔌 UART · I²C · SPI · QSPI
+👁 HuskyLens · Nicla Vision
+🗜 Quantization · Pruning · Distillation · LoRA`;
+
+    /* category → oscilloscope channel colour + glyph */
+    function categoryStyle(cat) {
+      const M = {
+        "Wake":      { c: "volt",   g: "🌅" },
+        "Learn":     { c: "signal", g: "🎬" },
+        "Core Tech": { c: "signal", g: "🔌" },
+        "DeepThink": { c: "signal", g: "🧠" },
+        "Walk":      { c: "vital",  g: "🚶" },
+        "Exercise":  { c: "vital",  g: "💪" },
+        "Maker":     { c: "volt",   g: "🚗" },
+        "Self-Care": { c: "calm",   g: "🚿" },
+        "Meal":      { c: "rest",   g: "🍽" },
+        "Break":     { c: "rest",   g: "🥤" },
+        "Rest":      { c: "rest",   g: "😴" },
+        "Admin":     { c: "slate",  g: "📧" },
+        "WindDown":  { c: "calm",   g: "🌙" }
+      };
+      return M[cat] || { c: "rest", g: "•" };
+    }
+
     const baseSchedule = [
       {
-        time: "8:00–8:15", title: "🌅 Wake & Hydrate", category: "Wake", water: 16,
+        time: "7:45–8:00", title: "🌅 Wake & Hydrate", category: "Wake", water: 16,
         details: `Morning Reset
 💧 16 oz water · 🧘 2 min stretch · 🌬 3 slow breaths
 📵 No phone · 🎯 1 intention
@@ -615,19 +755,16 @@
 ☀️ Energy tip: if sleep-deprived, get 10–15 min outdoor sunlight to anchor your circadian rhythm.`
       },
       {
-        time: "8:15–8:45", title: "🎬 Visual Learning A", category: "Learn",
-        detailsByDay: {
-          Mon: `🎥 30 min — high-quality visuals & animation only.\n⚡ Power Electronics (${links.powerElectronics}) — ${links.engineeringMindset} · ${links.electrArc} · ${links.asianometry}`,
-          Tue: `🎥 30 min — high-quality visuals & animation only.\n🧠 NLP / Transformers — ${links.threeBlue} · ${links.welchLabs} · ${links.computerphile}`,
-          Wed: `🎥 30 min — high-quality visuals & animation only.\n💻 Computing Fundamentals — ${links.coreDumped} · ${links.branchEducation}`,
-          Thu: `🎥 30 min — high-quality visuals & animation only.\n⚡ Power Electronics (${links.powerElectronics}) — ${links.electrArc} · ${links.lesics}`,
-          Fri: `🎥 30 min — high-quality visuals & animation only.\n🎛 Control Theory — ${links.brianDouglas} · ${links.matlab}`,
-          Sat: `🎥 30 min — high-quality visuals & animation only.\n🌐 SOTA AI — ${links.welchLabs} · ${links.veritasium} · ${links.artOfProblem}`
-        }
+        time: "8:00–8:50", title: "🎬 Visual Learning A · Power", category: "Learn",
+        details: `🎥 45 min — high-quality visuals & animation only.
+
+⚡ ${links.powerElectronics}
+${links.engineeringMindset} · ${links.electrArc} · ${links.asianometry} · ${links.lesics}`
       },
       {
-        time: "8:45–9:00", title: "🥤 Break · Water + Protein", category: "Break", water: 16,
-        details: `💧 16 oz water & Protein Shake.`
+        time: "8:50–9:00", title: "🥤 Break · SPF · Water · Protein", category: "Break", water: 16,
+        details: `💧 16 oz water & Protein Shake.
+🧴 Apply SPF now — before Walk #1.`
       },
       {
         time: "9:00–9:30", title: "🚶‍♀️💨 Walk #1 · ~3,000 steps", category: "Walk",
@@ -641,41 +778,39 @@ ${mckay}`
         details: `💧 16 oz water.`
       },
       {
-        time: "9:45–10:45", title: "🧠 Deep AI Thinking #1", category: "DeepThink",
-        details: `🧠 1 hour — use AI to deepen understanding, not just consume.
+        time: "9:45–11:15", title: "🧠 Deep AI Thinking #1 · Hardware", category: "DeepThink",
+        details: `🧠 90 min — use AI to deepen understanding, not just consume.
 
-${aiFocus}
+${aiLoop}
 
-📰 Prime with a SOTA recap: ${links.evolvingAI}.
-💡 Use Projects + Artifacts in Claude for persistent concept maps.`
+🎯 Focus — pick ONE:
+${hwFocus}`
       },
       {
-        time: "10:45–11:15", title: "☕ Break · Water + Meditate", category: "Break", water: 16,
-        details: `💧 16 oz water.
-🧘 Breathing Meditation (~10 min) · 👀 screen detox · 🙆 stretch shoulders.`
+        time: "11:15–11:30", title: "☕ Break · Water", category: "Break", water: 16,
+        details: `💧 16 oz water.`
       },
       {
-        time: "11:15–12:15", title: "⚡ Course Prep", category: "Learn", coursePrep: true
+        time: "11:30–12:30", title: "⚡ Course Prep", category: "Learn", coursePrep: true
       },
       {
-        time: "12:15–12:35", title: "📧 Check Emails", category: "Admin",
-        details: `Check & respond to emails. Keep it tight — triage, reply, archive.`
+        time: "12:30–1:00", title: "🚗 Make a Rover", category: "Maker",
+        details: `🔧 Hands-on rover build — bring this week's Sunday Maker Day lab onto the ECE 115 rover.
+• Wire ONE subsystem · test it · log ONE measurement.
+📏 Predict the number before you measure.`
       },
       {
-        time: "12:35–12:50", title: "🍲 Lunch", category: "Meal",
-        details: `🥗 Eggs or Tuna or a Sandwich.
-📵 no work · 🐢 slow eating.
-
-🎯 6-pack note: keep protein high (≈1 g per lb body-weight), slight caloric deficit.`
+        time: "1:00–1:15", title: "📧 Emails", category: "Admin",
+        details: `Triage, reply, archive. Keep it tight.`
       },
       {
-        time: "12:50–2:00", title: "😴 Healthy Nap", category: "Rest",
+        time: "1:15–2:30", title: "😴 Healthy Nap", category: "Rest",
         details: `🌑 dark room · 📵 phone DND
 ⏰ alarm 30–40 min max — avoids grogginess
 ☕ Optional coffee nap (caffeine 5 min before).`
       },
       {
-        time: "2:00–2:25", title: "💪 Exercise", category: "Exercise",
+        time: "2:30–3:00", title: "💪 Exercise", category: "Exercise",
         detailsByDay: {
           Mon: `${warmup}
 
@@ -809,11 +944,11 @@ ${exerciseBox([
         }
       },
       {
-        time: "2:25–2:30", title: "🥤 Break · Water + Protein", category: "Break", water: 16,
+        time: "3:00–3:05", title: "🥤 Break · Water · Protein", category: "Break", water: 16,
         details: `💧 16 oz water & one protein shake.`
       },
       {
-        time: "2:30–3:00", title: "🚿 Shower + Skincare AM", category: "Self-Care",
+        time: "3:05–3:30", title: "🚿 Shower + Skincare AM", category: "Self-Care",
         detailsByDay: {
           Mon: `🚿 Vanicream Shampoo (2 min) · ACURE Conditioner (2 min) · Body Wash · CeraVe Cleanser (30–60 s) → towel-dry hair & face\n\n${amFace}`,
           Tue: `🚿 Water-rinse scalp · beard rinse · Body Wash · cleanse if oily → towel-dry\n\n${amFace}`,
@@ -824,105 +959,77 @@ ${exerciseBox([
         }
       },
       {
-        time: "3:00–3:45", title: "🎬 Visual Learning B", category: "Learn",
-        detailsByDay: {
-          Mon: `🎥 45 min — visuals only.\n🧠 Neural Nets / Backprop — ${links.threeBlue} · ${links.welchLabs}`,
-          Tue: `🎥 45 min — visuals only.\n🎮 Reinforcement Learning — ${links.mutualInfo} · ${links.welchLabs}`,
-          Wed: `🎥 45 min — visuals only.\n👁 Computer Vision — ${links.computerphile} · ${links.firstPrinciplesCV}`,
-          Thu: `🎥 45 min — visuals only.\n🌀 Diffusion & Generative — ${links.computerphile} · ${links.artOfProblem}`,
-          Fri: `🎥 45 min — visuals only.\n📐 Math for ML — ${links.threeBlue} (Linear Algebra)`,
-          Sat: `🎥 45 min — visuals only.\n🌐 SOTA / Research — ${links.welchLabs} · ${links.evolvingAI} · ${links.artOfProblem}`
-        }
-      },
-      {
-        time: "3:45–4:00", title: "☕ Break", category: "Break",
-        details: `🚶 Walk indoors · 👀 look outside 2 min.`
-      },
-      {
-        time: "4:00–5:00", title: "🧠 Deep AI Thinking #2", category: "DeepThink",
-        details: `🧠 1 hour — same Loop as Deep AI #1 (intuition → rebuild → Claude quiz → log).
+        time: "3:30–4:30", title: "🎬 Visual Learning B · AI · RL · CV", category: "Learn",
+        details: `🎥 45 min — high-quality visuals & animation only.
 
-${aiFocus}
+🧠 Neural Nets / Backprop — ${links.threeBlue} · ${links.welchLabs}
+🎮 Reinforcement Learning — ${links.mutualInfo} · ${links.welchLabs}
+👁 Computer Vision — ${links.computerphile} · ${links.firstPrinciplesCV}
+🌀 Diffusion & Generative — ${links.computerphile} · ${links.artOfProblem}
+📐 Math for ML — ${links.threeBlue} (Linear Algebra)
+🌐 SOTA / Research — ${links.welchLabs} · ${links.evolvingAI} · ${links.artOfProblem}`
+      },
+      {
+        time: "4:30–4:45", title: "☕ Break & Water", category: "Break", water: 16,
+        details: `🚶 Walk indoors · 👀 look outside 2 min.
+💧 16 oz water.`
+      },
+      {
+        time: "4:45–6:15", title: "🧠 Deep AI Thinking #2 · AI / RL / CV", category: "DeepThink",
+        details: `🧠 90 min — same Loop as Block #1 (intuition → rebuild → Claude quiz → log).
 
-🤖 Ask Claude to quiz you & explain stuck math.`
+${aiLoop}
+
+🎯 Focus — pick ONE:
+🧰 Tools: Colab · GitHub · HuggingFace · AI Studio
+🔬 SOTA: LLMs · Tokenization · VLM · VLA · RL · Q-Learning · REINFORCE · A2C · Double Q-Learning · CV · YOLO · SSD · MoE · Mamba · RoPE · KV-Cache · FlashAttn · RLHF · DPO · Diffusion · CLIP · ViT`
       },
       {
-        time: "5:00–5:05", title: "☕ Break", category: "Break",
-        details: `🧍 Stand · stretch · reset.`
-      },
-      {
-        time: "5:05–5:30", title: "🚶‍♀️💨 Walk #2 · Mindset & Growth", category: "Walk",
-        details: `⚡ Brisk pace · 🧠 stress reset
+        time: "6:15–7:00", title: "🚶‍♀️💨 Walk #2 · Mindset & Growth", category: "Walk",
+        details: `⚡ Brisk pace · 🧠 stress reset.
 
 ${mckay}`
       },
       {
-        time: "5:30–5:35", title: "🥤 Break · Water", category: "Break", water: 16,
-        details: `💧 16 oz water.`
-      },
-      {
-        time: "5:35–6:15", title: "🎬 Visual Learning C · Embedded & Hardware", category: "Core Tech",
-        detailsByDay: {
-          Mon: `🎥 40 min — visuals focused on Embedded & Hardware.\n🔌 Embedded C — ${links.lowLevel} · ${links.artfulBytes}`,
-          Tue: `🎥 40 min — visuals focused on Embedded & Hardware.\n🛠 Hardware Troubleshooting — ${links.electronoobs} · ${links.electronicWizard} · ${links.diodeGoneWild} · ${links.lapfix} · ${links.jayz}`,
-          Wed: `🎥 40 min — visuals focused on Embedded & Hardware.\n💻 C++ — ${links.cherno} · ${links.freeCodeCamp}`,
-          Thu: `🎥 40 min — visuals focused on Embedded & Hardware.\n🧩 FPGA — ${links.nandland} · ${links.fpga4student} · ${links.freeCodeCamp}`,
-          Fri: `🎥 40 min — visuals focused on Embedded & Hardware.\n⚡ CUDA & GPU — ${links.zeroMean} · ${links.freeCodeCamp}`,
-          Sat: `🎥 40 min — visuals focused on Embedded & Hardware.\n🧠 TPU & NPU + Power — ${links.asianometry} · ${links.electrArc}`
-        }
-      },
-      {
-        time: "6:15–7:15", title: "🍽 Dinner & Walk", category: "Meal",
-        details: `🥩🥦🍚 Dinner — protein + veg + carb
-📵 no screens · 🐢 slow
+        time: "7:00–8:30", title: "🧠 Deep AI Thinking #3 · Electronics · FPGA · Computing", category: "DeepThink",
+        details: `🧠 90 min — same Loop (intuition → rebuild → Claude quiz → log).
 
-🚶 Easy post-dinner walk — aids digestion + sleep.
+${aiLoop}
 
-🎯 6-pack tip: front-load protein, keep portions moderate.`
-      },
-      {
-        time: "7:15–8:15", title: "🧠 Deep AI Thinking #3 · Embedded & HW", category: "DeepThink",
-        details: `🧠 1 hour — same Loop (intuition → rebuild → Claude quiz → log).
-
-${aiFocus}
-
+🎯 Focus — pick ONE:
+🔌 Computing · FPGA Programming · Power Electronics
 🤖 Ask Claude to set tiny projects & review your code.`
       },
       {
-        time: "8:15–8:45", title: "📧 Check Emails", category: "Admin",
-        details: `Respond to emails. Clear the inbox before the evening deep-dive.`
+        time: "8:30–8:45", title: "📧 Emails", category: "Admin",
+        details: `Clear the inbox before the evening visuals block.`
       },
       {
-        time: "8:45–10:15", title: "🎬 Visual Learning D · Systems Deep-Dive", category: "Core Tech",
-        detailsByDay: {
-          Mon: `🎥 90 min — systems & deep-dive visuals.\n🧱 Systems & SBCs — ${links.coreDumped} · ${links.jeffGeerling}\n\n📝 Save 2–3 to deep-read Saturday.`,
-          Tue: `🎥 90 min — systems & deep-dive visuals.\n🌐 Networking & Internet — ${links.byteByteGo}\n\n📝 Save 2–3 to deep-read Saturday.`,
-          Wed: `🎥 90 min — systems & deep-dive visuals.\n🗄 Databases & Storage — ${links.byteByteGo} · ${links.coreDumped}\n\n📝 Save 2–3 to deep-read Saturday.`,
-          Thu: `🎥 90 min — systems & deep-dive visuals.\n🏭 Semiconductors & Chips — ${links.asianometry} · ${links.branchEducation}\n\n📝 Save 2–3 to deep-read Saturday.`,
-          Fri: `🎥 90 min — systems & deep-dive visuals.\n⚡ Power & Energy Systems — ${links.engineeringMindset} · ${links.lesics}\n\n📝 Save 2–3 to deep-read Saturday.`,
-          Sat: `🎥 90 min — systems & deep-dive visuals.\n🤖 SOTA AI Systems — ${links.welchLabs} · ${links.veritasium} · ${links.evolvingAI}\n\n📝 Deep-read the articles you saved this week.`
-        }
-      },
-      {
-        time: "10:15–10:30", title: "🧘 Meditation & Review", category: "Meditation",
-        details: `🧘 Meditation (~15 min)
-- W1–3 Body Scan · W6–8 RAIN
-- W9–11 Loving-Kindness · W12–15 Open Awareness
+        time: "8:45–10:00", title: "🎬 Visual Learning C · Embedded & Hardware", category: "Core Tech",
+        details: `🎥 75 min — visuals focused on Embedded & Hardware.
 
-📓 What worked today: "I finally get ___" + 1 win + 1 gap.
-
-💛 Be kind to yourself today.`
+🔌 Embedded C — ${links.lowLevel} · ${links.artfulBytes}
+🛠 Hardware Troubleshooting — ${links.electronoobs} · ${links.electronicWizard} · ${links.diodeGoneWild} · ${links.lapfix} · ${links.jayz}
+💻 C++ — ${links.cherno} · ${links.freeCodeCamp}
+🧩 FPGA — ${links.nandland} · ${links.fpga4student} · ${links.freeCodeCamp}
+⚡ CUDA & GPU — ${links.zeroMean} · ${links.freeCodeCamp}
+🧠 TPU & NPU + Power — ${links.asianometry} · ${links.electrArc}
+🧱 Systems & SBCs — ${links.coreDumped} · ${links.jeffGeerling}
+🌐 Networking & Internet — ${links.byteByteGo}
+🗄 Databases & Storage — ${links.byteByteGo} · ${links.coreDumped}
+🏭 Semiconductors & Chips — ${links.asianometry} · ${links.branchEducation}
+⚡ Power & Energy Systems — ${links.engineeringMindset} · ${links.lesics}
+🤖 SOTA AI Systems — ${links.welchLabs} · ${links.veritasium} · ${links.evolvingAI}`
       },
       {
-        time: "10:30–11:00", title: "📱 Social Media & PM Skincare", category: "WindDown",
-        detailsByDay: {
-          Mon: `📱 Light, intentional wind-down — 📵 no doom-scrolling.\n\n🌙 PM Face (Tretinoin night)\nCleanse → ⏳ wait 20–30 min (skin fully dry) → Tretinoin (pea; avoid eyes, nose creases, lips) → Restore ceramide moisturizer → Minoxidil to DRY scalp (let dry).\n\n😴 Silk pillowcase.`,
-          Tue: `📱 Light, intentional wind-down — 📵 no doom-scrolling.\n\n🌙 PM Face\nCleanse → Restore moisturizer (no tretinoin).\n\n😴 Silk pillowcase.`,
-          Wed: `📱 Light, intentional wind-down — 📵 no doom-scrolling.\n\n🌙 PM Face (Tretinoin night)\nCleanse → ⏳ wait 20–30 min (skin fully dry) → Tretinoin (pea; avoid eyes, nose creases, lips) → Restore ceramide moisturizer → Minoxidil to DRY scalp (let dry).\n\n😴 Silk pillowcase.`,
-          Thu: `📱 Light, intentional wind-down — 📵 no doom-scrolling.\n\n🌙 PM Face\nCleanse → Restore moisturizer (no tretinoin).\n\n😴 Silk pillowcase.`,
-          Fri: `📱 Light, intentional wind-down — 📵 no doom-scrolling.\n\n🌙 PM Face (Tretinoin night)\nCleanse → ⏳ wait 20–30 min (skin fully dry) → Tretinoin (pea; avoid eyes, nose creases, lips) → Restore ceramide moisturizer → Minoxidil to DRY scalp (let dry).\n\n😴 Silk pillowcase.`,
-          Sat: `📱 Light, intentional wind-down — 📵 no doom-scrolling.\n\n🌙 PM Face\nGentle cleanse → Salicylic 2% masque T-zone (≤10 min) → rinse → moisturizer.\n\n😴 Silk pillowcase.`
-        }
+        time: "10:00–11:00", title: "📱 Skincare + Social Media", category: "WindDown",
+        details: `📱 Light, intentional wind-down — 📵 no doom-scrolling.
+
+🌙 PM Face
+Tretinoin (pea; avoid eyes, nose creases, lips) → Restore ceramide moisturizer.
+🛁 Sat → Gentle cleanse → Salicylic 2% masque T-zone (≤10 min) → rinse → moisturizer.
+
+😴 Silk pillowcase.`
       },
       {
         time: "11:00", title: "🌙 Sleep & Night Reflection", category: "WindDown", reflection: true,
@@ -945,18 +1052,18 @@ ${aiFocus}
       { time: "8:15–9:00", title: "🚿 Breakfast + AM Skincare", category: "Self-Care", details: `🍳 Protein breakfast — fuel the build (eggs / Greek yogurt + carb).\n🚿 Sun shower: water-rinse · Conditioner (2 min) · Body Wash.\n${amFace}` },
       { time: "9:00–9:45", title: "🚶 Walk #1 · ~3,000 steps", category: "Walk", details: `☀️ OUTDOORS early.` },
       { time: "9:45–10:00", title: "🔧 Bench Setup & 💧 16 oz water", category: "Maker", water: 16, details: `Lay out gear: DPO4032 scope · Hantek CC-650 (ZERO it) · Wanptek supply (set CC limit = safety net) · DUT + leads.\n📓 Open your Lab Log. 💧 Refill 16 oz.\n📏 Golden rule: never end today without ONE measurement — and predict it first.` },
-      { time: "10:00–10:15", title: "🧠 Cold-Open Recall (REVIEW)", category: "Maker", details: `🛠 MAKER DAY BEGINS\nClaude quizzes the last 1–2 weeks (see ❓ Quiz column).\nAnswer FROM MEMORY first, then check. Spaced review keeps the chain cumulative.` },
-      { time: "10:15–11:15", title: "🤖 Deep AI Thinking", category: "Maker", macroKey: "watch", macroKey2: "askAI", details: `Deep AI Thinking with Claude about what you're about to tinker and test.` },
+      { time: "10:00–10:15", title: "🧠 Cold-Open Recall · REVIEW", category: "Maker", details: `🛠 MAKER DAY BEGINS\nClaude quizzes the last 1–2 weeks (see ❓ Quiz below).\nAnswer FROM MEMORY first, then check. Spaced review keeps the chain cumulative.` },
+      { time: "10:15–11:15", title: "🤖 Deep AI Thinking", category: "DeepThink", macroKey: "watch", macroKey2: "askAI", details: `Deep AI Thinking with Claude about what you're about to tinker and test.` },
       { time: "11:15–11:30", title: "☕ Rest & 💧 16 oz water", category: "Break", water: 16, details: `💧 16 oz water · 🙆 stretch · 👀 look outside.` },
-      { time: "11:30–1:30", title: "🛠 Build + Ask AI (TINKER)", category: "Maker", macroKey: "tinker", details: `Explain today's concept back in your own words — no notes.\n✏️ Sketch the circuit / code / power tree.\n🤖 Paste this week's "Ask AI" prompt to Claude; sharpen your mental model and your prediction.` },
+      { time: "11:30–1:30", title: "🛠 Build + Ask AI · TINKER", category: "Maker", macroKey: "tinker", details: `Explain today's concept back in your own words — no notes.\n✏️ Sketch the circuit / code / power tree.\n🤖 Paste this week's "Ask AI" prompt to Claude; sharpen your mental model and your prediction.` },
       { time: "1:30–2:00", title: "🍽 Lunch + Rest", category: "Meal", details: `🥗 Protein + vegetable + carb · 📵 no screens · 🐢 slow eating.\nLet the morning's results settle before you write them up.` },
-      { time: "2:00–3:30", title: "😴 Nap / Write-Up", category: "Maker", macroKey: "quiz", details: `Write up the trace: peak A, time-constant, steady A (or the week's key metric).\n❓ Answer this week's Quiz column. Note any surprise vs. your prediction.` },
-      { time: "3:30–4:30", title: "🤖 Deep AI Thinking", category: "Maker", details: `Deep AI Thinking with Claude about what you're about to tinker and test.` },
+      { time: "2:00–3:30", title: "😴 Nap / Write-Up", category: "Maker", macroKey: "quiz", details: `Write up the trace: peak A, time-constant, steady A (or the week's key metric).\n❓ Answer this week's Quiz. Note any surprise vs. your prediction.` },
+      { time: "3:30–4:30", title: "🤖 Deep AI Thinking", category: "DeepThink", details: `Deep AI Thinking with Claude about what you're about to tinker and test.` },
       { time: "4:30–4:45", title: "☕ Rest & 💧 16 oz water", category: "Break", water: 16, details: `💧 16 oz water · 🙆 stretch · 👀 look outside.` },
-      { time: "4:45–6:45", title: "🛠 Build + Ask AI (TINKER)", category: "Maker", details: `Explain today's concept back in your own words — no notes.\n✏️ Sketch the circuit / code / power tree.\n🤖 Paste this week's "Ask AI" prompt to Claude; sharpen your mental model and your prediction.` },
+      { time: "4:45–6:45", title: "🛠 Build + Ask AI · TINKER", category: "Maker", details: `Explain today's concept back in your own words — no notes.\n✏️ Sketch the circuit / code / power tree.\n🤖 Paste this week's "Ask AI" prompt to Claude; sharpen your mental model and your prediction.` },
       { time: "6:45–7:45", title: "🚶 Walk", category: "Walk", details: `⚡ Brisk pace · 🧠 stress reset.` },
       { time: "7:45–8:00", title: "💧 16 oz water", category: "Break", water: 16, details: `💧 16 oz water.` },
-      { time: "8:00–10:00", title: "🎬 Movie for Fun", category: "WindDown", details: `🍿 Whiplash (2014) · Dead Poets Society · Ford v Ferrari (2019) · Rush (2013) · Shutter Island · F1 · Guy Ritchie's The Covenant (2023) · Mosul (2019) …` }
+      { time: "8:00–10:00", title: "🎬 Movie for Fun", category: "WindDown", details: `🍿 Whiplash (2014) · Dead Poets Society · Ford v Ferrari (2019) · Rush (2013) · Shutter Island · I Swear · F1 · Stunt · Eternity · Rental Family · Guy Ritchie's The Covenant (2023) · Mosul (2019) …` }
     ];
 
     const sundayMacroData = {
@@ -1355,7 +1462,8 @@ ${aiFocus}
         }
 
         const el = document.createElement("article");
-        el.className = "block" + (doneState[blockKey] ? " done" : "");
+        const cs = categoryStyle(block.category);
+        el.className = "block ch-" + cs.c + (doneState[blockKey] ? " done" : "");
         el.dataset.blockId = id;
 
         const reflectionHTML = block.reflection ? `
@@ -1377,7 +1485,7 @@ ${aiFocus}
           <div>
             <div class="block-title">${block.title}</div>
             <div class="block-meta">
-              <span class="pill">${block.category}</span>
+              <span class="pill">${cs.g} ${block.category}</span>
               <span>⏳ ${formatDuration(duration)}</span>
               ${block.water ? `<span>💧 ${block.water} oz</span>` : ""}
             </div>
