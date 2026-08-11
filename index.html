@@ -172,7 +172,7 @@ textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
 
 <header>
   <div class="title-block">
-    <span class="eyebrow">◉ Fall 2026 · Semester OS</span>
+    <span class="eyebrow">◉ Fall 2026 · Semester OS · Sprint → Landing → Term</span>
     <h1>Daily Plan</h1>
     <p class="sub" id="heroSub">Pick a date. The schedule, the phase focus, and the exam countdowns all follow it.</p>
   </div>
@@ -292,6 +292,7 @@ const CAT = {
   adv    : {c:"#5F7D1F", s:"#EAF1D8", n:"Advisees"},
   admin  : {c:"#5A6B7B", s:"#E9EEF2", n:"Transit · commute · email"},
   meet   : {c:"#9B1C1C", s:"#F6E0E0", n:"Meeting"},
+  appt   : {c:"#A8552F", s:"#F7E8DF", n:"Appointment"},
   buffer : {c:"#8A8A9C", s:"#EEEDF2", n:"Buffer"},
   exam   : {c:"#B00020", s:"#FDE7EA", n:"Exam"}
 };
@@ -489,8 +490,332 @@ Sat:[
 ]
 };
 
+/* ================= PRE-SEASON · Aug 11 – Sep 1 ================= */
+/* Sprint (Aug 12–23): close every loop — all of 302 by Aug 19, all of 115 by Aug 23.
+   Landing (Aug 24 – Sep 1): ≤4h/day taper — decks, setup, roster, daily rehearsal.
+   Non-teaching block template: Mental 8–10 · B1 10–11:30 · B2 12–12:30 ·
+   Lunch&Nap 12:30–2 · B3 2–3:30 · B4 4–5:30 · B5 6:30–8 · evenings open. */
+const SEMESTER_START = "2026-09-02";
+const FLEX = "\n\n⚑ FLEX — if the day runs short, this item (and only this) slides to the Aug 24 runway. Pre-authorized. No midnight renegotiation: using a flex slot is the plan working, not failing.";
+const MENTAL_FLOW = "Format: lesson → personalized quiz → one written exercise → 5-min spaced review of earlier quizzes.\n📌 Last 20 min = IGNITION: open the day's first course task inside this session — the transition hour dies here.\n🪞 Any critic sentence you catch today goes straight into the Mr. Perfect log on this page.\n🏆 Log today's quiz score in this block's note — we track the curve, not the day.";
+const pready  = () => B("7:30–8:00","🚿 Breakfast · get ready","body","Skincare AM · SPF. Light breakfast.");
+const mental  = (topic,d) => B("8:00–10:00","🧠 Mental Session — "+topic,"pd",(d?d+"\n\n":"")+MENTAL_FLOW);
+const walkR   = () => B("11:30–12:00","🚶 Walk · reset","body","Outside if possible. No screens.");
+const lunchNap= (t) => B(t||"12:30–2:00","🍽 Lunch & Nap","body","Eat, then a 20–30 min lie-down. Phone in another room. First 10 min may be email triage — only if truly needed.");
+const pmove   = () => B("3:30–4:00","🚶 Break · move","body","");
+const pdinner = (t) => B(t||"5:30–6:30","🍽 Dinner","body","");
+const openEve = () => B("8:00–10:30","🟢 OPEN — unstructured","buffer","Evenings are yours. The sprint lives 10:00–8:00.");
+const overflow= (what) => B("8:30–9:30","⏸ Overflow (optional) — "+what,"buffer","Only if you genuinely have gas. Hard stop 9:30 — sleep is sprint fuel.");
+const b1=(t,c,d,x)=>B("10:00–11:30",t,c,d||"",x);
+const b2=(t,c,d,x)=>B("12:00–12:30",t,c,d||"",x);
+const b3=(t,c,d,x)=>B("2:00–3:30",t,c,d||"",x);
+const b4=(t,c,d,x)=>B("4:00–5:30",t,c,d||"",x);
+const b5=(t,c,d,x)=>B("6:30–8:00",t,c,d||"",x);
+
+const PRE = {
+"2026-08-11": [
+  B("8:00–8:45","🌆 Eve of sprint — setup","admin","Skim tomorrow in this app · laptop + charger + notes laid out · Module 1 open in a tab for 8:00 AM. Nothing else is owed tonight."),
+  B("9:00–10:30","🟢 OPEN — wind down","buffer",""),
+  meditate()
+],
+"2026-08-12": [
+  wake(), pready(),
+  mental("McKay S1 · Ch 1–3","The Nature of Self-Esteem · The Pathological Critic · Disarming the Critic. Session 1 packet delivered: lesson → 12-question quiz → the Critic's Price List exercise."),
+  b1("🔌 302 · Lecture 1 — build, part 1","c302","Intro & Overview. A 60% draft beats a 0% perfect one — structure first; polish is not today's job."),
+  walkR(),
+  B("12:00–12:25","🔌 302 · Lecture 1 — park it","c302","Stop mid-slide if needed — an open loop is easier to re-enter."),
+  B("12:30–1:30","🎓 Advising appointment","meet","12:30 sharp."),
+  lunchNap("1:30–2:30"),
+  B("2:30–4:00","🔌 302 · L1 finish + Lecture 2 — build","c302","Embedded C · Polling & Interrupts · GPIO."),
+  B("4:15–5:45","🔌 302 · Lecture 2 — finish","c302",""),
+  pdinner("5:45–6:30"),
+  b5("🔌 302 · Quiz 1 (Chap. 2) + export decks","c302","Write Quiz 1, then export/save both decks — a loop is only closed when the file is final."+FLEX),
+  openEve(), meditate()
+],
+"2026-08-13": [
+  wake(), pready(),
+  mental("McKay S2 · Ch 4–6 + Calm Kit","Accurate Self-Assessment · Cognitive Distortions · Compassion. Last 15 min = Calm Kit run-through — it rides on your phone into the waiting room and the chair."),
+  B("11:00–3:00","🦷 Dentist — long appointment","appt","⚠ Adjust this block to your actual slot. Headphones queued · stop-signal agreed · Calm Kit open on phone."),
+  B("3:00–6:00","🛋 Recovery — couch · soft food · water","body","Zero course day BY DESIGN. The sprint math already prices today at zero — nothing is owed, so nothing is behind."),
+  B("6:30–7:30","🎬 Optional — one SOTA AI video","yt","Counts as real prep, from the couch. Optional means optional."),
+  meditate()
+],
+"2026-08-14": [
+  wake(), pready(),
+  mental("McKay S3 · Ch 7–9","The Shoulds · Handling Mistakes · Responding to Criticism — the perfectionism chapters, landing the day 115 opens."),
+  b1("🔧 115 · Chapter 1 — review","c115","Reviewing, not rebuilding. Note fixes in the margin; don't redesign slides today."),
+  walkR(),
+  b2("🔧 115 · HW 1 — part 1","c115","First 30 min."),
+  B("12:30–1:25","🍽 Lunch (short) — no nap today","body","Tom at 1:30."),
+  B("1:30–2:30","🤝 Meeting — Tom","meet",""),
+  B("2:35–4:05","🔧 115 · Chapter 2 — review","c115",""),
+  B("4:15–5:45","🔧 115 · HW 1 finish + Lab 1","c115","HW 1 last 30 min → Lab 1 (60 min)."+FLEX),
+  pdinner("5:45–6:30"),
+  b5("⏸ Catch-up or OPEN","buffer","Land anything still open from today; otherwise the evening starts now."),
+  meditate()
+],
+"2026-08-15": [
+  wake(), pready(),
+  mental("McKay S4 · Ch 10–12","Asking for What You Want · Goal Setting & Planning · Visualization."),
+  b1("🔌 302 · Lecture 3 — build, part 1","c302","Timers · PWM · UART."),
+  walkR(),
+  b2("🔌 302 · Lecture 3 — finish","c302",""),
+  lunchNap(),
+  b3("🔌 302 · Lecture 4 — build, part 1","c302","Power Distribution · Voltage Regulators · MOSFET & Diodes."),
+  pmove(),
+  b4("🔌 302 · L4 finish + Lecture 5 — build","c302","Feedback Control starts here."),
+  pdinner(),
+  b5("🔌 302 · L5 finish + Quiz 2 — start","c302","Heaviest sprint day, held on purpose. Quiz 3 is today's ⚑ — it starts in overflow or slides to Aug 24, and either outcome is the plan."),
+  overflow("Quiz 2 finish · Quiz 3 ⚑ start or slide"),
+  meditate()
+],
+"2026-08-16": [
+  wake(), pready(),
+  mental("McKay S5 · Ch 13–16 + Integration Quiz","Hypnosis for Self-Acceptance · I'm Still Not OK · Core Beliefs (ch 16 is an optional skim). Ends with the whole-book integration quiz — your first measured score across all of McKay."),
+  b1("🔧 115 · Chapter 3 — review","c115",""),
+  walkR(),
+  b2("🔧 115 · HW 2 — part 1","c115","First 30 min."),
+  lunchNap(),
+  b3("🔧 115 · Chapter 4 — review","c115",""),
+  pmove(),
+  b4("🔧 115 · Chapter 5 — review","c115",""),
+  pdinner(),
+  b5("🔧 115 · HW 2 finish + Lab 2","c115","HW 2 last 30 min → Lab 2 (60 min)."+FLEX),
+  openEve(), meditate()
+],
+"2026-08-17": [
+  wake(),
+  B("7:30–7:45","🚿 Quick ready","body","Out the door by 7:45."),
+  B("7:45–9:30","🚗 Wheel alignment — waiting room","appt","Mental session runs HERE, on your phone: Managing Energy + the Killed-Hour Pattern — why an hour out costs three, the 10-minute re-entry ritual, energy as a budget. Finish the quiz at home 9:40–10:00 if needed."),
+  b1("🔌 302 · Lecture 6 — build, part 1","c302","Final Project Ideas."),
+  walkR(),
+  b2("🔌 302 · Lecture 6 — finish","c302",""),
+  lunchNap("12:30–1:45"),
+  B("2:00–3:30","🎓 FPO — Yulai","meet","Be there 1:55."),
+  pmove(),
+  b4("🔌 302 · Lecture 7 — build, part 1","c302","Camera & NTSC."),
+  pdinner(),
+  b5("🔌 302 · L7 finish + Chapter 6 (115) — start","c302","L7 last 30 min → 115 Ch 6 (60 min). Ch 6 is today's ⚑."),
+  overflow("115 Ch 6 — final 30 min, or it slides"),
+  meditate()
+],
+"2026-08-18": [
+  wake(), pready(),
+  mental("Perfectionism & Procrastination — Until Everything Is Ideal","Builds on McKay ch 7–8. The 60%-draft rule · activation energy · the ideal-conditions rule as the critic's door-stop · shipping as a practice."),
+  b1("🔧 115 · Chapter 7 — review","c115",""),
+  walkR(),
+  b2("🔧 115 · HW 3 — part 1","c115","First 30 min."),
+  lunchNap(),
+  b3("🔧 115 · Chapter 8 — review","c115",""),
+  pmove(),
+  b4("🔧 115 · Chapter 9 — review","c115",""),
+  pdinner(),
+  b5("🔧 115 · HW 3 finish + Lab 3","c115","HW 3 last 30 min → Lab 3 (60 min)."+FLEX),
+  openEve(), meditate()
+],
+"2026-08-19": [
+  wake(), pready(),
+  mental("Managing Emotions","Name it to tame it · the 90-second wave · urge-surfing · acting from values while the weather passes."),
+  b1("🔌 302 · Remaining lectures — build, part 1","c302","Whatever is left on the 302 list beyond L1–L7 (L10 Final Project Guidelines + anything else). Today it all closes."),
+  walkR(),
+  b2("🔌 302 · Remaining lectures — continue","c302",""),
+  lunchNap(),
+  b3("🔌 302 · Finish + Quiz 4 → 🏁 302 FULLY BUILT","c302","Three days ahead of your own Aug 21 deadline. Export everything. Say it out loud: the course exists."),
+  pmove(),
+  b4("🔧 115 · Chapter 10 — review","c115",""),
+  pdinner(),
+  b5("🔧 115 · HW 4 + Lab 4 — start","c115","HW 4 (60 min) → Lab 4 first 30 min. Ch 11 is today's ⚑."),
+  overflow("Lab 4 finish · Ch 11 ⚑ start or slide"),
+  meditate()
+],
+"2026-08-20": [
+  wake(), pready(),
+  mental("Managing Stress & Anxiety","What actually downshifts the alarm (breath mechanics · muscle release) · worry scheduling · cognitive first-aid under load — sourced from the Relaxation & Stress workbook."),
+  b1("🔧 115 · Chapter 12 — review","c115",""),
+  walkR(),
+  b2("🔧 115 · HW 5 — part 1","c115","First 30 min."),
+  lunchNap(),
+  b3("🔧 115 · Chapter 13 — review","c115",""),
+  pmove(),
+  b4("🔧 115 · Chapter 14 — review","c115",""),
+  pdinner(),
+  b5("🔧 115 · HW 5 finish + HW 6","c115","HW 5 last 30 min → HW 6 (60 min). Lab 5 is today's ⚑."),
+  overflow("Lab 5 ⚑ — or it slides"),
+  meditate()
+],
+"2026-08-21": [
+  wake(), pready(),
+  mental("Review Day 1 — McKay Retake + Calm Kit","Spaced retake across the S1–S5 quizzes — the second score is the one that shows learning. Calm Kit rides to the dentist. Nothing new today."),
+  B("11:00–2:00","🦷 Dentist #2","appt","⚠ Adjust this block to your actual slot. Headphones · stop-signal · Calm Kit."),
+  B("2:00–6:00","🛋 Recovery — couch · soft food · water","body","Zero course day BY DESIGN. Priced in from the start — nothing owed, nothing behind."),
+  B("6:30–7:30","🔧 Optional — HW 7","c115","AVAILABLE if you genuinely feel fine this evening. Never owed. 'Optional' survives contact with the critic only if you defend it."),
+  meditate()
+],
+"2026-08-22": [
+  wake(), pready(),
+  mental("Managing Comparison & Envy","'Their life is not evidence against mine.' Hour 1: envy — what it actually points at. Hour 2: comparison in your rooms — LinkedIn, colleagues, advisees."),
+  b1("🔧 115 · Chapter 15 — review","c115",""),
+  walkR(),
+  b2("🔧 115 · HW 7 — part 1","c115","First 30 min (or continue from last night)."),
+  lunchNap(),
+  b3("🔧 115 · Chapter 16 — review","c115","Last chapter. All 16 exist after this block."),
+  pmove(),
+  b4("🔧 115 · HW 7 finish + HW 8","c115","HW 7 last 30 min → HW 8 (60 min)."),
+  pdinner(),
+  b5("🔧 115 · HW 9 + HW 10 — start","c115","HW 9 (60 min) → HW 10 first 30 min."+FLEX),
+  overflow("HW 10 — final 30 min ⚑"),
+  meditate()
+],
+"2026-08-23": [
+  wake(), pready(),
+  mental("Managing Rejection — Handling It","Rejection as information + redistribution, not verdict · 'no to this' vs 'no to me' · recovery scripts for real scenarios."),
+  b1("🔧 115 · Lab 6 — review","c115",""),
+  walkR(),
+  b2("🗂 Files & states — tidy","admin","Log where every lab stands · organize folders · 30 min, no more."),
+  lunchNap(),
+  b3("🔧 115 · Lab 7 — review","c115",""),
+  pmove(),
+  b4("🔧 115 · Lab 8 — review","c115",""),
+  pdinner(),
+  b5("🔧 115 · Lab 9 → 🏁 115 FULLY CLOSED","c115","Both courses fully built, ten days before launch. This is what 'ready' looks like from the outside AND the inside."),
+  openEve(), meditate()
+],
+"2026-08-24": [
+  wake(), pready(),
+  mental("Past Mistakes & the Wasted-Time Story","Deepens McKay ch 8 into your specific narrative: selective memory on trial · the full ledger · closing the account with the past."),
+  b1("⚑ Runway — land any flex items","buffer","Anything that slid during the sprint gets finished here. If nothing slid, this block is FREE — and that means the sprint held."),
+  walkR(),
+  b2("📧 Admin sweep","admin","Email · anything small that accumulated."),
+  lunchNap(),
+  b3("🔧 115 · Course setup — part 1","c115","TA assignments · semester plan."),
+  pmove(),
+  b4("🔧 115 · Course setup — part 2","c115","Upload HW to Gradescope + Canvas."),
+  pdinner(),
+  b5("🟢 OPEN","buffer","Landing phase: ≤4h of real work per day. You're done."),
+  B("8:00–8:20","🧠 Optional — spaced-review quiz","pd","Only if you want it. 20 minutes, then close."),
+  meditate()
+],
+"2026-08-25": [
+  wake(), pready(),
+  mental("Small Talk & Conversation Flow","Curiosity beats performance · openers for work, casual, and group settings · open loops and follow-ups · why you blank (stakes → self-focus) and the attention-out fix."),
+  b1("🎓 Advising deck 1 — build, part 1","adv","Intro · how to read papers · using AI well · Edge AI + the AI-hardware landscape. Super intuitive; ends with a short quiz."),
+  walkR(),
+  b2("📧 Admin","admin",""),
+  lunchNap(),
+  b3("🎓 Advising deck 1 — finish + quiz","adv",""),
+  pmove(),
+  b4("🔧 115 · Setup — finish & verify","c115","Publish check: does everything actually render for a student account?"),
+  pdinner(),
+  b5("🟢 OPEN","buffer",""),
+  B("8:00–8:20","🧠 Optional — spaced-review quiz","pd",""),
+  meditate()
+],
+"2026-08-26": [
+  wake(), pready(),
+  mental("Charisma & Warmth","Warmth before competence · attention as generosity · presence, voice, and body basics · being interested beats being impressive."),
+  b1("🎓 Advising deck 2 — build, part 1","adv","Computer arch & embedded: Jetson Nano · Arduino Uno Q · STM32 · ESP32 — cache, memory, CPU/GPU/TPU/FPGA. May split into two sessions later; build the spine now."),
+  walkR(),
+  b2("📧 Admin","admin",""),
+  lunchNap(),
+  b3("🎓 Advising deck 2 — finish + quiz","adv",""),
+  pmove(),
+  b4("🟣 206 · Course setup — part 1","c206","TA assignments · semester plan."),
+  pdinner(),
+  b5("🟢 OPEN","buffer",""),
+  B("8:00–8:20","🧠 Optional — spaced-review quiz","pd",""),
+  meditate()
+],
+"2026-08-27": [
+  wake(), pready(),
+  mental("Attraction Without the Pedestal","Limerence 101 · why pedestals raise the stakes and cause blanking · seeing full people instead of ideals · stable worth first, so no one has to be a fix."),
+  b1("🎤 REHEARSAL #1 + 206 precept notes","c115","First 30 min: the Sept 2 lecture, OUT LOUD, standing. Then precept notes part 1 (60 min). Rehearsals run daily from today."),
+  walkR(),
+  b2("📧 Admin","admin",""),
+  lunchNap(),
+  b3("🟣 206 · Precept notes — finish","c206",""),
+  pmove(),
+  b4("🟣 206 · Course setup — part 2","c206","Gradescope · Canvas."),
+  pdinner(),
+  b5("🟢 OPEN","buffer",""),
+  B("8:00–8:20","🧠 Optional — spaced-review quiz","pd",""),
+  meditate()
+],
+"2026-08-28": [
+  wake(), pready(),
+  mental("Expressing Interest & Escalating Respectfully","From small talk to a real invitation: showing interest clearly · reading yes / maybe / no signals · escalation as invitations, never pressure · graceful exits that protect everyone's dignity."),
+  b1("🎤 Rehearsal #2 + 206 setup — finish","c206","30 min out loud → then verify 206 publish state (60 min)."),
+  walkR(),
+  b2("📧 Admin","admin",""),
+  lunchNap(),
+  b3("🎓 Advising deck 3 — build","adv","Energy measurement (Colab · Edge Impulse) + low-hanging publishable ideas. If energy is low, light review instead — deck 3 has semester room."),
+  pmove(),
+  b4("🧹 ⚑ Sweep","buffer","Anything still open anywhere? Close it or schedule it. Then it stops living in your head."),
+  pdinner(),
+  b5("🟢 OPEN","buffer",""),
+  B("8:00–8:20","🧠 Optional — spaced-review quiz","pd",""),
+  meditate()
+],
+"2026-08-29": [
+  wake(), pready(),
+  mental("Status Anxiety — Popular · Smarter-Sounding · Better-Looking","What those signals actually measure (not worth) · holding your ground in groups · McKay ch 9 applied live."),
+  b1("🎤 Rehearsal #3 + light review","c115","30 min out loud → skim Ch 1–2 the way a student would see them."),
+  lunchNap(),
+  b3("🟢 OPEN — Saturday","buffer","Landing means landing."),
+  pdinner(),
+  b5("🟢 OPEN","buffer",""),
+  meditate()
+],
+"2026-08-30": [
+  wake(), pready(),
+  mental("Review Day 2 — Full-Curriculum Interleaved Quiz","Everything since Aug 12 — McKay, the applied topics, the social set — interleaved and scored. Weak areas get a targeted drill. This is where you SEE the learning."),
+  b1("🎤 Rehearsal #4 + weekly review","c115","30 min out loud → 30 min: what held this week, what to adjust for launch week."),
+  lunchNap(),
+  b3("🟢 REST","buffer","A rest day before launch week is engineering, not indulgence."),
+  pdinner(),
+  b5("🟢 OPEN","buffer",""),
+  meditate()
+],
+"2026-08-31": [
+  wake(), pready(),
+  mental("Confidence for Day One","McKay ch 11–12 applied to teaching: goal-set week one · visualization + rehearsal psychology · arousal is readiness wearing a scary mask."),
+  b1("🎤 Rehearsal #5 + 📮 Roster → CSES","admin","30 min out loud → then send the 206 roster to CSES (30 min). Today is the only weekday in the Aug 29–31 window — it happens this morning."),
+  walkR(),
+  b2("📧 Admin","admin",""),
+  lunchNap(),
+  b3("🧳 Logistics sweep","admin","Canvas live · rooms confirmed · AV checked · printing done · bag list written."),
+  pmove(),
+  b4("🎓 Optional — deck polish","adv","Only if it's fun. Nothing is owed."),
+  pdinner(),
+  b5("🟢 OPEN","buffer",""),
+  meditate()
+],
+"2026-09-01": [
+  B("6:45–7:15","🌅 Wake · quick ready","body","Sleep-study consult at 7:30 — out the door by 7:20.",{water:16}),
+  B("7:30–9:00","🩺 Sleep study consultation","appt",""),
+  B("10:30–11:30","🧠 Mental — light grounding for launch","pd","Short review · one visualization of tomorrow going fine · done by 11:30. No heavy lifting today."),
+  lunchNap(),
+  B("2:00–2:45","🎤 Final rehearsal — light pass","c115","One relaxed run-through, seated is fine. Sixth time. You know this."),
+  B("3:00–3:45","💈 Haircut","appt",""),
+  B("4:00–4:45","🎒 Pack & prep","admin","Bag · adapters · printed notes · clothes out."),
+  pdinner(),
+  B("6:30–8:00","🟢 OPEN — protect tonight","buffer","NO new prep. Protecting tonight IS prep."),
+  B("9:30–10:00","🌙 Early wind-down","body","Screens off. Lights out by 10:30.")
+]
+};
+const PRE_DEFAULT = () => [
+  wake(), pready(),
+  mental("Daily anchor","Open today's packet in the Claude chat."),
+  b1("🟢 Free block","buffer",""), b2("🟢 Free block","buffer",""),
+  lunchNap(), b3("🟢 Free block","buffer",""), b4("🟢 Free block","buffer",""),
+  pdinner(), b5("🟢 Free block","buffer",""), meditate()
+];
+
 /* ================= semester model ================= */
 const MILESTONES = [
+ {date:"2026-08-19", name:"ECE 302 fully built", short:"302 built",  time:"sprint target"},
+ {date:"2026-08-23", name:"ECE 115 fully closed",short:"115 closed", time:"sprint target"},
+ {date:"2026-08-31", name:"Roster → CSES",       short:"Roster due", time:"AM · 30 min"},
+ {date:"2026-09-02", name:"Semester launch",     short:"Launch",     time:"first lecture · Jad A10"},
  {date:"2026-10-14", name:"ECE 115 Midterm",  short:"115 Midterm", time:"in class · Jad A10"},
  {date:"2026-10-15", name:"ECE 206 Midterm",  short:"206 Midterm", time:"in class · Frist Camp 302"},
  {date:"2026-12-15", name:"ECE 302 Demo Day", short:"302 Demo",    time:"UG Lab"},
@@ -499,6 +824,8 @@ const MILESTONES = [
 ];
 
 const PHASES = [
+ {end:"2026-08-23", name:"Phase 0 · Sprint", focus:"Close every loop: all of ECE 302 by Aug 19, all of ECE 115 by Aug 23. Mental session 8–10 daily. One ⚑ flex item per day is pre-authorized to slide to the Aug 24 runway — using it is the plan working. Two dentist days (Aug 13, Aug 21) are priced in at zero: nothing is owed on them, so nothing is behind."},
+ {end:"2026-09-01", name:"Phase 0.5 · Landing", focus:"Taper week, ≤4h/day: advising decks, course setup, precept notes, roster (Aug 31), and a daily out-loud rehearsal of the Sept 2 lecture from Aug 27. Athletes taper before race day — arriving rested IS the preparation. Protect the night of Sep 1."},
  {end:"2026-09-27", name:"Phase 1 · Build", focus:"Normal cadence. This is the only stretch with no exam pressure — spend it on curriculum production (Tue) and your own experiments (Thu), not on getting ahead in lecture prep."},
  {end:"2026-10-13", name:"Phase 2 · Midterm build", focus:"115 and 206 midterms land Oct 14 and 15 — back to back. Drafts done Sep 30 / Oct 1, finalized with solutions Oct 7 / Oct 8, printed Oct 12 / 13. The ECE 115 Prep and 302 Prep blocks are exam-writing blocks this phase."},
  {end:"2026-10-19", name:"Phase 3 · Midterm week + grading", focus:"The hardest 48 hours of the term: exams Wed and Thu, and UG Lab both nights. Research and curriculum blocks are suspended — use them for grading. Expect nothing else to happen this week and you won't be disappointed."},
@@ -512,6 +839,19 @@ const PHASES = [
 
 /* date-specific block overrides */
 const OVERRIDES = {
+ "2026-08-11": {banner:"Eve of sprint. Tonight: skim tomorrow in this app, lay out materials, early night. Module 1 is loaded if you're eager — otherwise it waits for 8:00 AM."},
+ "2026-08-12": {banner:"Sprint day 1 — 302 L1 + L2 + Quiz 1. Advising appointment 12:30; lunch shifts to 1:30. Catch ONE critic sentence during slide work → Mr. Perfect log."},
+ "2026-08-13": {banner:"Dentist (long) — zero course day BY DESIGN. The sprint math already prices today at zero: nothing is owed. Morning: McKay Session 2 (ch 4–6) with a Calm Kit tail. Bring headphones."},
+ "2026-08-14": {banner:"115 opens: Ch 1–2 + HW 1 + Lab 1 ⚑. Tom 1:30–2:30 — short lunch, no nap today."},
+ "2026-08-15": {banner:"Heaviest sprint day, on purpose (L3–L5 + Quiz 2 + Quiz 3). Quiz 3 is the ⚑ — if it slides to Aug 24, the plan is WORKING."},
+ "2026-08-17": {banner:"Wheel alignment 8:00 — the mental session runs on your phone in the waiting room. FPO for Yulai at 2:00. Ch 6 is the ⚑."},
+ "2026-08-19": {banner:"302 closes TODAY — remaining lectures + Quiz 4, three days ahead of your own deadline. Ch 11 is the ⚑."},
+ "2026-08-21": {banner:"Dentist #2 — zero course day by design. Review Day 1 — McKay retake + Calm Kit. HW 7 this evening is AVAILABLE if you genuinely feel fine — never owed."},
+ "2026-08-23": {banner:"115 closes today: Labs 6–9. Both courses fully built, ten days before launch. Landing begins tomorrow."},
+ "2026-08-27": {banner:"Rehearsals begin: the Sept 2 lecture, out loud, every day from today through Sep 1."},
+ "2026-08-31": {banner:"Roster → CSES this morning — the only weekday in the Aug 29–31 window. Then the logistics sweep."},
+ "2026-09-01": {banner:"Launch eve. Sleep study 7:30 AM · haircut 3:00 PM. One light rehearsal. NO new prep — protecting tonight is prep."},
+ "2026-09-02": {banner:"First day. You've run this lecture six times. Walk in and teach."},
  "2026-10-14": {banner:"ECE 115 Midterm today — in class, Jad A10. UG Lab still runs tonight 7:30–10:20. Do not schedule anything else.",
    replace:{"2:00–2:30":B("2:00–2:30","🚨 Midterm setup","exam","Copies counted, seating plan, aids policy stated out loud."),
             "2:30–2:55":B("2:30–2:55","🚨 Midterm setup","exam","Phones away, timing on the board. Arrive 20 min early."),
@@ -591,6 +931,8 @@ function touchDate(d){ const arr=sGet("trackedDates",[]); if(!arr.includes(d)){ 
 /* ================= phases & schedule assembly ================= */
 function phaseFor(iso){ for(const p of PHASES){ if(iso<=p.end) return p; } return PHASES[PHASES.length-1]; }
 function scheduleFor(iso, day){
+  if(PRE[iso]) return PRE[iso].map(b=>Object.assign({},b));
+  if(iso < SEMESTER_START) return PRE_DEFAULT().map(b=>Object.assign({},b));
   const base = (SCHEDULES[day]||SCHEDULES.Mon).map(b=>Object.assign({},b));
   const ov = OVERRIDES[iso];
   if(ov && ov.replace){ return base.map(b => ov.replace[b.time] ? Object.assign({},ov.replace[b.time]) : b); }
@@ -646,7 +988,7 @@ function renderSemester(){
   $("phaseName").textContent=ph.name;
   $("phaseRange").textContent="through "+ph.end;
   $("phaseFocus").textContent=ph.focus;
-  $("milestoneChips").innerHTML = MILESTONES.map(ms=>{
+  $("milestoneChips").innerHTML = MILESTONES.filter(ms=>daysBetween(iso,ms.date)>=-14).map(ms=>{
     const dd=daysBetween(iso,ms.date);
     const cls = dd<0?"past" : dd===0?"now" : dd<=14?"soon":"";
     const cc = dd===0?"TODAY" : dd<0?`${Math.abs(dd)}d ago`:`T−${dd}`;
@@ -748,7 +1090,7 @@ function renderPreview(){
     `${friendly(historyDate)}\n`+
     `Blocks completed: ${nDone}\n`+
     `Weight: ${m.w!=null?m.w+" lb":"—"}   Body fat: ${m.bf!=null?m.bf+" %":"—"}\n\n`+
-    `📓 ${j||"—"}\n\n🧾 ${t||"—"}\n\n🪞 ${p||"—"}`;
+    `🧾 ${t||"—"}\n\n🪞 ${p||"—"}`;
 }
 
 /* ================= links ================= */
