@@ -8,7 +8,7 @@
 <title>Semester OS · Daily Plan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#FBF8F2; --paper-2:#F1ECE1; --card:#FFFFFF;
@@ -46,7 +46,9 @@ header::after{content:"";position:absolute;inset:0;
   border:1px solid rgba(255,255,255,.25);margin-bottom:12px}
 h1{margin:0;font-family:var(--font-display);font-weight:700;font-size:clamp(1.8rem,6.5vw,3.1rem);
   letter-spacing:-.03em;line-height:1.02;text-shadow:0 2px 18px rgba(20,10,40,.18)}
-.sub{margin:9px 0 0;font-size:.95rem;max-width:780px;line-height:1.5;font-weight:500;color:rgba(255,255,255,.95)}
+.wallclock{font-family:var(--font-mono);font-size:clamp(1rem,3.4vw,1.35rem);font-weight:700;
+  margin-top:6px;letter-spacing:.06em;color:rgba(255,255,255,.97)}
+.sub{margin:7px 0 0;font-size:.95rem;max-width:780px;line-height:1.5;font-weight:500;color:rgba(255,255,255,.95)}
 .top-controls{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px}
 .btn-row{position:relative;z-index:1;display:flex;gap:9px;margin-top:9px;flex-wrap:wrap}
 select,input,textarea,button{font:inherit}
@@ -56,6 +58,7 @@ select,input[type="date"],input[type="number"],input[type="text"]{border:1px sol
 button{cursor:pointer;border:none;border-radius:var(--radius-sm);padding:11px 15px;font-weight:700;
   font-size:.9rem;min-height:44px;background:var(--ink);color:#fff;box-shadow:var(--shadow-sm)}
 button.ghost{background:rgba(255,255,255,.92);color:var(--ink);border:1px solid rgba(255,255,255,.6)}
+button.ghost.on{background:#12693F;color:#fff;border-color:#12693F}
 button.secondary{background:#2E6FD6}
 button.danger{background:#C22B18}
 button:active{transform:translateY(1px)}
@@ -67,7 +70,6 @@ button:active{transform:translateY(1px)}
 .card h2{margin:0 0 12px;font-family:var(--font-display);font-size:1.02rem;letter-spacing:-.01em}
 .hint{font-size:.78rem;color:var(--ink-faint);margin:8px 0 0;line-height:1.45}
 
-/* semester strip */
 .sem{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:15px 17px;
   margin-bottom:14px;box-shadow:var(--shadow-sm)}
 .sem-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:12px}
@@ -92,6 +94,7 @@ button:active{transform:translateY(1px)}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 10px;text-align:center;box-shadow:var(--shadow-sm)}
 .stat .label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
 .stat .value{font-family:var(--font-display);font-size:1.28rem;font-weight:700;margin-top:3px}
+.stat.res .value{color:#12693F} .stat.vid .value{color:#B35C00}
 
 .metric-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px}
 .metric-row label{display:block;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.09em;
@@ -109,14 +112,11 @@ textarea{width:100%;min-height:112px;border:1px solid var(--line-2);border-radiu
 textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
 .save-row{display:flex;justify-content:space-between;align-items:center;gap:9px;margin-top:9px}
 .save-status{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-faint)}
-.prompt{background:#FFF7E8;border:1px solid #F2DFB8;border-radius:12px;padding:10px 12px;
-  font-size:.82rem;color:#7A560A;margin-bottom:10px;line-height:1.45}
 
 .nowbar{display:flex;align-items:center;gap:13px;flex-wrap:wrap;background:var(--card);
   border:1px solid var(--line);border-left:6px solid var(--acc,#2E6FD6);border-radius:var(--radius-sm);
   padding:12px 15px;margin-bottom:12px;box-shadow:var(--shadow-sm);position:sticky;top:6px;z-index:6}
-.nb-dot{width:11px;height:11px;flex:none;border-radius:999px;background:var(--acc,#2E6FD6);
-  box-shadow:0 0 0 0 var(--acc,#2E6FD6);animation:pulse 2.2s infinite}
+.nb-dot{width:11px;height:11px;flex:none;border-radius:999px;background:var(--acc,#2E6FD6);animation:pulse 2.2s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,111,214,.45)}70%{box-shadow:0 0 0 9px rgba(46,111,214,0)}100%{box-shadow:0 0 0 0 rgba(46,111,214,0)}}
 .nb-meta{flex:1;min-width:180px}
 .nb-label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acc,#2E6FD6);font-weight:700}
@@ -135,8 +135,8 @@ textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
 .schedule{display:grid;gap:11px}
 .block{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--acc,#8A8A9C);
   border-radius:var(--radius-sm);padding:13px 15px;box-shadow:var(--shadow-sm);transition:opacity .2s}
-.block.past:not(.done){opacity:.62}
-.block.now{box-shadow:0 0 0 2px var(--acc,#2E6FD6),var(--shadow-sm);position:relative}
+.block.past:not(.done){opacity:.55}
+.block.now{box-shadow:0 0 0 3px var(--acc,#2E6FD6),var(--shadow);position:relative;background:var(--acc-soft,#fff)}
 .block.now .block-time::after{content:" ● NOW";font-weight:700;letter-spacing:.1em}
 .block.done{opacity:.5}
 .block-head{display:flex;align-items:flex-start;gap:11px}
@@ -154,27 +154,24 @@ textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
   background:#F4F1EA;border:1px solid var(--line-2);min-width:76px;text-align:center}
 .timer.run{background:#E2F5EC;border-color:#BFE3D2;color:#0C6644}
 .mini-btn{padding:7px 12px;min-height:0;font-size:.76rem;border-radius:999px;background:#F0ECE3;color:var(--ink);border:1px solid var(--line-2)}
-.note{width:100%;min-height:0;height:38px;margin-top:9px;font-size:.82rem;padding:8px 11px}
+.note{width:100%;min-height:0;height:38px;margin-top:9px;font-size:.82rem;padding:8px 11px;
+  border:1px solid var(--line-2);border-radius:var(--radius-sm);background:#FFFDF9;outline:none}
 
 .history-list{display:flex;flex-wrap:wrap;gap:7px}
 .history-list button{padding:7px 11px;min-height:0;font-size:.76rem;border-radius:999px;background:#F0ECE3;color:var(--ink);border:1px solid var(--line-2)}
 .history-view{margin-top:11px;font-size:.82rem;color:var(--ink-soft);white-space:pre-wrap;line-height:1.5;
   background:#FFFDF9;border:1px solid var(--line);border-radius:12px;padding:11px 13px;min-height:56px}
 
-.cal-list{display:grid;gap:7px;max-height:340px;overflow-y:auto}
-.cal-item{display:grid;grid-template-columns:96px 1fr;gap:10px;padding:8px 10px;border-radius:11px;
-  border:1px solid var(--line);background:#FFFDF9;font-size:.82rem;align-items:start}
-.cal-item .d{font-family:var(--font-mono);font-size:.7rem;color:var(--ink-faint);font-weight:700}
-.cal-item.key{border-left:5px solid #B00020;background:#FDE7EA}
-.cal-item.key .d{color:#7A0016}
-.cal-item.done{opacity:.4}
+.legend{display:flex;flex-wrap:wrap;gap:7px}
+.legend span{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:700;
+  padding:5px 10px;border-radius:999px;border:1px solid var(--line-2)}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
 
 .links{display:grid;gap:6px;font-size:.85rem}
 .links a{color:#1F5FA8;text-decoration:none;font-weight:600}
 .links a:hover{text-decoration:underline}
 
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(20,15,30,.55);align-items:center;justify-content:center;padding:20px;z-index:99}
-.modal-overlay[hidden]{display:none !important}
 .modal-overlay.open{display:flex}
 .modal{background:var(--card);border-radius:var(--radius);padding:22px;max-width:420px;width:100%;box-shadow:var(--shadow)}
 .modal p{margin:0 0 16px;line-height:1.5}
@@ -184,7 +181,6 @@ textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
   .top-controls{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(2,1fr)}
   .metric-row{grid-template-columns:1fr}
-  .cal-item{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -196,6 +192,7 @@ textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
   <div class="title-block">
     <span class="eyebrow">◉ Fall 2026 · Semester OS</span>
     <h1>Daily Plan</h1>
+    <div class="wallclock" id="wallClock">--:--</div>
     <p class="sub" id="heroSub">Pick a date. The schedule, the phase focus, and the exam countdowns all follow it.</p>
   </div>
   <div class="top-controls">
@@ -209,6 +206,7 @@ textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
   <div class="btn-row">
     <button class="ghost" id="todayBtn">📍 Today</button>
     <button class="ghost" id="nowBtn">⏱ Jump to Now</button>
+    <button class="ghost on" id="followBtn">🎯 Auto-follow: ON</button>
     <button class="ghost" id="resetDayBtn">♻️ Reset Day</button>
   </div>
 </header>
@@ -227,8 +225,8 @@ textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
 <div class="stats">
   <div class="stat"><div class="label">Completed</div><div class="value" id="completedStat">0/0</div></div>
   <div class="stat"><div class="label">Progress</div><div class="value" id="progressStat">0%</div></div>
-  <div class="stat"><div class="label">Water</div><div class="value" id="waterStat">0 oz</div></div>
-  <div class="stat"><div class="label">Focus</div><div class="value" id="timeStat">0h</div></div>
+  <div class="stat res"><div class="label">Research</div><div class="value" id="resStat">0h</div></div>
+  <div class="stat vid"><div class="label">Video</div><div class="value" id="vidStat">0h</div></div>
 </div>
 
 <div class="cards two">
@@ -264,6 +262,11 @@ textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
       <textarea id="perfectText" placeholder="Log intrusive perfectionistic thoughts here..."></textarea>
       <div class="save-row"><span class="save-status" id="perfectStatus">Autosaves as you type ✨</span><button id="savePerfectBtn">💾 Save</button></div>
     </div>
+
+    <div class="card">
+      <h2>🎨 Legend</h2>
+      <div class="legend" id="legendBox"></div>
+    </div>
   </div>
 </div>
 
@@ -285,14 +288,14 @@ textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
 
 </div>
 
-<div class="modal-overlay" id="modalOverlay" hidden style="display:none">
+<div class="modal-overlay" id="modalOverlay">
   <div class="modal"><p id="modalMsg"></p>
     <div class="modal-actions"><button class="ghost" id="modalCancel">Cancel</button><button class="danger" id="modalOk">Confirm</button></div>
   </div>
 </div>
 
 <script>
-/* ================= storage (localStorage with in-memory fallback) ================= */
+/* ================= storage ================= */
 const MEM = {};
 const LS = (() => { try { const k="__t"; localStorage.setItem(k,"1"); localStorage.removeItem(k); return localStorage; } catch(e){ return null; } })();
 function sGet(key, fb){ try { const raw = LS ? LS.getItem("sos:"+key) : MEM["sos:"+key]; return raw==null ? fb : JSON.parse(raw); } catch(e){ return fb; } }
@@ -300,178 +303,199 @@ function sSet(key, val){ const s=JSON.stringify(val); try{ if(LS) LS.setItem("so
 function sDel(key){ try{ if(LS) LS.removeItem("sos:"+key); else delete MEM["sos:"+key]; }catch(e){} }
 function allKeys(){ try{ if(LS) return Object.keys(LS).filter(k=>k.startsWith("sos:")); return Object.keys(MEM); }catch(e){ return Object.keys(MEM);} }
 
-/* ================= palette ================= */
+/* ================= palette — mirrors the workbook legend ================= */
 const CAT = {
-  body   : {c:"#15A06B", s:"#E2F5EC", n:"Body"},
-  pd     : {c:"#8A5A2B", s:"#F3EADF", n:"Personal Dev"},
-  study  : {c:"#2E5FD6", s:"#E4EBFB", n:"Deep Study"},
-  c115   : {c:"#C97A00", s:"#FCEFD8", n:"ECE 115"},
-  c206   : {c:"#6D28A8", s:"#EEE3F8", n:"ECE 206"},
-  c302   : {c:"#0E8F8F", s:"#DDF1F1", n:"ECE 302"},
-  yt     : {c:"#D4482F", s:"#FBE5DF", n:"Video"},
-  recall : {c:"#8C2F1C", s:"#F7E2DC", n:"Recall"},
-  paper  : {c:"#1F4E79", s:"#DFE9F2", n:"Papers / Course"},
-  sota   : {c:"#B01E76", s:"#FBDDEF", n:"SOTA"},
-  res    : {c:"#12693F", s:"#DCEDE4", n:"Research"},
-  adv    : {c:"#5F7D1F", s:"#EAF1D8", n:"Advisees"},
-  admin  : {c:"#5A6B7B", s:"#E9EEF2", n:"Transit · commute · email"},
-  meet   : {c:"#9B1C1C", s:"#F6E0E0", n:"Meeting"},
-  buffer : {c:"#8A8A9C", s:"#EEEDF2", n:"Buffer"},
-  exam   : {c:"#B00020", s:"#FDE7EA", n:"Exam"}
+  vidEdge:{c:"#B35C00", s:"#FFE8CC", n:"YouTube · Edge AI"},
+  vidElec:{c:"#8A6A00", s:"#FFF3C4", n:"YouTube · Electronics"},
+  vidML  :{c:"#0B6E99", s:"#D5F2FF", n:"YouTube · ML & AI"},
+  vidCtx :{c:"#3D5A73", s:"#DFE8F0", n:"YouTube · Eng & Context"},
+  sota   :{c:"#B01E76", s:"#FBDDEF", n:"SOTA"},
+  yt     :{c:"#D4482F", s:"#FBE5DF", n:"Video · other"},
+  res    :{c:"#12693F", s:"#DCEDE4", n:"Research"},
+  adv    :{c:"#5F7D1F", s:"#EAF1D8", n:"Advisees"},
+  paper  :{c:"#1F4E79", s:"#DFE9F2", n:"Papers · curriculum"},
+  c115   :{c:"#C97A00", s:"#FCEFD8", n:"ECE 115"},
+  c206   :{c:"#6D28A8", s:"#EEE3F8", n:"ECE 206"},
+  c302   :{c:"#0E8F8F", s:"#DDF1F1", n:"ECE 302"},
+  body   :{c:"#15A06B", s:"#E2F5EC", n:"Body · protected"},
+  pd     :{c:"#8A5A2B", s:"#F3EADF", n:"Personal Dev · protected"},
+  admin  :{c:"#5A6B7B", s:"#E9EEF2", n:"Transit · email"},
+  meet   :{c:"#9B1C1C", s:"#F6E0E0", n:"Meeting"},
+  unwind :{c:"#5B3FA8", s:"#E7E0FB", n:"Netflix · unwind"},
+  buffer :{c:"#8A8A9C", s:"#EEEDF2", n:"Buffer"},
+  exam   :{c:"#B00020", s:"#FDE7EA", n:"Exam"}
 };
+const RESEARCH_CATS = ["res","adv","paper"];
+const VIDEO_CATS = ["vidEdge","vidElec","vidML","vidCtx","sota","yt"];
 
 /* ================= links ================= */
 const L = {
   semidoped:"https://semidoped.com/", semianalysis:"https://semianalysis.com/",
   tinyml:"https://sites.google.com/g.harvard.edu/tinyml/home",
   teman:"https://enicslabs.com/academic-courses/hardware-for-deep-learning/",
-  temanYT:"https://www.youtube.com/playlist?list=PLZU5hLL_713wXlIeer4vZmvzfE_FoCkIP",
+  mlsys:"https://mlsys.org/", edgeai:"https://www.edgeaifoundation.org/",
   eev:"https://www.youtube.com/@EEVblog", branch:"https://www.youtube.com/@BranchEducation",
   asiano:"https://www.youtube.com/@Asianometry", mcwhorter:"https://www.youtube.com/@paulmcwhorter",
   dronebot:"https://www.youtube.com/@Dronebotworkshop", philslab:"https://www.youtube.com/@PhilsLab",
   b1b:"https://www.youtube.com/@3blue1brown", welch:"https://www.youtube.com/@WelchLabsVideo",
+  beneater:"https://www.youtube.com/@BenEater", ewizard:"https://www.youtube.com/@ElectronicWizard",
+  engmind:"https://www.youtube.com/@TheEngineeringMindset", veritasium:"https://www.youtube.com/@veritasium",
+  aiexplained:"https://www.youtube.com/@aiexplained-official",
   edgeimpulse:"https://docs.edgeimpulse.com/"
 };
-const aiLoop = "Explain it → confirm with AI → ask it to quiz you with Socratic pushback.";
+
+/* ================= shared block bodies ================= */
+const RESEARCH_BODY =
+"Rung ladder — work top-down, one rung at a time:\n"+
+"· Colab — model factory: train / quantize / export the suite\n"+
+"· Laptop / workstation CPU+GPU — RAPL + NVML baselines, freeze the results schema\n"+
+"· Raspberry Pi 5 — first true supply-side energy (USB-C meter / INA226)\n"+
+"· Jetson Orin Nano Super — tegrastats + external meter, pin clocks, watch throttling\n"+
+"· STM32 (H7 → U3 → N6) — PPK2 / LPM01A, GPIO-windowed. This is the citable data.\n"+
+"· ESP32-S3 + Arduino Nano 33 BLE — breadth\n"+
+"· NPU add-ons: RPi AI HAT+ (Hailo)\n"+
+"· FPGA (hls4ml / FINN on Pynq-Z2) — last, and optional\n\n"+
+"📏 Predict all four numbers before you measure: flash/RAM footprint, inference latency, peak current, post-quantization accuracy. Being wrong is the point.";
+
+const LAB_VENUES =
+"Lab downtime — venue list:\n"+
+"MLSys · EDGE AI Foundation Symposium\n"+
+"NeurIPS / ICML / ICLR — efficient-ML subset only\n"+
+"DAC · DATE · ICCAD\n"+
+"SenSys · MobiSys · MobiCom · IPSN · EWSN\n"+
+"ISCAS · ICASSP\n"+
+"CoRL · ICRA · IROS\n"+
+"ISCA · MICRO · HPCA · ISSCC\n"+
+"Journals: IEEE ESL · TMLR · IEEE IoT-J · ACM TECS · IEEE TCAS-AI";
+
+const WORKSHOP_BODY = "NeurIPS · ICML · ICLR — efficient-ML subset only.\nChat with AI to understand them better: explain the trick back, then let it push on what you fudged.";
 
 /* ================= schedule builders ================= */
 const B = (time,title,cat,details,extra={}) => Object.assign({time,title,cat,details:details||""},extra);
 const wake = () => B("7:00–7:30","🌅 Wake · Hydrate · Ice Bucket","body",
   "💧 16 oz water · 🧘 2 min stretch · 🌬 3 slow breaths\n🧊 Ice bucket for face · 📵 no phone · 🎯 one intention for the day.",{water:16});
-const pdev = () => B("7:30–8:30","🤖 Personal Dev — AI","pd","");
+const pdev = () => B("7:30–8:30","🤍 Personal Dev","pd","Protected. Not a study block, not a donor block. Do not raid it when the day is behind.");
 const emails = () => B("12:00–12:15","📧 Emails","admin","Triage only. Anything over 5 minutes goes to Later To-Do.");
 const dinner = () => B("5:00–6:00","🍽 Dinner","body","");
 const meditate = () => B("10:45–11:00","🌙 Meditate","body","15 min. Then screens off.");
-const recall = (what) => B("7:00–7:15","🔁 Recall — no notes","recall","Explain the 6:00 video back out loud, then let AI push back on the parts you fudged.\n\n📌 Tonight: "+what);
-const paperSkim = (venue) => B("7:15–7:30","📄 Paper skim — "+venue,"paper","One abstract + one figure. Write one line: what problem, what trick, what number.");
 const shower = (t) => B(t,"🚿 Shower & get ready","body","Skincare AM · SPF.");
 const gym = (t,split) => B(t,"🏋️ GYM — "+split,"body",
   "Warm-up 5 min: band pull-aparts 2×20 · cat-cow 1×10 · chin tucks 2×12.\n8–15 reps · slow eccentrics · one posture accessory every session.\n\n📌 Today: "+split);
-const labOut = () => B("10:20–10:45","🏠 Lab out → home","admin","Lab ends 10:20 sharp. No new debugging after 10:00, no screens on the way home — lights out by 11:00.");
+const paperSkim = (venue) => B("7:15–7:45","📄 Paper skim — "+venue,"paper","One abstract + one figure. Write one line: what problem, what trick, what number.");
+const researchHandsOn = (t) => B(t,"🔬 Research — hands-on","res",RESEARCH_BODY);
+const lab = () => B("7:45–10:20","🔌 ECE 302 LAB","c302",LAB_VENUES,{loc:"UG Lab"});
+const netflix = (t) => B(t,"🍿 Netflix","unwind","Unwind. No notes, no guilt.");
 
-/* --- Embedded HW track: 4-slot rotation across Sun + Fri mornings --- */
-const HW_A = "🎯 Datasheet drill — 30 min, one document, read cold.\n\nRotate weekly: STM32 reference manual (one peripheral chapter) → ESP32-S3 TRM (one register block) → Jetson Orin Nano module datasheet (power rails, thermal limits) → Arduino Uno Q / Qualcomm SoC brief.\n\nMethod: read the page before you ask anything. Then explain the register or the rail back to AI and let it find what you skipped. If you can't name the reset value and the bit width, you didn't read it.";
-const HW_B = "🎯 Bare-metal build — 90 min, register level, no HAL.\n\nLadder (one rung per week, don't skip): GPIO → SysTick → timers → PWM → ADC → interrupts + NVIC priorities → DMA → FreeRTOS tasks and queues.\n\nBus work every third week: put I²C, SPI, or UART on the DPO4032 and decode a real transaction by hand — clock polarity, phase, ACK bit, framing. Confirm against the datasheet timing diagram, not against a library.\n\n📌 One written prediction before power-on: expected frequency, expected current, expected waveform shape. Then measure with the FNB58 or the CC-650 and explain the delta.";
-const HW_C = "🎯 Toolchain & debug drill — 30 min.\n\nRotate: SWD/JTAG bring-up · gdb + OpenOCD (breakpoints, watchpoints, reading memory live) · the linker script and .map file (where did the flash go?) · stack-usage analysis · reading a hard-fault dump back to a line of C.\n\nThis is the block that stops a bad afternoon from becoming a lost day.";
-const HW_D = "🎯 Edge-AI deploy — 90 min. Same model, different silicon.\n\nPipeline: train in Edge Impulse → export int8 TFLite Micro → deploy to STM32 (CMSIS-NN) and ESP32-S3 → run the identical model on Jetson Orin Nano.\n\nMeasure four numbers every time: flash/RAM footprint, inference latency, current draw at peak, accuracy after quantization. This is exactly the W9 lesson your advisees will run — build it here first.\n\n📌 Predict all four before you measure. Being wrong is the point.";
+/* the 8:30–10:30 YouTube ladder — Sun · Mon · Wed · Fri */
+const ladder = () => ([
+  B("8:30–8:55","🎬 YouTube — Edge AI · Embedded · SSCS","vidEdge","DroneBot Workshop · Paul McWhorter · Ben Eater"),
+  B("8:55–9:20","🎬 YouTube — Electronics Troubleshooting","vidElec","Electronic Wizard · EEVblog · Phil's Lab"),
+  B("9:20–9:45","🎬 YouTube — ML & AI","vidML","3Blue1Brown “Neural Networks” · Welch Labs"),
+  B("9:45–10:10","🎬 YouTube — Engineering & Context","vidCtx","Branch Education · The Engineering Mindset · Veritasium · Asianometry"),
+  B("10:10–10:30","🎬 YouTube — SOTA Concepts","sota","AI Explained · AI Uncovered")
+]);
 
 const SCHEDULES = {
 Sun:[
- wake(), pdev(),
- B("8:30–10:30","🔧 Study hardware with AI","study",""),
- gym("10:30–11:00","Legs"),
- shower("11:00–11:30"),
- B("11:30–12:00","🎬 YouTube — AI & ML","yt","Transformers · attention · VLM"),
+ wake(), pdev(), ...ladder(),
+ gym("10:30–11:00","Legs"), shower("11:00–11:30"),
+ B("11:30–12:00","🎬 YouTube — AI & ML","yt","Evolving AI · research explainers. Transformers · attention · VLM"),
  emails(),
  B("12:15–1:30","⏸ BUFFER","buffer","Unbooked on purpose. If the morning slipped, it lands here."),
- B("1:30–2:00","🔧 ECE 115 Prep","c115",""),
- B("2:00–2:30","🔧 ECE 115 Prep","c115",""),
- B("2:30–2:55","🔌 ECE 302 Prep","c302",""),
- B("2:55–3:30","🔌 ECE 302 Prep","c302",""),
- B("3:30–4:00","🎬 YouTube — Embedded HW","yt","Jetson / Arduino build-along"),
- B("4:00–4:30","🎬 YouTube — Embedded HW","yt",""),
- B("4:30–5:00","🎬 YouTube — Embedded HW","yt",""),
+ B("1:30–2:30","🔧 ECE 115 Prep","c115",""),
+ B("2:30–3:30","🔌 ECE 302 Prep","c302",""),
+ B("3:30–4:00","🎬 YouTube — Embedded HW","yt","Paul McWhorter Jetson AI L1–11, 50–53"),
+ B("4:00–4:30","🎬 YouTube — Embedded HW","yt","Jetson / Arduino build-along"),
+ B("4:30–5:00","🎬 YouTube — Embedded HW","yt","Jetson / Arduino build-along"),
  dinner(),
- B("6:00–7:00","🎬 YouTube — Embedded HW","yt","Jetson · Paul McWhorter"),
- recall("Embedded HW"), paperSkim("ISSCC"),
- B("7:30–10:45","⏸ Flex Buffer","buffer","Three and a quarter hours, unbooked. The largest single piece of slack in the week — the only place a bad week can be absorbed."),
+ B("6:00–7:15","🚗 Leave to school","admin",""),
+ B("7:15–10:20","🔬 Research Meeting","res","60 min paper standup with the platform owners, then 60 min curriculum with the rest.\n\n📌 Three questions you can't answer yourself — bring them.",{loc:"Equad B205"}),
  meditate()
 ],
 Mon:[
- wake(), pdev(),
- B("8:30–9:00","🔧 ECE 115 Rev.","c115","Yesterday's board + today's opener"),
- B("9:00–10:30","🧠 Study AI / ML / Efficient AI","study","Mode: derive from first principles"),
- gym("10:30–11:00","Push"),
- shower("11:00–11:30"),
- B("11:30–12:00","🧠 Study with AI","study","30 min — gym took the other half"),
+ wake(), pdev(), ...ladder(),
+ gym("10:30–11:00","Push"), shower("11:00–11:30"),
+ B("11:30–12:00","📄 Read Workshop Papers","paper",WORKSHOP_BODY),
  emails(),
- B("12:15–1:30","🎬 YouTube — EEVblog","yt",""),
- B("1:30–2:00","🚗 Commute","admin",""),
- B("2:00–2:30","🔧 115 Lec Prep","c115",""),
- B("2:30–2:55","📡 SOTA Review","sota","Semi Doped daily · one sentence written"),
+ B("12:15–1:30","📄 MLSys papers → research slide prep","res","Read, then convert straight into a slide. Reading that doesn't become a slide didn't happen."),
+ B("1:30–2:00","🚗 Commute","admin","Listen to Semi Doped"),
+ B("2:00–2:55","🔧 115 Lec Prep","c115",""),
  B("2:55–4:15","🔧 ECE 115 Lecture","c115","",{loc:"Jad A10"}),
  B("4:15–4:30","🚶 Walk + post-class debrief","admin","What landed, what didn't, one fix"),
  B("4:30–5:00","📧 Email","admin",""),
  dinner(),
- B("6:00–7:00","🎬 YouTube — AI & ML","yt","LLM internals"),
- recall("LLM internals"), paperSkim("NeurIPS"),
- B("7:30–8:00","⏸ Flex Buffer","buffer",""),
+ researchHandsOn("6:00–7:15"),
+ paperSkim("NeurIPS"),
+ B("7:45–8:00","⏸ Flex Buffer","buffer",""),
  B("8:00–9:00","🟣 ECE 206 Precept","c206","",{loc:"Equad B205"}),
  B("9:00–9:45","🏠 Home","admin",""),
- B("10:00–10:45","🎬 YouTube — Branch Education","yt","Wind-down · no notes"),
+ netflix("10:00–10:45"),
  meditate()
 ],
 Tue:[
  wake(), pdev(),
- B("8:30–9:00","🔌 ECE 302 Rev.","c302",""),
- B("9:00–10:30","🧠 Study AI / ML / Efficient AI","study","Mode: primary-source paper"),
+ B("8:30–8:55","🔌 ECE 302 Rev.","c302","Yesterday's board + today's opener"),
+ B("8:55–10:30","📄 Read Workshop Papers","paper",WORKSHOP_BODY),
  shower("10:30–11:00"),
  B("11:00–11:30","📡 Commute — SOTA audio","admin","Semi Doped / SemiAnalysis podcast"),
  B("11:30–12:00","🔌 ECE 302 Lec Prep","c302",""),
  emails(),
  B("12:15–1:05","🔌 ECE 302 Lecture","c302","",{loc:"Bowen Hall 222"}),
  B("1:05–1:20","🚶 Walk — Bowen → Frist Camp","admin","15 min outdoors. Daily aerobic minimum; take it at pace."),
- B("1:20–2:55","🟣 ECE 206 Lecture","c206","Official end 2:40 — 2:40–2:55 is reset/transit",{loc:"Frist Camp 302"}),
- B("2:55–3:30","📘 Curriculum — source lecture","paper","Harvard CS249r / MLSysBook module"),
- B("3:30–4:00","📘 Curriculum — hardware counterpart","paper","Teman, Hardware for DL — matching part"),
- B("4:00–4:30","🎓 Curriculum — slide build","adv","One analogy · one number · one demo"),
- B("4:30–5:00","🎓 Curriculum — demo design","adv","Prediction sheet they fill in first"),
+ B("1:20–2:55","🟣 ECE 206 Lecture","c206","Official end 2:40 — 2:40–2:55 is reset/transit.\n📌 Post 206 KI, HW, Video",{loc:"Frist Camp 302"}),
+ B("2:55–4:30","📘 Curriculum — Efficient AI · Edge AI · Physical AI","paper","Review the source course with AI, then build the advisee-facing version: one analogy · one number · one demo."),
+ B("4:30–5:00","🎓 Research Slide","adv","One slide. Cut one, don't add one."),
  dinner(),
- B("6:00–7:00","🎬 YouTube — Electronics","yt","EEVblog · Phil's Lab"),
- recall("Electronics"), paperSkim("ISCAS / DAC"),
- B("7:30–8:00","⏸ Flex Buffer","buffer",""),
+ researchHandsOn("6:00–7:15"),
+ paperSkim("ISCAS / DAC"),
+ B("7:45–8:00","⏸ Flex Buffer","buffer",""),
  B("8:00–9:00","🟣 ECE 206 Precept","c206","",{loc:"Equad B205"}),
  B("9:00–9:45","🏠 Home","admin",""),
- B("10:00–10:45","🎬 YouTube — Branch Education","yt","Wind-down · no notes"),
+ netflix("10:00–10:45"),
  meditate()
 ],
 Wed:[
- wake(), pdev(),
- B("8:30–9:00","🔧 ECE 115 Rev.","c115",""),
- B("9:00–10:30","🧠 Study AI / ML / Efficient AI","study","Mode: implement from scratch"),
- gym("10:30–11:00","Pull"),
- shower("11:00–11:30"),
- B("11:30–12:00","🧠 Study with AI","study",""),
+ wake(), pdev(), ...ladder(),
+ gym("10:30–11:00","Pull"), shower("11:00–11:30"),
+ B("11:30–12:00","📄 Read Workshop Papers","paper",WORKSHOP_BODY),
  emails(),
- B("12:15–1:30","🎬 YouTube — EEVblog","yt",""),
- B("1:30–2:00","🚗 Commute","admin",""),
- B("2:00–2:30","🔧 115 Lec Prep","c115",""),
- B("2:30–2:55","📡 SOTA Review","sota","Semi Doped daily · one sentence written"),
+ B("12:15–1:30","📄 MLSys papers → research slide prep","res","Read, then convert straight into a slide."),
+ B("1:30–2:00","🚗 Commute","admin","Listen to Semi Doped"),
+ B("2:00–2:55","🔧 115 Lec Prep","c115",""),
  B("2:55–4:15","🔧 ECE 115 Lecture","c115","",{loc:"Jad A10"}),
  B("4:15–4:30","🚶 Walk + post-class debrief","admin",""),
  B("4:30–5:00","📧 Email + 302 lab dry-run","admin","Instruments on, waveforms confirmed — 3 h before students arrive"),
  dinner(),
- B("6:00–7:00","🎬 YouTube — Embedded HW","yt","STM32 · Embedded C"),
- recall("STM32 / Embedded C"), paperSkim("MICRO"),
- B("7:30–10:20","🔌 ECE 302 LAB","c302","",{loc:"UG Lab"}),
- labOut(),
+ researchHandsOn("6:00–7:15"),
+ paperSkim("MLSys"),
+ lab(),
+ netflix("10:20–10:45"),
  meditate()
 ],
 Thu:[
  wake(), pdev(),
- B("8:30–9:00","🔌 ECE 302 Rev.","c302",""),
- B("9:00–10:30","🧠 Study AI / ML / Efficient AI","study","Mode: one ablation"),
+ B("8:30–8:55","🔌 ECE 302 Rev.","c302",""),
+ B("8:55–10:30","📄 Read Workshop Papers","paper",WORKSHOP_BODY),
  shower("10:30–11:00"),
  B("11:00–11:30","📡 Commute — SOTA audio","admin","Semi Doped / SemiAnalysis podcast"),
  B("11:30–12:00","🔌 ECE 302 Lec Prep","c302",""),
  emails(),
  B("12:15–1:05","🔌 ECE 302 Lecture","c302","",{loc:"Bowen Hall 222"}),
  B("1:05–1:20","🚶 Walk — Bowen → Frist Camp","admin","15 min outdoors, at pace"),
- B("1:20–2:55","🟣 ECE 206 Lecture","c206","Official end 2:40",{loc:"Frist Camp 302"}),
+ B("1:20–2:55","🟣 ECE 206 Lecture","c206","Official end 2:40 — 2:40–2:55 is reset/transit.\n📌 Post 206 KI, Lab, Video",{loc:"Frist Camp 302"}),
  B("2:55–3:30","🔬 Research — experiment runs","res","This week's active question"),
  B("3:30–4:00","🔬 Research — measure & instrument","res","Predict, then measure. Explain the delta."),
  B("4:00–4:30","🔬 Research — writing","res","Two paragraphs that survive to the paper"),
  B("4:30–5:00","🔬 Research — advisee log review","res","Written feedback, ready for Saturday"),
  dinner(),
- B("6:00–7:00","🎬 YouTube — AI & ML","yt","VLM & VLA"),
- recall("VLM & VLA"), paperSkim("ICML / CVPR"),
- B("7:30–10:20","🔌 ECE 302 LAB","c302","",{loc:"UG Lab"}),
- labOut(),
+ researchHandsOn("6:00–7:15"),
+ paperSkim("ICML / CVPR"),
+ lab(),
+ netflix("10:20–10:45"),
  meditate()
 ],
 Fri:[
- wake(), pdev(),
- B("8:30–10:30","🔧 Study hardware with AI","study",""),
+ wake(), pdev(), ...ladder(),
  shower("10:30–11:00"),
  B("11:00–11:30","📡 Commute — SOTA audio","admin","Semi Doped / SemiAnalysis podcast"),
  B("11:30–12:00","⏸ BUFFER","buffer",""),
@@ -480,20 +504,18 @@ Fri:[
  B("1:30–2:30","🏛 DUS Meeting","meet",""),
  B("2:30–3:30","🔧 ECE 115 Office Hours","c115",""),
  B("3:30–4:00","👨‍👩‍👧 Yeh","body",""),
- B("4:00–4:30","📄 Paper Reading — full paper","paper","One paper end to end"),
- B("4:30–5:00","📄 Paper Reading — write-up","paper","Half a page in your own words"),
+ B("4:00–5:00","📄 Paper Reading","paper","One paper end to end, then half a page in your own words."),
  dinner(),
- B("6:00–7:00","📋 Check HW Posting","admin","Gradescope · Canvas"),
- B("7:00–8:00","🎬 YouTube — Electronics","yt","EEVblog. One hour, then stop."),
- B("8:00–10:45","🟢 OPEN — unstructured","buffer","No plan. The one stretch all week with nothing in it."),
+ B("6:00–6:40","📋 Check HW Posting","admin","Gradescope · Canvas"),
+ researchHandsOn("6:40–8:00"),
+ B("8:00–10:45","🟢 OPEN — unstructured","buffer","No plan. AI Revolution / recap-tier channels live here, guilt-free. The one stretch all week with nothing in it."),
  meditate()
 ],
 Sat:[
  wake(), pdev(),
  B("8:30–10:30","🔧 ECE 115 Prep","c115",""),
- gym("10:30–11:00","Full body"),
- shower("11:00–11:30"),
- B("11:30–12:00","📡 SOTA Review","sota","Week roundup · pick one item for tonight"),
+ gym("10:30–11:00","Full body"), shower("11:00–11:30"),
+ B("11:30–12:00","📡 SOTA Review — video form","sota","EDGE AI Foundation talk or roundup → one written sentence. Doubles as the priority-2 venue sweep."),
  emails(),
  B("12:15–1:15","⏸ BUFFER","buffer","ECE 302 prep folds here if it slipped"),
  B("1:30–2:00","🎓 Research Meeting Prep","adv","Advisee log review — what changed since Thu"),
@@ -504,11 +526,8 @@ Sat:[
  B("4:00–4:30","🎓 Research Meeting Prep","adv","Next-week assignments, per advisee"),
  B("4:30–5:00","⏸ Research Meeting Prep — overflow","buffer","Empty by design"),
  dinner(),
- B("6:00–7:00","🎬 YouTube — AI & ML","yt","RL & Efficient AI"),
- recall("RL & Efficient AI"), paperSkim("free pick"),
- B("7:30–9:30","🔬 Research Meeting","res","",{loc:"Equad B205"}),
- B("9:30–10:00","🏠 Home","admin",""),
- B("10:00–10:45","🎬 YouTube — Branch Education","yt","Wind-down · no notes"),
+ researchHandsOn("6:00–9:30"),
+ netflix("9:30–10:45"),
  meditate()
 ]
 };
@@ -517,30 +536,29 @@ Sat:[
 const MILESTONES = [
  {date:"2026-10-14", name:"ECE 115 Midterm",  short:"115 Midterm", time:"in class · Jad A10"},
  {date:"2026-10-15", name:"ECE 206 Midterm",  short:"206 Midterm", time:"in class · Frist Camp 302"},
+ {date:"2026-12-12", name:"Paper draft done", short:"Paper draft", time:"EDGE AI Symposium / arXiv"},
  {date:"2026-12-15", name:"ECE 302 Demo Day", short:"302 Demo",    time:"UG Lab"},
  {date:"2026-12-18", name:"ECE 206 Final",    short:"206 Final",   time:"8:30–11:30 AM"},
  {date:"2026-12-20", name:"ECE 115 Final",    short:"115 Final",   time:"12:30–3:30 PM"}
 ];
 
 const PHASES = [
- {end:"2026-09-27", name:"Phase 1 · Build", focus:"Normal cadence. This is the only stretch with no exam pressure — spend it on curriculum production (Tue) and your own experiments (Thu), not on getting ahead in lecture prep."},
+ {end:"2026-09-27", name:"Phase 1 · Build", focus:"Normal cadence. The only stretch with no exam pressure — spend it on the RPi 5 harness and freezing the results schema, not on getting ahead in lecture prep."},
  {end:"2026-10-13", name:"Phase 2 · Midterm build", focus:"115 and 206 midterms land Oct 14 and 15 — back to back. Drafts done Sep 30 / Oct 1, finalized with solutions Oct 7 / Oct 8, printed Oct 12 / 13. The ECE 115 Prep and 302 Prep blocks are exam-writing blocks this phase."},
  {end:"2026-10-19", name:"Phase 3 · Midterm week + grading", focus:"The hardest 48 hours of the term: exams Wed and Thu, and UG Lab both nights. Research and curriculum blocks are suspended — use them for grading. Expect nothing else to happen this week and you won't be disappointed."},
- {end:"2026-11-22", name:"Phase 4 · Deep work", focus:"Your best five weeks. No exams, no demo pressure. This is where the advisee curriculum gets built properly and your own results accumulate. Protect Tuesday and Thursday afternoons ruthlessly."},
- {end:"2026-12-14", name:"Phase 5 · Project push", focus:"302 demo day is Dec 15. Rubric out by Nov 17, dry-run Dec 8, equipment check Dec 12. Final exams get drafted in parallel: 206 by Dec 4, 115 by Dec 6."},
+ {end:"2026-11-22", name:"Phase 4 · Deep work", focus:"Your best five weeks. No exams, no demo pressure. All platforms should be reporting by Nov 8, data frozen Nov 22. Protect Tuesday and Thursday afternoons ruthlessly."},
+ {end:"2026-12-14", name:"Phase 5 · Project push", focus:"Paper draft due Dec 12 — before demo day, deliberately. 302 demo day is Dec 15: rubric out by Nov 17, dry-run Dec 8, equipment check Dec 12. Final exams drafted in parallel: 206 by Dec 4, 115 by Dec 6."},
  {end:"2026-12-20", name:"Phase 6 · Demo + finals", focus:"Demo Tue 15th, 206 final Fri 18th at 8:30 AM, 115 final Sun 20th at 12:30 PM. The Friday 8:30 start collides with your entire morning routine — that day starts at 6:30, not 7:00."},
  {end:"2026-12-31", name:"Phase 7 · Grading & close", focus:"Grade, submit, and write the post-mortem while it's fresh: what to change in each course next time. Then stop."},
- {end:"2099-12-31", name:"Between terms", focus:"Maker Day cadence returns. Use the full-day blocks for the rover capstone and the paper backlog."}
+ {end:"2099-12-31", name:"Between terms", focus:"Maker Day cadence returns. Venue sweeps, canon papers 11–20, and the STM32N6 work all unfreeze in January."}
 ];
 
-
-/* date-specific block overrides */
+/* date-specific overrides — time strings match the v3 grid exactly */
 const OVERRIDES = {
- "2026-10-14": {banner:"ECE 115 Midterm today — in class, Jad A10. UG Lab still runs tonight 7:30–10:20. Do not schedule anything else.",
-   replace:{"2:00–2:30":B("2:00–2:30","🚨 Midterm setup","exam","Copies counted, seating plan, aids policy stated out loud."),
-            "2:30–2:55":B("2:30–2:55","🚨 Midterm setup","exam","Phones away, timing on the board. Arrive 20 min early."),
-            "2:55–4:15":B("2:55–4:15","🚨 ECE 115 MIDTERM","exam","Count papers before anyone leaves the room.",{loc:"Jad A10"}),
-            "12:15–1:30":B("12:15–1:30","🚨 Final exam read-through","exam","Read your own exam cold, timed. If you can't finish in half the allotted time, it's too long.")}},
+ "2026-10-14": {banner:"ECE 115 Midterm today — in class, Jad A10. UG Lab still runs tonight 7:45–10:20. Do not schedule anything else.",
+   replace:{"12:15–1:30":B("12:15–1:30","🚨 Final exam read-through","exam","Read your own exam cold, timed. If you can't finish in half the allotted time, it's too long."),
+            "2:00–2:55":B("2:00–2:55","🚨 Midterm setup","exam","Copies counted, seating plan, aids policy stated out loud. Arrive 20 min early."),
+            "2:55–4:15":B("2:55–4:15","🚨 ECE 115 MIDTERM","exam","Count papers before anyone leaves the room.",{loc:"Jad A10"})}},
  "2026-10-15": {banner:"ECE 206 Midterm today — in class, Frist Camp 302. Second exam day in a row, second lab night in a row.",
    replace:{"1:20–2:55":B("1:20–2:55","🚨 ECE 206 MIDTERM","exam","Count papers before anyone leaves.",{loc:"Frist Camp 302"}),
             "2:55–3:30":B("2:55–3:30","📝 Grading — 115 midterm","exam","Rubric first, then grade one question all the way through before starting the next."),
@@ -548,37 +566,39 @@ const OVERRIDES = {
             "4:00–4:30":B("4:00–4:30","📝 Grading — 115 midterm","exam",""),
             "4:30–5:00":B("4:30–5:00","📝 Grading — 115 midterm","exam","")}},
  "2026-12-15": {banner:"ECE 302 Demo Day. Curriculum build is suspended today — the whole afternoon belongs to demos.",
-   replace:{"2:55–3:30":B("2:55–3:30","🏁 ECE 302 DEMO DAY","exam","",{loc:"UG Lab"}),
-            "3:30–4:00":B("3:30–4:00","🏁 ECE 302 DEMO DAY","exam","",{loc:"UG Lab"}),
-            "4:00–4:30":B("4:00–4:30","🏁 ECE 302 DEMO DAY","exam","",{loc:"UG Lab"}),
+   replace:{"2:55–4:30":B("2:55–4:30","🏁 ECE 302 DEMO DAY","exam","",{loc:"UG Lab"}),
             "4:30–5:00":B("4:30–5:00","🏁 Demo scoring + photos","exam","Score on the spot. Retro-scoring from memory is how disputes start.")}},
- "2026-12-18": {banner:"ECE 206 Final at 8:30 AM. This day starts at 6:30, not 7:00 — the whole morning routine is compressed or skipped.",
+ "2026-12-18": {banner:"ECE 206 Final at 8:30 AM. This day starts at 6:30, not 7:00 — the YouTube ladder is cancelled today.",
    replace:{"7:00–7:30":B("6:30–7:00","🌅 Early wake · hydrate","body","Alarm one hour earlier. Skip the ice bucket if it costs you the buffer.",{water:16}),
             "7:30–8:30":B("7:00–8:00","🚗 Commute + exam setup","exam","Copies, seating, aids policy. On site by 8:00 for an 8:30 start."),
-            "8:30–10:30":B("8:30–10:30","🚨 ECE 206 FINAL","exam","Proctoring. 8:30–11:30 AM.",{loc:"8:30–11:30 AM"}),
-            "10:30–11:00":B("10:30–11:00","🚨 ECE 206 FINAL","exam","",{loc:"proctoring"}),
-            "11:00–11:30":B("11:00–11:30","🚨 ECE 206 FINAL — collect","exam","Count before anyone leaves."),
-            "11:30–12:00":B("11:30–12:00","🍽 Eat — you skipped breakfast","body",""),
+            "8:30–8:55":B("8:30–9:20","🚨 ECE 206 FINAL","exam","Proctoring. 8:30–11:30 AM.",{loc:"Frist Camp 302"}),
+            "8:55–9:20":B("9:20–9:45","🚨 ECE 206 FINAL","exam","",{loc:"proctoring"}),
+            "9:20–9:45":B("9:45–10:10","🚨 ECE 206 FINAL","exam","",{loc:"proctoring"}),
+            "9:45–10:10":B("10:10–10:30","🚨 ECE 206 FINAL","exam","",{loc:"proctoring"}),
+            "10:10–10:30":B("10:30–11:00","🚨 ECE 206 FINAL","exam","",{loc:"proctoring"}),
+            "10:30–11:00":B("11:00–11:30","🚨 ECE 206 FINAL — collect","exam","Count before anyone leaves."),
+            "11:00–11:30":B("11:30–12:00","🍽 Eat — you skipped breakfast","body",""),
             "12:15–1:30":B("12:15–1:30","📝 ECE 115 final — print check","exam","Print the 115 final today. Sunday is too late.")}},
  "2026-12-20": {banner:"ECE 115 Final 12:30–3:30 PM. Sunday afternoon blocks are gone; the morning is yours.",
    replace:{"11:30–12:00":B("11:30–12:00","🚗 Commute + exam setup","exam","On site by 12:00 for a 12:30 start."),
             "12:15–1:30":B("12:30–1:30","🚨 ECE 115 FINAL","exam","",{loc:"12:30–3:30 PM"}),
-            "1:30–2:00":B("1:30–2:00","🚨 ECE 115 FINAL","exam","",{loc:"proctoring"}),
-            "2:00–2:30":B("2:00–2:30","🚨 ECE 115 FINAL","exam","",{loc:"proctoring"}),
-            "2:30–2:55":B("2:30–2:55","🚨 ECE 115 FINAL","exam","",{loc:"proctoring"}),
-            "2:55–3:30":B("2:55–3:30","🚨 ECE 115 FINAL — collect","exam","Count before anyone leaves.")}}
+            "1:30–2:30":B("1:30–2:30","🚨 ECE 115 FINAL","exam","",{loc:"proctoring"}),
+            "2:30–3:30":B("2:30–3:30","🚨 ECE 115 FINAL — collect","exam","Count before anyone leaves.")}}
 };
 
-/* phase-driven notes injected into matching categories */
 function phaseNote(phaseName, cat){
   if(phaseName.startsWith("Phase 2")){
     if(cat==="c115") return "🎯 This phase: this block is ECE 115 midterm construction. Draft by Sep 30, solutions by Oct 7, printed Oct 12.";
     if(cat==="c302") return "🎯 This phase: ECE 206 midterm construction. Draft by Oct 1, solutions by Oct 8, printed Oct 13.";
   }
   if(phaseName.startsWith("Phase 3")){
-    if(cat==="res"||cat==="adv"||cat==="paper") return "⏸ Suspended this week — use this block for grading. Research resumes Oct 20.";
+    if(RESEARCH_CATS.includes(cat)) return "⏸ Suspended this week — use this block for grading. Research resumes Oct 20.";
+  }
+  if(phaseName.startsWith("Phase 4")){
+    if(cat==="res") return "🎯 This phase: all platforms reporting by Nov 8, data frozen Nov 22.";
   }
   if(phaseName.startsWith("Phase 5")){
+    if(cat==="res") return "🎯 This phase: assembling the 4-page draft. Done Dec 12 — before demo day.";
     if(cat==="c302") return "🎯 This phase: ECE 302 demo prep. Rubric Nov 17 · dry-run Dec 8 · equipment check Dec 12.";
     if(cat==="c115") return "🎯 This phase: ECE 115 final construction. Draft by Dec 6, solutions by Dec 13.";
   }
@@ -588,13 +608,12 @@ function phaseNote(phaseName, cat){
   return "";
 }
 
-
 /* ================= elements ================= */
 const $ = id => document.getElementById(id);
 const datePicker=$("datePicker"), daySelect=$("daySelect"), scheduleEl=$("schedule");
-const timers = {}; let historyDate = null;
+const timers = {}; let historyDate = null; let autoFollow = true;
 
-/* ================= date helpers ================= */
+/* ================= date/time helpers ================= */
 function todayISO(){ const d=new Date(); return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10); }
 function dayFromDate(iso){ return ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date(iso+"T12:00:00").getDay()]; }
 function friendly(iso){ return new Date(iso+"T12:00:00").toLocaleDateString(undefined,{weekday:"long",month:"short",day:"numeric",year:"numeric"}); }
@@ -603,16 +622,15 @@ function key(prefix,date=datePicker.value){ return prefix+":"+date; }
 function blockKey(i,date=datePicker.value,day=daySelect.value){ return date+":"+day+":block-"+i; }
 function noteKey(i,date=datePicker.value,day=daySelect.value){ return date+":"+day+":note-"+i; }
 
-function parseMin(t){ const m=t.trim().match(/(\d{1,2})(?::(\d{2}))?/); if(!m) return 0; return Number(m[1])*60+Number(m[2]||0); }
-function durationMin(range){ const p=range.split(/[–-]/); if(p.length<2) return 0;
+function parseMin(t){ const m=String(t).trim().match(/(\d{1,2})(?::(\d{2}))?/); if(!m) return 0; return Number(m[1])*60+Number(m[2]||0); }
+function durationMin(range){ const p=String(range).split(/[–-]/); if(p.length<2) return 0;
   let s=parseMin(p[0]), e=parseMin(p[1]); if(s<7*60) s+=12*60; if(e<7*60) e+=12*60; if(e<=s) e+=12*60; return e-s; }
-/* Resolve each block to absolute minutes-since-midnight.
-   Times are 12-hour with no AM/PM, so walk the day in order and push
-   forward by 12 h whenever a start would go backwards. */
+/* Times are 12-hour with no AM/PM, so walk the day in order and push a start
+   forward by 12 h whenever it would otherwise go backwards. */
 function absRanges(list){
   const out=[]; let prev=-1;
   list.forEach(b=>{
-    const p=b.time.split(/[–-]/);
+    const p=String(b.time).split(/[–-]/);
     let s=parseMin(p[0]), e=parseMin(p[1]);
     while(s<prev) s+=720;
     while(e<=s) e+=720;
@@ -624,14 +642,12 @@ function nowMin(){ const d=new Date(); return d.getHours()*60+d.getMinutes(); }
 function isLiveDay(){ const t=todayISO(); return datePicker.value===t && daySelect.value===dayFromDate(t); }
 function reduceMotion(){ try{ return matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; } }
 function humanLeft(m){ if(m>=60){ const h=Math.floor(m/60), x=m%60; return x?`${h}h ${x}m left`:`${h}h left`; } return `${Math.max(0,m)}m left`; }
-
 function clock(sec){ const s=Math.max(0,sec), h=Math.floor(s/3600), m=Math.floor((s%3600)/60), x=s%60;
   return h>0 ? `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(x).padStart(2,"0")}`
              : `${String(m).padStart(2,"0")}:${String(x).padStart(2,"0")}`; }
-
 function touchDate(d){ const arr=sGet("trackedDates",[]); if(!arr.includes(d)){ arr.push(d); arr.sort((a,b)=>b.localeCompare(a)); sSet("trackedDates",arr);} }
 
-/* ================= phases & schedule assembly ================= */
+/* ================= phases & assembly ================= */
 function phaseFor(iso){ for(const p of PHASES){ if(iso<=p.end) return p; } return PHASES[PHASES.length-1]; }
 function scheduleFor(iso, day){
   const base = (SCHEDULES[day]||SCHEDULES.Mon).map(b=>Object.assign({},b));
@@ -640,14 +656,14 @@ function scheduleFor(iso, day){
   return base;
 }
 
-/* ================= confirm modal ================= */
-function showModal(on){ const m=$("modalOverlay"); m.hidden=!on; m.style.display=on?"flex":"none"; m.classList.toggle("open",on); }
+/* ================= modal ================= */
+function showModal(on){ $("modalOverlay").classList.toggle("open",on); }
 function confirmModal(msg){ return new Promise(res=>{ $("modalMsg").textContent=msg; showModal(true);
   const done=v=>{ showModal(false); $("modalOk").removeEventListener("click",ok); $("modalCancel").removeEventListener("click",no); res(v); };
   const ok=()=>done(true), no=()=>done(false);
   $("modalOk").addEventListener("click",ok); $("modalCancel").addEventListener("click",no); }); }
 
-/* ================= body metrics ================= */
+/* ================= metrics ================= */
 function getMetrics(){ return sGet("metrics",{}); }
 function saveMetrics(){
   const m=getMetrics(); const d=datePicker.value;
@@ -684,7 +700,7 @@ function flash(el,manual){ el.textContent = manual?"Saved manually 💾✨":"Aut
 function saveTodo(m){ sSet(key("laterTodo"),$("laterTodoText").value); touchDate(datePicker.value); flash($("todoStatus"),m); renderHistory(); }
 function savePerfect(m){ sSet(key("mrPerfect"),$("perfectText").value); touchDate(datePicker.value); flash($("perfectStatus"),m); renderHistory(); }
 
-/* ================= render: semester strip ================= */
+/* ================= semester strip ================= */
 function renderSemester(){
   const iso=datePicker.value, ph=phaseFor(iso);
   $("phaseName").textContent=ph.name;
@@ -702,27 +718,32 @@ function renderSemester(){
   $("heroSub").textContent = `${friendly(iso)} · ${ph.name}`;
 }
 
+/* ================= schedule ================= */
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 
-/* ================= render: schedule ================= */
 function renderSchedule(){
   const iso=datePicker.value, day=daySelect.value, ph=phaseFor(iso);
   const list=scheduleFor(iso,day);
   const done=sGet(key("done"),{});
   scheduleEl.innerHTML="";
-  let completed=0, water=0, focus=0;
+  let completed=0, resMin=0, vidMin=0;
 
   list.forEach((b,i)=>{
     const meta=CAT[b.cat]||CAT.buffer;
     const bk=blockKey(i);
     const isDone=!!done[bk];
-    if(isDone){ completed++; if(b.water) water+=b.water;
-      if(["study","c115","c206","c302","res","adv","paper","sota","pd","yt","recall"].includes(b.cat)) focus+=durationMin(b.time); }
+    const mins=durationMin(b.time);
+    if(isDone){
+      completed++;
+      if(RESEARCH_CATS.includes(b.cat)) resMin+=mins;
+      if(VIDEO_CATS.includes(b.cat)) vidMin+=mins;
+    }
 
     const note=phaseNote(ph.name,b.cat);
     const body=[
-      b.loc?`<span class="loc">▸ ${b.loc}</span>`:"",
-      b.details||"",
-      note?(b.details?"\n\n":"")+note:""
+      b.loc?`<span class="loc">▸ ${esc(b.loc)}</span>`:"",
+      esc(b.details||""),
+      note?(b.details?"\n\n":"")+esc(note):""
     ].join("");
 
     const el=document.createElement("div");
@@ -733,9 +754,9 @@ function renderSchedule(){
       <div class="block-head">
         <input type="checkbox" ${isDone?"checked":""} aria-label="Mark complete">
         <div class="block-meta">
-          <div class="block-time">${b.time}${b.water?" · 💧"+b.water+" oz":""}</div>
-          <div class="block-title">${b.title}</div>
-          <span class="block-tag">${meta.n} · ${durationMin(b.time)}m</span>
+          <div class="block-time">${esc(b.time)}${b.water?" · 💧"+b.water+" oz":""}</div>
+          <div class="block-title">${esc(b.title)}</div>
+          <span class="block-tag">${esc(meta.n)} · ${mins}m</span>
         </div>
       </div>
       ${body.trim()?`<div class="block-body">${body}</div>`:""}
@@ -745,7 +766,7 @@ function renderSchedule(){
         <button class="mini-btn t-pause">⏸ Pause</button>
         <button class="mini-btn t-reset">↺ Reset</button>
       </div>
-      <input class="note" type="text" placeholder="Note for this block…" value="${(sGet(noteKey(i),"")+"").replace(/"/g,"&quot;")}">
+      <input class="note" type="text" placeholder="Note for this block…" value="${esc(sGet(noteKey(i),""))}">
     `;
 
     el.querySelector('input[type="checkbox"]').addEventListener("change",e=>{
@@ -770,8 +791,8 @@ function renderSchedule(){
   $("completedStat").textContent=`${completed}/${list.length}`;
   $("progressStat").textContent=pct+"%";
   $("progressBar").style.width=pct+"%";
-  $("waterStat").textContent=water+" oz";
-  $("timeStat").textContent=(focus/60).toFixed(1)+"h";
+  $("resStat").textContent=(resMin/60).toFixed(1)+"h";
+  $("vidStat").textContent=(vidMin/60).toFixed(1)+"h";
   markNow(false);
 }
 
@@ -796,12 +817,15 @@ function renderNowBar(idx){
   if(idx<0){
     bar.classList.add("idle");
     bar.style.setProperty("--acc","#8A8A9C");
-    const msg = (first && n<first.s)
-      ? `Day starts at 7:00 AM — ${humanLeft(first.s-n).replace(" left"," from now")}`
-      : (last && n>=last.e) ? "Day complete. Sleep is the last block."
-      : "Between blocks.";
+    let msg="Between blocks.";
+    if(first && n<first.s) msg=`Day starts at 7:00 AM — ${humanLeft(first.s-n).replace(" left"," from now")}`;
+    else if(last && n>=last.e) msg="Day complete. Sleep is the last block.";
+    else {
+      const nxt=curRanges.findIndex(r=>r.s>n);
+      if(nxt>=0) msg=`Gap — next up ${curList[nxt].title} in ${curRanges[nxt].s-n}m`;
+    }
     bar.innerHTML=`<span class="nb-dot"></span><div class="nb-meta"><div class="nb-label">Not in a block</div>
-      <div class="nb-title">${msg}</div></div>`;
+      <div class="nb-title">${esc(msg)}</div></div>`;
     return;
   }
   bar.classList.remove("idle");
@@ -812,9 +836,9 @@ function renderNowBar(idx){
   bar.innerHTML=`
     <span class="nb-dot"></span>
     <div class="nb-meta">
-      <div class="nb-label">Now · ${b.time}</div>
-      <div class="nb-title">${b.title}</div>
-      ${nxt?`<div class="nb-next">Next: ${nxt.title} · ${nxt.time.split(/[–-]/)[0]}</div>`:`<div class="nb-next">Last block of the day.</div>`}
+      <div class="nb-label">Now · ${esc(b.time)}</div>
+      <div class="nb-title">${esc(b.title)}</div>
+      ${nxt?`<div class="nb-next">Next: ${esc(nxt.title)} · ${esc(String(nxt.time).split(/[–-]/)[0])}</div>`:`<div class="nb-next">Last block of the day.</div>`}
     </div>
     <div class="nb-right">
       <div class="nb-left-time">${humanLeft(r.e-n)}</div>
@@ -830,11 +854,18 @@ function markNow(doScroll){
     el.classList.toggle("past", live && curRanges[i] && n>=curRanges[i].e);
   });
   renderNowBar(idx);
-  if(doScroll && idx>=0) requestAnimationFrame(()=>jumpTo(idx));
+  /* auto-follow: when the clock rolls into a new block, scroll to it */
+  const changed = (idx!==lastIdx);
+  if(idx>=0 && (doScroll || (changed && autoFollow && lastIdx!==null))) requestAnimationFrame(()=>jumpTo(idx));
   lastIdx=idx;
 }
+function tickClock(){
+  const d=new Date();
+  $("wallClock").textContent = d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"})
+    + (isLiveDay()?"":" · viewing another day");
+}
 
-/* ================= render: history ================= */
+/* ================= history ================= */
 function renderHistory(){
   const dates=sGet("trackedDates",[]).slice(0,24);
   $("historyList").innerHTML = dates.length
@@ -854,28 +885,35 @@ function renderPreview(){
     `${friendly(historyDate)}\n`+
     `Blocks completed: ${nDone}\n`+
     `Weight: ${m.w!=null?m.w+" lb":"—"}   Body fat: ${m.bf!=null?m.bf+" %":"—"}\n\n`+
-    `📓 ${j||"—"}\n\n🧾 ${t||"—"}\n\n🪞 ${p||"—"}`;
+    `🧾 Later To-Do:\n${t||"—"}\n\n🪞 Mr. Perfect:\n${p||"—"}`;
 }
 
-/* ================= links ================= */
+/* ================= legend + links ================= */
+$("legendBox").innerHTML = ["vidEdge","vidElec","vidML","vidCtx","sota","yt","res","adv","paper","c115","c206","c302","body","pd","admin","meet","unwind","buffer"]
+  .map(k=>`<span style="color:${CAT[k].c};background:${CAT[k].s};border-color:${CAT[k].c}33"><i style="background:${CAT[k].c}"></i>${CAT[k].n}</span>`).join("");
+
 $("linksBox").innerHTML = [
  ["📡 Semi Doped — daily semiconductor brief",L.semidoped],
  ["📡 SemiAnalysis",L.semianalysis],
+ ["🏛 MLSys — priority-1 venue",L.mlsys],
+ ["🏛 EDGE AI Foundation — symposium + talks",L.edgeai],
  ["📘 Harvard CS249r · TinyML",L.tinyml],
- ["📘 Teman — Hardware for Deep Learning (slides)",L.teman],
- ["🎬 Teman — full lecture playlist",L.temanYT],
- ["🎬 EEVblog",L.eev],["🎬 Branch Education",L.branch],["🎬 Asianometry",L.asiano],
- ["🎬 Paul McWhorter",L.mcwhorter],["🎬 DroneBot Workshop",L.dronebot],["🎬 Phil's Lab",L.philslab],
- ["🎬 3Blue1Brown",L.b1b],["🎬 Welch Labs",L.welch],["🛠 Edge Impulse docs",L.edgeimpulse]
+ ["📘 Teman — Hardware for Deep Learning",L.teman],
+ ["🛠 Edge Impulse docs",L.edgeimpulse],
+ ["🎬 DroneBot Workshop",L.dronebot],["🎬 Paul McWhorter",L.mcwhorter],["🎬 Ben Eater",L.beneater],
+ ["🎬 Electronic Wizard",L.ewizard],["🎬 EEVblog",L.eev],["🎬 Phil's Lab",L.philslab],
+ ["🎬 3Blue1Brown",L.b1b],["🎬 Welch Labs",L.welch],
+ ["🎬 Branch Education",L.branch],["🎬 The Engineering Mindset",L.engmind],
+ ["🎬 Veritasium",L.veritasium],["🎬 Asianometry",L.asiano],["🎬 AI Explained",L.aiexplained]
 ].map(([t,u])=>`<a href="${u}" target="_blank" rel="noopener noreferrer">${t}</a>`).join("");
 
 /* ================= boot ================= */
 function loadDay(){
-  const iso=datePicker.value;
   $("laterTodoText").value=sGet(key("laterTodo"),"");
   $("perfectText").value=sGet(key("mrPerfect"),"");
   Object.keys(timers).forEach(k=>{clearInterval(timers[k]); delete timers[k];});
-  renderSemester(); renderMetrics(); renderSchedule(); renderHistory();
+  lastIdx=null;
+  renderSemester(); renderMetrics(); renderSchedule(); renderHistory(); tickClock();
 }
 function goToNow(){
   datePicker.value=todayISO(); daySelect.value=dayFromDate(datePicker.value);
@@ -883,12 +921,19 @@ function goToNow(){
 }
 datePicker.addEventListener("change",()=>{ daySelect.value=dayFromDate(datePicker.value); loadDay(); });
 daySelect.addEventListener("change",loadDay);
-$("todayBtn").addEventListener("click",()=>{ datePicker.value=todayISO(); daySelect.value=dayFromDate(datePicker.value); loadDay(); });
+$("todayBtn").addEventListener("click",goToNow);
 $("nowBtn").addEventListener("click",goToNow);
+$("followBtn").addEventListener("click",()=>{
+  autoFollow=!autoFollow;
+  $("followBtn").classList.toggle("on",autoFollow);
+  $("followBtn").textContent="🎯 Auto-follow: "+(autoFollow?"ON":"OFF");
+  if(autoFollow) markNow(true);
+});
 $("resetDayBtn").addEventListener("click",async()=>{
   if(!await confirmModal("Reset all checkboxes, timers, and notes for "+friendly(datePicker.value)+"? To-dos, thoughts log and metrics are kept.")) return;
   sDel(key("done"));
-  allKeys().forEach(k=>{ if(k.includes(datePicker.value)&&(k.includes(":note-")||k.startsWith("sos:timer:"+datePicker.value))) sDel(k.replace(/^sos:/,"")); });
+  allKeys().forEach(k=>{ const kk=k.replace(/^sos:/,"");
+    if(kk.includes(datePicker.value)&&(kk.includes(":note-")||kk.startsWith("timer:"+datePicker.value))) sDel(kk); });
   loadDay();
 });
 $("saveMetricsBtn").addEventListener("click",saveMetrics);
@@ -913,13 +958,14 @@ datePicker.value=todayISO();
 daySelect.value=dayFromDate(datePicker.value);
 loadDay();
 
-/* land on the current block, and keep the marker honest */
+/* land on the current block, then keep the marker honest */
 requestAnimationFrame(()=>markNow(true));
-setInterval(()=>markNow(false),30000);
+setInterval(()=>{ tickClock(); markNow(false); },15000);
+setInterval(tickClock,1000);
 document.addEventListener("visibilitychange",()=>{
   if(document.visibilityState!=="visible") return;
-  if(datePicker.value!==todayISO()) return;      // date rolled over while away
-  markNow(false);
+  if(datePicker.value!==todayISO()){ goToNow(); return; }  /* date rolled over while away */
+  tickClock(); markNow(false);
 });
 </script>
 </body>
