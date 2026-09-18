@@ -94,7 +94,7 @@ button:active{transform:translateY(1px)}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 10px;text-align:center;box-shadow:var(--shadow-sm)}
 .stat .label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
 .stat .value{font-family:var(--font-display);font-size:1.28rem;font-weight:700;margin-top:3px}
-.stat.res .value{color:#12693F} .stat.vid .value{color:#B35C00}
+.stat.res .value{color:#06401A} .stat.vid .value{color:#7A3300}
 
 .metric-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px}
 .metric-row label{display:block;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.09em;
@@ -114,9 +114,9 @@ textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
 .save-status{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-faint)}
 
 .nowbar{display:flex;align-items:center;gap:13px;flex-wrap:wrap;background:var(--card);
-  border:1px solid var(--line);border-left:6px solid var(--acc,#2E6FD6);border-radius:var(--radius-sm);
+  border:1px solid var(--line);border-left:6px solid var(--sw,#2E6FD6);border-radius:var(--radius-sm);
   padding:12px 15px;margin-bottom:12px;box-shadow:var(--shadow-sm);position:sticky;top:6px;z-index:6}
-.nb-dot{width:11px;height:11px;flex:none;border-radius:999px;background:var(--acc,#2E6FD6);animation:pulse 2.2s infinite}
+.nb-dot{width:11px;height:11px;flex:none;border-radius:999px;background:var(--sw,#2E6FD6);animation:pulse 2.2s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,111,214,.45)}70%{box-shadow:0 0 0 9px rgba(46,111,214,0)}100%{box-shadow:0 0 0 0 rgba(46,111,214,0)}}
 .nb-meta{flex:1;min-width:180px}
 .nb-label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acc,#2E6FD6);font-weight:700}
@@ -125,7 +125,7 @@ textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
 .nb-right{text-align:right;min-width:104px}
 .nb-left-time{font-family:var(--font-mono);font-size:.92rem;font-weight:700;color:var(--acc,#2E6FD6)}
 .nb-prog{height:7px;width:104px;background:var(--line);border-radius:999px;overflow:hidden;margin-top:5px}
-.nb-prog span{display:block;height:100%;background:var(--acc,#2E6FD6);border-radius:999px;transition:width .4s}
+.nb-prog span{display:block;height:100%;background:var(--sw,#2E6FD6);border-radius:999px;transition:width .4s}
 .nowbar.idle{border-left-color:var(--ink-faint)}
 .nowbar.idle .nb-dot{animation:none;background:var(--ink-faint)}
 @media (max-width:520px){.nb-right{text-align:left}.nowbar{position:static}}
@@ -133,19 +133,20 @@ textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
 .progress-bar{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#E8920C,#E0533A,#8E47C4,#2E6FD6);transition:width .3s}
 
 .schedule{display:grid;gap:11px}
-.block{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--acc,#8A8A9C);
+.block{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--sw,#8A8A9C);
   border-radius:var(--radius-sm);padding:13px 15px;box-shadow:var(--shadow-sm);transition:opacity .2s}
 .block.past:not(.done){opacity:.55}
-.block.now{box-shadow:0 0 0 3px var(--acc,#2E6FD6),var(--shadow);position:relative;background:var(--acc-soft,#fff)}
+.block.now{box-shadow:0 0 0 3px var(--sw,#2E6FD6),var(--shadow);position:relative;background:var(--acc-soft,#fff)}
 .block.now .block-time::after{content:" ● NOW";font-weight:700;letter-spacing:.1em}
 .block.done{opacity:.5}
 .block-head{display:flex;align-items:flex-start;gap:11px}
-.block-head input[type="checkbox"]{width:22px;height:22px;min-height:0;flex:none;margin-top:2px;accent-color:var(--acc,#2E6FD6)}
+.block-head input[type="checkbox"]{width:22px;height:22px;min-height:0;flex:none;margin-top:2px;accent-color:var(--sw,#2E6FD6)}
 .block-meta{flex:1}
 .block-time{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.07em;color:var(--acc,#8A8A9C);font-weight:700}
 .block-title{font-family:var(--font-display);font-size:1rem;font-weight:600;margin-top:2px;line-height:1.25}
 .block-tag{display:inline-block;margin-top:6px;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;
-  text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--acc-soft,#EEE);color:var(--acc,#555);font-weight:700}
+  text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--acc-soft,#EEE);color:var(--acc,#555);
+  font-weight:700;border:1px solid var(--sw,#DDD)}
 .block-body{margin-top:10px;font-size:.86rem;color:var(--ink-soft);line-height:1.55;white-space:pre-wrap}
 .block-body .loc{display:inline-block;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;
   text-transform:uppercase;color:var(--acc);font-weight:700;margin-bottom:6px}
@@ -165,7 +166,7 @@ textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
 .legend{display:flex;flex-wrap:wrap;gap:7px}
 .legend span{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:700;
   padding:5px 10px;border-radius:999px;border:1px solid var(--line-2)}
-.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.18);flex:none}
 
 .links{display:grid;gap:6px;font-size:.85rem}
 .links a{color:#1F5FA8;text-decoration:none;font-weight:600}
@@ -264,8 +265,9 @@ textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
     </div>
 
     <div class="card">
-      <h2>🎨 Legend</h2>
+      <h2>🎨 Colour Legend</h2>
       <div class="legend" id="legendBox"></div>
+      <p class="hint">Swatches match the <em>Fall 2026 Plan</em> workbook legend exactly — same colour, same category, same order.</p>
     </div>
   </div>
 </div>
@@ -303,28 +305,40 @@ function sSet(key, val){ const s=JSON.stringify(val); try{ if(LS) LS.setItem("so
 function sDel(key){ try{ if(LS) LS.removeItem("sos:"+key); else delete MEM["sos:"+key]; }catch(e){} }
 function allKeys(){ try{ if(LS) return Object.keys(LS).filter(k=>k.startsWith("sos:")); return Object.keys(MEM); }catch(e){ return Object.keys(MEM);} }
 
-/* ================= palette — mirrors the workbook legend ================= */
+/* =====================================================================
+   PALETTE — 1:1 with the "Fall 2026 Plan" workbook legend.
+   sw = the exact cell fill used in the spreadsheet (swatch / left bar)
+   c  = the workbook's dark ink for that fill (text + accents)
+   s  = light tint of sw, used as the card wash when a block is NOW
+   n  = full legend label (matches the workbook legend text)
+   sn = short tag shown on each block
+   ===================================================================== */
 const CAT = {
-  vidEdge:{c:"#B35C00", s:"#FFE8CC", n:"YouTube · Edge AI"},
-  vidElec:{c:"#8A6A00", s:"#FFF3C4", n:"YouTube · Electronics"},
-  vidML  :{c:"#0B6E99", s:"#D5F2FF", n:"YouTube · ML & AI"},
-  vidCtx :{c:"#3D5A73", s:"#DFE8F0", n:"YouTube · Eng & Context"},
-  sota   :{c:"#B01E76", s:"#FBDDEF", n:"SOTA"},
-  yt     :{c:"#D4482F", s:"#FBE5DF", n:"Video · other"},
-  res    :{c:"#12693F", s:"#DCEDE4", n:"Research"},
-  adv    :{c:"#5F7D1F", s:"#EAF1D8", n:"Advisees"},
-  paper  :{c:"#1F4E79", s:"#DFE9F2", n:"Papers · curriculum"},
-  c115   :{c:"#C97A00", s:"#FCEFD8", n:"ECE 115"},
-  c206   :{c:"#6D28A8", s:"#EEE3F8", n:"ECE 206"},
-  c302   :{c:"#0E8F8F", s:"#DDF1F1", n:"ECE 302"},
-  body   :{c:"#15A06B", s:"#E2F5EC", n:"Body · protected"},
-  pd     :{c:"#8A5A2B", s:"#F3EADF", n:"Personal Dev · protected"},
-  admin  :{c:"#5A6B7B", s:"#E9EEF2", n:"Transit · email"},
-  meet   :{c:"#9B1C1C", s:"#F6E0E0", n:"Meeting"},
-  unwind :{c:"#5B3FA8", s:"#E7E0FB", n:"Netflix · unwind"},
-  buffer :{c:"#8A8A9C", s:"#EEEDF2", n:"Buffer"},
-  exam   :{c:"#B00020", s:"#FDE7EA", n:"Exam"}
+  vidEdge:{sw:"#FFA94D", c:"#5C2600", s:"#FFF0DE", n:"YouTube ladder · Edge AI, Embedded, SSCS", sn:"YT · Edge AI"},
+  vidElec:{sw:"#FFD43B", c:"#5C4200", s:"#FFF8DB", n:"YouTube ladder · Electronics Troubleshooting", sn:"YT · Electronics"},
+  vidML  :{sw:"#63D6FF", c:"#04374D", s:"#E4F7FF", n:"YouTube ladder · ML & AI", sn:"YT · ML & AI"},
+  vidCtx :{sw:"#9FB3C8", c:"#1F3648", s:"#EDF1F5", n:"YouTube ladder · Engineering & Context", sn:"YT · Eng & Context"},
+  sota   :{sw:"#F783AC", c:"#75103D", s:"#FEEBF2", n:"YouTube ladder · SOTA Concepts", sn:"SOTA"},
+  res    :{sw:"#5FD97C", c:"#06401A", s:"#E3F8E9", n:"Research — hands-on, analysis, slides", sn:"Research"},
+  adv    :{sw:"#D8F5A2", c:"#3F5800", s:"#F4FBE6", n:"Supervision — student projects · research meeting & prep", sn:"Supervision"},
+  paper  :{sw:"#74C0FC", c:"#0A3A66", s:"#E6F2FE", n:"Deep study — AI concept understanding · paper reading · curriculum · venue skims", sn:"Deep study"},
+  yt     :{sw:"#FFB366", c:"#7A3300", s:"#FFF1E3", n:"Video — other themed slots", sn:"Video · other"},
+  c115   :{sw:"#FFEB99", c:"#7A5200", s:"#FFFAE6", n:"ECE 115", sn:"ECE 115"},
+  c302   :{sw:"#5BE0C0", c:"#034A36", s:"#E2F9F3", n:"ECE 302 (incl. lab venue list)", sn:"ECE 302"},
+  c206   :{sw:"#E599F7", c:"#5B1470", s:"#F9EDFC", n:"ECE 206", sn:"ECE 206"},
+  meet   :{sw:"#FF8787", c:"#78100F", s:"#FFEDED", n:"Faculty · DUS", sn:"Faculty · DUS"},
+  commute:{sw:"#CED4DA", c:"#2E3438", s:"#F2F4F6", n:"Commute · transit", sn:"Commute"},
+  buffer :{sw:"#EDF0F2", c:"#4A5259", s:"#F7F9FA", n:"Buffer · OPEN · unstructured", sn:"Buffer"},
+  unwind :{sw:"#B197FC", c:"#3A1D78", s:"#EFEAFE", n:"Netflix · unwind — wind-down", sn:"Unwind"},
+  body   :{sw:"#EFD9BE", c:"#6B4423", s:"#FAF2E8", n:"PROTECTED — wake · gym · shower · walk · meals · meditate", sn:"Protected · body"},
+  pd     :{sw:"#E3C39A", c:"#5A3315", s:"#F7EDE0", n:"PROTECTED — Personal Dev. Never a donor block.", sn:"Protected · Pers. Dev"},
+  admin  :{sw:"#9AA7B5", c:"#161E26", s:"#EAEEF2", n:"Email · course admin triage (Gradescope / Canvas posting checks)", sn:"Email · admin"},
+  exam   :{sw:"#FF5B5B", c:"#7A0016", s:"#FDE7EA", n:"Exam · demo day", sn:"Exam"}
 };
+/* legend order mirrors workbook rows 40 → 58 */
+const LEGEND_ORDER = ["vidEdge","vidElec","vidML","vidCtx","sota","res","adv","paper","yt",
+                      "c115","c302","c206","meet","commute","buffer","unwind","body","pd","admin"];
+
 const RESEARCH_CATS = ["res","adv","paper"];
 const VIDEO_CATS = ["vidEdge","vidElec","vidML","vidCtx","sota","yt"];
 
@@ -385,6 +399,7 @@ const paperSkim = (venue) => B("7:15–7:45","📄 Paper skim — "+venue,"paper
 const researchHandsOn = (t) => B(t,"🔬 Research — hands-on","res",RESEARCH_BODY);
 const lab = () => B("7:45–10:20","🔌 ECE 302 LAB","c302",LAB_VENUES,{loc:"UG Lab"});
 const netflix = (t) => B(t,"🍿 Netflix","unwind","Unwind. No notes, no guilt.");
+const walk = (t,title,details) => B(t,title,"body",(details?details+"\n":"")+"Daily aerobic minimum — protected, same tier as the gym.");
 
 /* the 8:30–10:30 YouTube ladder — Sun · Mon · Wed · Fri */
 const ladder = () => ([
@@ -408,8 +423,8 @@ Sun:[
  B("4:00–4:30","🎬 YouTube — Embedded HW","yt","Jetson / Arduino build-along"),
  B("4:30–5:00","🎬 YouTube — Embedded HW","yt","Jetson / Arduino build-along"),
  dinner(),
- B("6:00–7:15","🚗 Leave to school","admin",""),
- B("7:15–10:20","🔬 Research Meeting","res","60 min paper standup with the platform owners, then 60 min curriculum with the rest.\n\n📌 Three questions you can't answer yourself — bring them.",{loc:"Equad B205"}),
+ B("6:00–7:15","🚗 Leave to school","commute",""),
+ B("7:15–10:20","🎓 Research Meeting","adv","60 min paper standup with the platform owners, then 60 min curriculum with the rest.\n\n📌 Three questions you can't answer yourself — bring them.",{loc:"Equad B205"}),
  meditate()
 ],
 Mon:[
@@ -418,17 +433,17 @@ Mon:[
  B("11:30–12:00","📄 Read Workshop Papers","paper",WORKSHOP_BODY),
  emails(),
  B("12:15–1:30","📄 MLSys papers → research slide prep","res","Read, then convert straight into a slide. Reading that doesn't become a slide didn't happen."),
- B("1:30–2:00","🚗 Commute","admin","Listen to Semi Doped"),
+ B("1:30–2:00","🚗 Commute","commute","Listen to Semi Doped"),
  B("2:00–2:55","🔧 115 Lec Prep","c115",""),
  B("2:55–4:15","🔧 ECE 115 Lecture","c115","",{loc:"Jad A10"}),
- B("4:15–4:30","🚶 Walk + post-class debrief","admin","What landed, what didn't, one fix"),
+ walk("4:15–4:30","🚶 Walk + post-class debrief","What landed, what didn't, one fix"),
  B("4:30–5:00","📧 Email","admin",""),
  dinner(),
  researchHandsOn("6:00–7:15"),
  paperSkim("NeurIPS"),
  B("7:45–8:00","⏸ Flex Buffer","buffer",""),
  B("8:00–9:00","🟣 ECE 206 Precept","c206","",{loc:"Equad B205"}),
- B("9:00–9:45","🏠 Home","admin",""),
+ B("9:00–9:45","🏠 Home","commute",""),
  netflix("10:00–10:45"),
  meditate()
 ],
@@ -437,11 +452,11 @@ Tue:[
  B("8:30–8:55","🔌 ECE 302 Rev.","c302","Yesterday's board + today's opener"),
  B("8:55–10:30","📄 Read Workshop Papers","paper",WORKSHOP_BODY),
  shower("10:30–11:00"),
- B("11:00–11:30","📡 Commute — SOTA audio","admin","Semi Doped / SemiAnalysis podcast"),
+ B("11:00–11:30","📡 Commute — SOTA audio","commute","Semi Doped / SemiAnalysis podcast"),
  B("11:30–12:00","🔌 ECE 302 Lec Prep","c302",""),
  emails(),
  B("12:15–1:05","🔌 ECE 302 Lecture","c302","",{loc:"Bowen Hall 222"}),
- B("1:05–1:20","🚶 Walk — Bowen → Frist Camp","admin","15 min outdoors. Daily aerobic minimum; take it at pace."),
+ walk("1:05–1:20","🚶 Walk — Bowen → Frist Camp","15 min outdoors; take it at pace."),
  B("1:20–2:55","🟣 ECE 206 Lecture","c206","Official end 2:40 — 2:40–2:55 is reset/transit.\n📌 Post 206 KI, HW, Video",{loc:"Frist Camp 302"}),
  B("2:55–4:30","📘 Curriculum — Efficient AI · Edge AI · Physical AI","paper","Review the source course with AI, then build the advisee-facing version: one analogy · one number · one demo."),
  B("4:30–5:00","🎓 Research Slide","adv","One slide. Cut one, don't add one."),
@@ -450,7 +465,7 @@ Tue:[
  paperSkim("ISCAS / DAC"),
  B("7:45–8:00","⏸ Flex Buffer","buffer",""),
  B("8:00–9:00","🟣 ECE 206 Precept","c206","",{loc:"Equad B205"}),
- B("9:00–9:45","🏠 Home","admin",""),
+ B("9:00–9:45","🏠 Home","commute",""),
  netflix("10:00–10:45"),
  meditate()
 ],
@@ -460,10 +475,10 @@ Wed:[
  B("11:30–12:00","📄 Read Workshop Papers","paper",WORKSHOP_BODY),
  emails(),
  B("12:15–1:30","📄 MLSys papers → research slide prep","res","Read, then convert straight into a slide."),
- B("1:30–2:00","🚗 Commute","admin","Listen to Semi Doped"),
+ B("1:30–2:00","🚗 Commute","commute","Listen to Semi Doped"),
  B("2:00–2:55","🔧 115 Lec Prep","c115",""),
  B("2:55–4:15","🔧 ECE 115 Lecture","c115","",{loc:"Jad A10"}),
- B("4:15–4:30","🚶 Walk + post-class debrief","admin",""),
+ walk("4:15–4:30","🚶 Walk + post-class debrief",""),
  B("4:30–5:00","📧 Email + 302 lab dry-run","admin","Instruments on, waveforms confirmed — 3 h before students arrive"),
  dinner(),
  researchHandsOn("6:00–7:15"),
@@ -477,16 +492,16 @@ Thu:[
  B("8:30–8:55","🔌 ECE 302 Rev.","c302",""),
  B("8:55–10:30","📄 Read Workshop Papers","paper",WORKSHOP_BODY),
  shower("10:30–11:00"),
- B("11:00–11:30","📡 Commute — SOTA audio","admin","Semi Doped / SemiAnalysis podcast"),
+ B("11:00–11:30","📡 Commute — SOTA audio","commute","Semi Doped / SemiAnalysis podcast"),
  B("11:30–12:00","🔌 ECE 302 Lec Prep","c302",""),
  emails(),
  B("12:15–1:05","🔌 ECE 302 Lecture","c302","",{loc:"Bowen Hall 222"}),
- B("1:05–1:20","🚶 Walk — Bowen → Frist Camp","admin","15 min outdoors, at pace"),
+ walk("1:05–1:20","🚶 Walk — Bowen → Frist Camp","15 min outdoors, at pace"),
  B("1:20–2:55","🟣 ECE 206 Lecture","c206","Official end 2:40 — 2:40–2:55 is reset/transit.\n📌 Post 206 KI, Lab, Video",{loc:"Frist Camp 302"}),
  B("2:55–3:30","🔬 Research — experiment runs","res","This week's active question"),
  B("3:30–4:00","🔬 Research — measure & instrument","res","Predict, then measure. Explain the delta."),
  B("4:00–4:30","🔬 Research — writing","res","Two paragraphs that survive to the paper"),
- B("4:30–5:00","🔬 Research — advisee log review","res","Written feedback, ready for Saturday"),
+ B("4:30–5:00","🎓 Advisee log review","adv","Written feedback, ready for Saturday"),
  dinner(),
  researchHandsOn("6:00–7:15"),
  paperSkim("ICML / CVPR"),
@@ -497,7 +512,7 @@ Thu:[
 Fri:[
  wake(), pdev(), ...ladder(),
  shower("10:30–11:00"),
- B("11:00–11:30","📡 Commute — SOTA audio","admin","Semi Doped / SemiAnalysis podcast"),
+ B("11:00–11:30","📡 Commute — SOTA audio","commute","Semi Doped / SemiAnalysis podcast"),
  B("11:30–12:00","⏸ BUFFER","buffer",""),
  emails(),
  B("12:15–1:30","🏛 Faculty Meeting","meet",""),
@@ -553,7 +568,7 @@ const PHASES = [
  {end:"2099-12-31", name:"Between terms", focus:"Maker Day cadence returns. Venue sweeps, canon papers 11–20, and the STM32N6 work all unfreeze in January."}
 ];
 
-/* date-specific overrides — time strings match the v3 grid exactly */
+/* date-specific overrides — time strings match the grid exactly */
 const OVERRIDES = {
  "2026-10-14": {banner:"ECE 115 Midterm today — in class, Jad A10. UG Lab still runs tonight 7:45–10:20. Do not schedule anything else.",
    replace:{"12:15–1:30":B("12:15–1:30","🚨 Final exam read-through","exam","Read your own exam cold, timed. If you can't finish in half the allotted time, it's too long."),
@@ -750,13 +765,14 @@ function renderSchedule(){
     el.className="block"+(isDone?" done":"");
     el.style.setProperty("--acc",meta.c);
     el.style.setProperty("--acc-soft",meta.s);
+    el.style.setProperty("--sw",meta.sw);
     el.innerHTML=`
       <div class="block-head">
         <input type="checkbox" ${isDone?"checked":""} aria-label="Mark complete">
         <div class="block-meta">
           <div class="block-time">${esc(b.time)}${b.water?" · 💧"+b.water+" oz":""}</div>
           <div class="block-title">${esc(b.title)}</div>
-          <span class="block-tag">${esc(meta.n)} · ${mins}m</span>
+          <span class="block-tag">${esc(meta.sn)} · ${mins}m</span>
         </div>
       </div>
       ${body.trim()?`<div class="block-body">${body}</div>`:""}
@@ -817,6 +833,7 @@ function renderNowBar(idx){
   if(idx<0){
     bar.classList.add("idle");
     bar.style.setProperty("--acc","#8A8A9C");
+    bar.style.setProperty("--sw","#8A8A9C");
     let msg="Between blocks.";
     if(first && n<first.s) msg=`Day starts at 7:00 AM — ${humanLeft(first.s-n).replace(" left"," from now")}`;
     else if(last && n>=last.e) msg="Day complete. Sleep is the last block.";
@@ -833,10 +850,11 @@ function renderNowBar(idx){
   const pct=Math.round((n-r.s)/(r.e-r.s)*100);
   const nxt=curList[idx+1];
   bar.style.setProperty("--acc",meta.c);
+  bar.style.setProperty("--sw",meta.sw);
   bar.innerHTML=`
     <span class="nb-dot"></span>
     <div class="nb-meta">
-      <div class="nb-label">Now · ${esc(b.time)}</div>
+      <div class="nb-label">Now · ${esc(b.time)} · ${esc(meta.sn)}</div>
       <div class="nb-title">${esc(b.title)}</div>
       ${nxt?`<div class="nb-next">Next: ${esc(nxt.title)} · ${esc(String(nxt.time).split(/[–-]/)[0])}</div>`:`<div class="nb-next">Last block of the day.</div>`}
     </div>
@@ -889,8 +907,8 @@ function renderPreview(){
 }
 
 /* ================= legend + links ================= */
-$("legendBox").innerHTML = ["vidEdge","vidElec","vidML","vidCtx","sota","yt","res","adv","paper","c115","c206","c302","body","pd","admin","meet","unwind","buffer"]
-  .map(k=>`<span style="color:${CAT[k].c};background:${CAT[k].s};border-color:${CAT[k].c}33"><i style="background:${CAT[k].c}"></i>${CAT[k].n}</span>`).join("");
+$("legendBox").innerHTML = LEGEND_ORDER
+  .map(k=>`<span style="color:${CAT[k].c};background:${CAT[k].s};border-color:${CAT[k].sw}"><i style="background:${CAT[k].sw}"></i>${CAT[k].n}</span>`).join("");
 
 $("linksBox").innerHTML = [
  ["📡 Semi Doped — daily semiconductor brief",L.semidoped],
