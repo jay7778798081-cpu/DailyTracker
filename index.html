@@ -3,988 +3,486 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<title>Semester OS · Daily Plan</title>
+<title>Fall 2026 · Daily Plan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#FBF8F2; --paper-2:#F1ECE1; --card:#FFFFFF;
-  --ink:#1B1B2A; --ink-soft:#5C5C70; --ink-faint:#8A8A9C;
-  --line:#ECE4D6; --line-2:#E1D7C5;
-  --shadow:0 14px 40px rgba(40,30,12,.10); --shadow-sm:0 6px 18px rgba(40,30,12,.07);
-  --radius:20px; --radius-sm:14px;
-  --font-display:"Comic Sans MS","Chalkboard SE","Comic Neue",cursive,sans-serif;
-  --font-body:"Comic Sans MS","Chalkboard SE","Comic Neue",cursive,sans-serif;
-  --font-mono:"Space Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --ink:#141B22; --ink-soft:#56606B; --ink-faint:#8A8F99;
+  --line:#E8E0D2; --line-2:#DCD2C0;
+  --shadow:0 14px 40px rgba(40,30,12,.10); --shadow-sm:0 5px 16px rgba(40,30,12,.07);
+  --r:20px; --r-sm:14px;
+  --fd:"Comic Sans MS","Chalkboard SE","Comic Neue",cursive,sans-serif;
+  --fm:"Space Mono",ui-monospace,"SF Mono",Menlo,monospace;
 }
 *{box-sizing:border-box;min-width:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;font-family:var(--font-body);color:var(--ink);
-  background:radial-gradient(60rem 60rem at 8% -8%,rgba(232,146,12,.10),transparent 60%),
-             radial-gradient(54rem 54rem at 108% 4%,rgba(31,118,201,.10),transparent 58%),
-             radial-gradient(60rem 60rem at 50% 120%,rgba(122,87,240,.08),transparent 60%),
-             linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);
+body{margin:0;font-family:var(--fd);color:var(--ink);
+  background:radial-gradient(60rem 60rem at 6% -10%,rgba(232,146,12,.10),transparent 60%),
+             radial-gradient(54rem 54rem at 108% 2%,rgba(31,118,201,.10),transparent 58%),
+             radial-gradient(60rem 60rem at 50% 120%,rgba(95,217,124,.10),transparent 60%),
+             linear-gradient(180deg,var(--paper),var(--paper-2));
   background-attachment:fixed;min-height:100dvh;overflow-x:hidden;
   padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
-.app{width:min(1420px,100%);margin:0 auto;padding:18px 18px 70px}
+.app{width:min(1180px,100%);margin:0 auto;padding:16px 16px 70px}
 
-header{position:relative;overflow:hidden;border-radius:26px;padding:22px 22px 20px;margin-bottom:16px;color:#fff;
-  background:radial-gradient(40rem 18rem at 0% 0%,rgba(255,221,150,.55),transparent 60%),
+header{position:relative;overflow:hidden;border-radius:24px;padding:20px 20px 18px;margin-bottom:14px;color:#fff;
+  background:radial-gradient(40rem 18rem at 0% 0%,rgba(255,221,150,.5),transparent 60%),
              radial-gradient(40rem 22rem at 100% 0%,rgba(150,200,255,.45),transparent 60%),
-             linear-gradient(115deg,#F4A623 0%,#E0533A 26%,#8E47C4 62%,#2E6FD6 100%);
+             linear-gradient(115deg,#F4A623,#E0533A 28%,#8E47C4 64%,#2E6FD6);
   box-shadow:var(--shadow)}
-header::after{content:"";position:absolute;inset:0;
+header::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;
   background:repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 1px,transparent 1px 56px),
-             repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 1px,transparent 1px 56px);
-  mix-blend-mode:overlay;pointer-events:none}
-.title-block{position:relative;z-index:1}
-.eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
-  display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.18);padding:5px 11px;border-radius:999px;
-  border:1px solid rgba(255,255,255,.25);margin-bottom:12px}
-h1{margin:0;font-family:var(--font-display);font-weight:700;font-size:clamp(1.8rem,6.5vw,3.1rem);
-  letter-spacing:-.03em;line-height:1.02;text-shadow:0 2px 18px rgba(20,10,40,.18)}
-.wallclock{font-family:var(--font-mono);font-size:clamp(1rem,3.4vw,1.35rem);font-weight:700;
-  margin-top:6px;letter-spacing:.06em;color:rgba(255,255,255,.97)}
-.sub{margin:7px 0 0;font-size:.95rem;max-width:780px;line-height:1.5;font-weight:500;color:rgba(255,255,255,.95)}
-.top-controls{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px}
-.btn-row{position:relative;z-index:1;display:flex;gap:9px;margin-top:9px;flex-wrap:wrap}
+             repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 1px,transparent 1px 56px)}
+.hd{position:relative;z-index:1}
+.eyebrow{font-family:var(--fm);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  display:inline-block;background:rgba(0,0,0,.2);padding:5px 11px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.25);margin-bottom:10px}
+h1{margin:0;font-weight:700;font-size:clamp(1.7rem,6vw,2.8rem);letter-spacing:-.03em;line-height:1.03;
+  text-shadow:0 2px 18px rgba(20,10,40,.2)}
+.clock{font-family:var(--fm);font-size:clamp(1rem,3.2vw,1.3rem);font-weight:700;margin-top:5px;letter-spacing:.05em}
+.sub{margin:6px 0 0;font-size:.92rem;line-height:1.45;font-weight:500;color:rgba(255,255,255,.95)}
+.ctrl{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.btns{position:relative;z-index:1;display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
 select,input,textarea,button{font:inherit}
-select,input[type="date"],input[type="number"],input[type="text"]{border:1px solid rgba(255,255,255,.5);
-  border-radius:var(--radius-sm);padding:11px 13px;background:rgba(255,255,255,.95);color:var(--ink);
-  outline:none;box-shadow:0 4px 14px rgba(20,10,40,.10);font-size:16px;min-height:46px;width:100%;font-weight:600}
-button{cursor:pointer;border:none;border-radius:var(--radius-sm);padding:11px 15px;font-weight:700;
-  font-size:.9rem;min-height:44px;background:var(--ink);color:#fff;box-shadow:var(--shadow-sm)}
-button.ghost{background:rgba(255,255,255,.92);color:var(--ink);border:1px solid rgba(255,255,255,.6)}
-button.ghost.on{background:#12693F;color:#fff;border-color:#12693F}
-button.secondary{background:#2E6FD6}
-button.danger{background:#C22B18}
+select,input[type=date],input[type=number],input[type=text]{border:1px solid rgba(255,255,255,.5);border-radius:var(--r-sm);
+  padding:10px 12px;background:rgba(255,255,255,.95);color:var(--ink);outline:none;font-size:16px;min-height:44px;width:100%;font-weight:600}
+button{cursor:pointer;border:none;border-radius:var(--r-sm);padding:10px 14px;font-weight:700;font-size:.86rem;
+  min-height:42px;background:var(--ink);color:#fff;box-shadow:var(--shadow-sm)}
+button.ghost{background:rgba(255,255,255,.93);color:var(--ink);border:1px solid rgba(255,255,255,.6)}
+button.ghost.on{background:#0E6B33;color:#fff;border-color:#0E6B33}
+button.sec{background:#2E6FD6} button.dan{background:#B8241A}
 button:active{transform:translateY(1px)}
 
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:14px}
-.cards.two{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
-.col{display:grid;gap:14px;align-content:start}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px;box-shadow:var(--shadow-sm)}
-.card h2{margin:0 0 12px;font-family:var(--font-display);font-size:1.02rem;letter-spacing:-.01em}
-.hint{font-size:.78rem;color:var(--ink-faint);margin:8px 0 0;line-height:1.45}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:13px;margin-bottom:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:15px 16px;box-shadow:var(--shadow-sm)}
+.card h2{margin:0 0 11px;font-size:1rem;letter-spacing:-.01em}
+.hint{font-size:.76rem;color:var(--ink-faint);margin:8px 0 0;line-height:1.45}
 
-.sem{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:15px 17px;
-  margin-bottom:14px;box-shadow:var(--shadow-sm)}
-.sem-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:12px}
-.sem-phase{font-family:var(--font-display);font-size:1.05rem;font-weight:700}
-.sem-range{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-faint);letter-spacing:.05em}
-.sem-focus{margin:0 0 12px;font-size:.86rem;color:var(--ink-soft);line-height:1.5;max-width:92ch}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line-2);border-radius:12px;
-  padding:8px 11px;background:#FFFDF9;min-width:132px}
-.chip .cn{font-size:.74rem;font-weight:700;letter-spacing:-.01em}
-.chip .cd{font-family:var(--font-mono);font-size:.66rem;color:var(--ink-faint)}
-.chip .cc{font-family:var(--font-mono);font-size:.78rem;font-weight:700}
-.chip.soon{border-color:#E8920C;background:#FFF7E8}
-.chip.now{border-color:#B00020;background:#FDE7EA}
-.chip.past{opacity:.45}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:13px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:11px 8px;text-align:center;box-shadow:var(--shadow-sm)}
+.stat .l{font-family:var(--fm);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+.stat .v{font-size:1.22rem;font-weight:700;margin-top:3px}
+.stat.sy .v{color:#0A3A66} .stat.yt .v{color:#8A3A00}
 
-.banner{border-radius:16px;padding:13px 15px;margin-bottom:14px;border-left:6px solid #B00020;
-  background:#FDE7EA;color:#7A0016;font-weight:600;font-size:.9rem;line-height:1.5}
-.banner b{display:block;font-family:var(--font-display);font-size:1rem;margin-bottom:3px}
+.nowbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);
+  border-left:6px solid var(--acc,#2E6FD6);border-radius:var(--r-sm);padding:11px 14px;margin-bottom:11px;
+  box-shadow:var(--shadow-sm);position:sticky;top:6px;z-index:6}
+.dot{width:10px;height:10px;flex:none;border-radius:999px;background:var(--acc,#2E6FD6);animation:p 2.2s infinite}
+@keyframes p{0%{box-shadow:0 0 0 0 rgba(46,111,214,.45)}70%{box-shadow:0 0 0 9px rgba(46,111,214,0)}100%{box-shadow:0 0 0 0 rgba(46,111,214,0)}}
+.nbm{flex:1;min-width:170px}
+.nbl{font-family:var(--fm);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acc,#2E6FD6);font-weight:700}
+.nbt{font-size:.98rem;font-weight:700;line-height:1.2;margin-top:2px}
+.nbn{font-size:.74rem;color:var(--ink-faint);margin-top:3px}
+.nbr{text-align:right;min-width:100px}
+.nbtime{font-family:var(--fm);font-size:.88rem;font-weight:700;color:var(--acc,#2E6FD6)}
+.bar{height:7px;width:100px;background:var(--line);border-radius:999px;overflow:hidden;margin-top:5px}
+.bar span{display:block;height:100%;background:var(--acc,#2E6FD6);border-radius:999px;transition:width .4s}
+.nowbar.idle{border-left-color:var(--ink-faint)} .nowbar.idle .dot{animation:none;background:var(--ink-faint)}
+@media(max-width:520px){.nbr{text-align:left}.nowbar{position:static}}
+.prog{height:9px;background:var(--line);border-radius:999px;overflow:hidden;margin-bottom:13px}
+.prog span{display:block;height:100%;width:0;border-radius:999px;transition:width .3s;
+  background:linear-gradient(90deg,#E8920C,#E0533A,#8E47C4,#2E6FD6)}
 
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 10px;text-align:center;box-shadow:var(--shadow-sm)}
-.stat .label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
-.stat .value{font-family:var(--font-display);font-size:1.28rem;font-weight:700;margin-top:3px}
-.stat.res .value{color:#06401A} .stat.vid .value{color:#7A3300}
+.sched{display:grid;gap:10px}
+.blk{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--acc,#8A8F99);
+  border-radius:var(--r-sm);padding:12px 14px;box-shadow:var(--shadow-sm);transition:opacity .2s}
+.blk.past:not(.done){opacity:.5}
+.blk.now{box-shadow:0 0 0 3px var(--acc),var(--shadow);background:var(--soft,#fff)}
+.blk.now .bt::after{content:" ● NOW";font-weight:700;letter-spacing:.1em}
+.blk.done{opacity:.45}
+.bh{display:flex;align-items:flex-start;gap:10px}
+.bh input[type=checkbox]{width:21px;height:21px;min-height:0;flex:none;margin-top:2px;accent-color:var(--acc)}
+.bm{flex:1}
+.bt{font-family:var(--fm);font-size:.68rem;letter-spacing:.06em;color:var(--acc);font-weight:700}
+.bti{font-size:.98rem;font-weight:700;margin-top:2px;line-height:1.25}
+.tag{display:inline-block;margin-top:6px;font-family:var(--fm);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;background:var(--soft,#eee);color:var(--acc);font-weight:700}
+.bn{margin-top:8px;font-size:.84rem;color:var(--ink-soft);line-height:1.5}
+.chl{list-style:none;margin:9px 0 0;padding:0;display:grid;gap:5px;counter-reset:ch}
+.chl li{counter-increment:ch;display:flex;align-items:center;gap:8px;font-size:.86rem;font-weight:600;
+  background:var(--soft);border:1px solid color-mix(in srgb,var(--acc) 22%,transparent);border-radius:11px;padding:7px 10px}
+.chl li::before{content:counter(ch);font-family:var(--fm);font-size:.68rem;font-weight:700;color:#fff;background:var(--acc);
+  width:19px;height:19px;flex:none;border-radius:999px;display:grid;place-items:center}
+.chl li .mins{margin-left:auto;font-family:var(--fm);font-size:.64rem;color:var(--acc);opacity:.8}
+.chl a{color:var(--acc);text-decoration:none}
+.chl a:hover{text-decoration:underline}
+.close{margin-top:8px;font-size:.8rem;font-weight:700;color:var(--acc);
+  background:var(--soft);border:1px dashed color-mix(in srgb,var(--acc) 40%,transparent);border-radius:11px;padding:7px 10px}
+.tools{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:10px}
+.tmr{font-family:var(--fm);font-size:.82rem;font-weight:700;padding:6px 10px;border-radius:999px;
+  background:#F4F1EA;border:1px solid var(--line-2);min-width:72px;text-align:center}
+.tmr.run{background:#E2F5EC;border-color:#BFE3D2;color:#0C6644}
+.mini{padding:6px 11px;min-height:0;font-size:.74rem;border-radius:999px;background:#F0ECE3;color:var(--ink);border:1px solid var(--line-2)}
+.note{width:100%;min-height:0;height:36px;margin-top:8px;font-size:.8rem;padding:7px 10px;
+  border:1px solid var(--line-2);border-radius:var(--r-sm);background:#FFFDF9;outline:none}
 
-.metric-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px}
-.metric-row label{display:block;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.09em;
-  text-transform:uppercase;color:var(--ink-faint);margin-bottom:4px}
-.metric-row input{border:1px solid var(--line-2);box-shadow:none;background:#FFFDF9}
-.compare{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0;font-family:var(--font-mono);font-size:.74rem}
-.delta{padding:5px 9px;border-radius:999px;border:1px solid var(--line-2);background:#FFFDF9}
-.delta.up{color:#B00020;border-color:#F0C0C7} .delta.down{color:#0C6644;border-color:#BFE3D2}
-table.mini{width:100%;border-collapse:collapse;margin-top:11px;font-size:.8rem}
-table.mini th,table.mini td{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left}
-table.mini th{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
-
-textarea{width:100%;min-height:112px;border:1px solid var(--line-2);border-radius:var(--radius-sm);
-  padding:12px;background:#FFFDF9;resize:vertical;font-size:16px;line-height:1.5;outline:none}
-textarea:focus{border-color:#2E6FD6;box-shadow:0 0 0 4px rgba(46,111,214,.15)}
-.save-row{display:flex;justify-content:space-between;align-items:center;gap:9px;margin-top:9px}
-.save-status{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-faint)}
-
-.nowbar{display:flex;align-items:center;gap:13px;flex-wrap:wrap;background:var(--card);
-  border:1px solid var(--line);border-left:6px solid var(--sw,#2E6FD6);border-radius:var(--radius-sm);
-  padding:12px 15px;margin-bottom:12px;box-shadow:var(--shadow-sm);position:sticky;top:6px;z-index:6}
-.nb-dot{width:11px;height:11px;flex:none;border-radius:999px;background:var(--sw,#2E6FD6);animation:pulse 2.2s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,111,214,.45)}70%{box-shadow:0 0 0 9px rgba(46,111,214,0)}100%{box-shadow:0 0 0 0 rgba(46,111,214,0)}}
-.nb-meta{flex:1;min-width:180px}
-.nb-label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acc,#2E6FD6);font-weight:700}
-.nb-title{font-family:var(--font-display);font-size:1rem;font-weight:700;line-height:1.2;margin-top:2px}
-.nb-next{font-size:.76rem;color:var(--ink-faint);margin-top:3px}
-.nb-right{text-align:right;min-width:104px}
-.nb-left-time{font-family:var(--font-mono);font-size:.92rem;font-weight:700;color:var(--acc,#2E6FD6)}
-.nb-prog{height:7px;width:104px;background:var(--line);border-radius:999px;overflow:hidden;margin-top:5px}
-.nb-prog span{display:block;height:100%;background:var(--sw,#2E6FD6);border-radius:999px;transition:width .4s}
-.nowbar.idle{border-left-color:var(--ink-faint)}
-.nowbar.idle .nb-dot{animation:none;background:var(--ink-faint)}
-@media (max-width:520px){.nb-right{text-align:left}.nowbar{position:static}}
-.progress-wrap{height:10px;background:var(--line);border-radius:999px;overflow:hidden;margin-bottom:14px}
-.progress-bar{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#E8920C,#E0533A,#8E47C4,#2E6FD6);transition:width .3s}
-
-.schedule{display:grid;gap:11px}
-.block{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--sw,#8A8A9C);
-  border-radius:var(--radius-sm);padding:13px 15px;box-shadow:var(--shadow-sm);transition:opacity .2s}
-.block.past:not(.done){opacity:.55}
-.block.now{box-shadow:0 0 0 3px var(--sw,#2E6FD6),var(--shadow);position:relative;background:var(--acc-soft,#fff)}
-.block.now .block-time::after{content:" ● NOW";font-weight:700;letter-spacing:.1em}
-.block.done{opacity:.5}
-.block-head{display:flex;align-items:flex-start;gap:11px}
-.block-head input[type="checkbox"]{width:22px;height:22px;min-height:0;flex:none;margin-top:2px;accent-color:var(--sw,#2E6FD6)}
-.block-meta{flex:1}
-.block-time{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.07em;color:var(--acc,#8A8A9C);font-weight:700}
-.block-title{font-family:var(--font-display);font-size:1rem;font-weight:600;margin-top:2px;line-height:1.25}
-.block-tag{display:inline-block;margin-top:6px;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;
-  text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--acc-soft,#EEE);color:var(--acc,#555);
-  font-weight:700;border:1px solid var(--sw,#DDD)}
-.block-body{margin-top:10px;font-size:.86rem;color:var(--ink-soft);line-height:1.55;white-space:pre-wrap}
-.block-body .loc{display:inline-block;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--acc);font-weight:700;margin-bottom:6px}
-.block-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:11px}
-.timer{font-family:var(--font-mono);font-size:.86rem;font-weight:700;padding:6px 11px;border-radius:999px;
-  background:#F4F1EA;border:1px solid var(--line-2);min-width:76px;text-align:center}
-.timer.run{background:#E2F5EC;border-color:#BFE3D2;color:#0C6644}
-.mini-btn{padding:7px 12px;min-height:0;font-size:.76rem;border-radius:999px;background:#F0ECE3;color:var(--ink);border:1px solid var(--line-2)}
-.note{width:100%;min-height:0;height:38px;margin-top:9px;font-size:.82rem;padding:8px 11px;
-  border:1px solid var(--line-2);border-radius:var(--radius-sm);background:#FFFDF9;outline:none}
-
-.history-list{display:flex;flex-wrap:wrap;gap:7px}
-.history-list button{padding:7px 11px;min-height:0;font-size:.76rem;border-radius:999px;background:#F0ECE3;color:var(--ink);border:1px solid var(--line-2)}
-.history-view{margin-top:11px;font-size:.82rem;color:var(--ink-soft);white-space:pre-wrap;line-height:1.5;
-  background:#FFFDF9;border:1px solid var(--line);border-radius:12px;padding:11px 13px;min-height:56px}
-
-.legend{display:flex;flex-wrap:wrap;gap:7px}
-.legend span{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:700;
-  padding:5px 10px;border-radius:999px;border:1px solid var(--line-2)}
-.legend i{width:11px;height:11px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.18);flex:none}
-
-.links{display:grid;gap:6px;font-size:.85rem}
-.links a{color:#1F5FA8;text-decoration:none;font-weight:600}
-.links a:hover{text-decoration:underline}
-
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(20,15,30,.55);align-items:center;justify-content:center;padding:20px;z-index:99}
-.modal-overlay.open{display:flex}
-.modal{background:var(--card);border-radius:var(--radius);padding:22px;max-width:420px;width:100%;box-shadow:var(--shadow)}
-.modal p{margin:0 0 16px;line-height:1.5}
-.modal-actions{display:flex;gap:9px;justify-content:flex-end}
-
-@media (max-width:640px){
-  .top-controls{grid-template-columns:1fr}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .metric-row{grid-template-columns:1fr}
-}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+textarea{width:100%;min-height:100px;border:1px solid var(--line-2);border-radius:var(--r-sm);padding:11px;
+  background:#FFFDF9;resize:vertical;font-size:16px;line-height:1.5;outline:none}
+.saverow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px}
+.ss{font-family:var(--fm);font-size:.66rem;color:var(--ink-faint)}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.mrow label{display:block;font-family:var(--fm);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:4px}
+.mrow input{border:1px solid var(--line-2);background:#FFFDF9}
+.cmp{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px;font-family:var(--fm);font-size:.72rem}
+.d{padding:5px 9px;border-radius:999px;border:1px solid var(--line-2);background:#FFFDF9}
+.d.up{color:#B00020;border-color:#F0C0C7} .d.down{color:#0C6644;border-color:#BFE3D2}
+table.mini-t{width:100%;border-collapse:collapse;margin-top:10px;font-size:.78rem}
+table.mini-t th,table.mini-t td{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left}
+table.mini-t th{font-family:var(--fm);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+.hl{display:flex;flex-wrap:wrap;gap:6px}
+.hl button{padding:6px 10px;min-height:0;font-size:.74rem;border-radius:999px;background:#F0ECE3;color:var(--ink);border:1px solid var(--line-2)}
+.hv{margin-top:10px;font-size:.8rem;color:var(--ink-soft);white-space:pre-wrap;line-height:1.5;
+  background:#FFFDF9;border:1px solid var(--line);border-radius:11px;padding:10px 12px;min-height:50px}
+.roster{display:flex;flex-wrap:wrap;gap:6px}
+.roster span{font-size:.76rem;font-weight:700;padding:5px 10px;border-radius:999px;background:#EEF7D9;border:1px solid #CFE49A;color:#3F5800}
+.legend{display:flex;flex-wrap:wrap;gap:6px}
+.legend span{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;padding:5px 9px;border-radius:999px;border:1px solid}
+.legend i{width:9px;height:9px;border-radius:3px}
+.mo{display:none;position:fixed;inset:0;background:rgba(20,15,30,.55);align-items:center;justify-content:center;padding:20px;z-index:99}
+.mo.open{display:flex}
+.mod{background:var(--card);border-radius:var(--r);padding:20px;max-width:410px;width:100%;box-shadow:var(--shadow)}
+.mod p{margin:0 0 15px;line-height:1.5}
+.moa{display:flex;gap:8px;justify-content:flex-end}
+@media(max-width:640px){.ctrl{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.mrow{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
 <div class="app">
 
 <header>
-  <div class="title-block">
-    <span class="eyebrow">◉ Fall 2026 · Semester OS</span>
+  <div class="hd">
+    <span class="eyebrow">◉ Fall 2026 · Daily Plan</span>
     <h1>Daily Plan</h1>
-    <div class="wallclock" id="wallClock">--:--</div>
-    <p class="sub" id="heroSub">Pick a date. The schedule, the phase focus, and the exam countdowns all follow it.</p>
+    <div class="clock" id="clk">--:--</div>
+    <p class="sub" id="sub">Pick a date — the schedule follows it.</p>
   </div>
-  <div class="top-controls">
-    <input id="datePicker" type="date">
-    <select id="daySelect">
+  <div class="ctrl">
+    <input id="dp" type="date">
+    <select id="ds">
       <option value="Sun">Sunday</option><option value="Mon">Monday</option><option value="Tue">Tuesday</option>
       <option value="Wed">Wednesday</option><option value="Thu">Thursday</option><option value="Fri">Friday</option>
       <option value="Sat">Saturday</option>
     </select>
   </div>
-  <div class="btn-row">
-    <button class="ghost" id="todayBtn">📍 Today</button>
-    <button class="ghost" id="nowBtn">⏱ Jump to Now</button>
-    <button class="ghost on" id="followBtn">🎯 Auto-follow: ON</button>
-    <button class="ghost" id="resetDayBtn">♻️ Reset Day</button>
+  <div class="btns">
+    <button class="ghost" id="todayB">📍 Today</button>
+    <button class="ghost" id="nowB">⏱ Jump to Now</button>
+    <button class="ghost on" id="followB">🎯 Auto-follow: ON</button>
+    <button class="ghost" id="resetB">♻️ Reset Day</button>
   </div>
 </header>
 
-<div id="bannerSlot"></div>
-
-<section class="sem">
-  <div class="sem-head">
-    <span class="sem-phase" id="phaseName">—</span>
-    <span class="sem-range" id="phaseRange"></span>
-  </div>
-  <p class="sem-focus" id="phaseFocus"></p>
-  <div class="chips" id="milestoneChips"></div>
-</section>
-
 <div class="stats">
-  <div class="stat"><div class="label">Completed</div><div class="value" id="completedStat">0/0</div></div>
-  <div class="stat"><div class="label">Progress</div><div class="value" id="progressStat">0%</div></div>
-  <div class="stat res"><div class="label">Research</div><div class="value" id="resStat">0h</div></div>
-  <div class="stat vid"><div class="label">Video</div><div class="value" id="vidStat">0h</div></div>
+  <div class="stat"><div class="l">Completed</div><div class="v" id="cStat">0/0</div></div>
+  <div class="stat"><div class="l">Progress</div><div class="v" id="pStat">0%</div></div>
+  <div class="stat sy"><div class="l">Study</div><div class="v" id="sStat">0h</div></div>
+  <div class="stat yt"><div class="l">YouTube</div><div class="v" id="yStat">0h</div></div>
 </div>
 
-<div class="cards two">
-  <div class="col">
-    <div class="card">
-      <h2>⚖️ Body Metrics</h2>
-      <div class="metric-row">
-        <div><label for="weightInput">Daily Weight (lb)</label><input id="weightInput" type="number" step="0.1" inputmode="decimal" placeholder="e.g. 175.4"></div>
-        <div><label for="bodyFatInput">Body Fat (%)</label><input id="bodyFatInput" type="number" step="0.1" inputmode="decimal" placeholder="e.g. 18.5"></div>
-      </div>
-      <button id="saveMetricsBtn">💾 Save Metrics</button>
-      <div class="compare" id="metricCompare"></div>
-      <table class="mini"><thead><tr><th>Date</th><th>Weight</th><th>BF %</th></tr></thead><tbody id="metricTable"></tbody></table>
-      <p class="hint">Weigh at the same time each morning, before food. Day-to-day noise is water, not fat — read the 7-day average, not yesterday's delta.</p>
-    </div>
+<div class="nowbar" id="nb" style="display:none"></div>
+<div class="prog"><span id="pBar"></span></div>
+<section class="sched" id="sched"></section>
 
-    <div class="card">
-      <h2>🗓 Previous Days</h2>
-      <div class="history-list" id="historyList"></div>
-      <div class="history-view" id="historyPreview">Select a date to preview what you logged.</div>
-    </div>
+<div class="grid" style="margin-top:16px">
+  <div class="card">
+    <h2>🧾 Later To-Do</h2>
+    <textarea id="todoT" placeholder="Brain dump tasks here so you can release them for later..."></textarea>
+    <div class="saverow"><span class="ss" id="todoS">Autosaves as you type ✨</span><button id="todoB">💾 Save</button></div>
   </div>
-
-  <div class="col">
-    <div class="card">
-      <h2>🧾 Later To-Do</h2>
-      <textarea id="laterTodoText" placeholder="Brain dump tasks here so you can release them for later..."></textarea>
-      <div class="save-row"><span class="save-status" id="todoStatus">Autosaves as you type ✨</span><button id="saveTodoBtn">💾 Save</button></div>
-    </div>
-
-    <div class="card">
-      <h2>🪞 What Mr. Perfect Is Telling Me</h2>
-      <textarea id="perfectText" placeholder="Log intrusive perfectionistic thoughts here..."></textarea>
-      <div class="save-row"><span class="save-status" id="perfectStatus">Autosaves as you type ✨</span><button id="savePerfectBtn">💾 Save</button></div>
-    </div>
-
-    <div class="card">
-      <h2>🎨 Colour Legend</h2>
-      <div class="legend" id="legendBox"></div>
-      <p class="hint">Swatches match the <em>Fall 2026 Plan</em> workbook legend exactly — same colour, same category, same order.</p>
-    </div>
+  <div class="card">
+    <h2>🪞 What Mr. Perfect Is Telling Me</h2>
+    <textarea id="perfT" placeholder="Log intrusive perfectionistic thoughts here..."></textarea>
+    <div class="saverow"><span class="ss" id="perfS">Autosaves as you type ✨</span><button id="perfB">💾 Save</button></div>
   </div>
 </div>
 
-<div class="nowbar" id="nowBar" style="display:none"></div>
-<div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
-<section class="schedule" id="schedule"></section>
+<div class="grid">
+  <div class="card">
+    <h2>⚖️ Body Metrics</h2>
+    <div class="mrow">
+      <div><label for="wI">Weight (lb)</label><input id="wI" type="number" step="0.1" inputmode="decimal" placeholder="175.4"></div>
+      <div><label for="bI">Body Fat (%)</label><input id="bI" type="number" step="0.1" inputmode="decimal" placeholder="18.5"></div>
+    </div>
+    <button id="mB">💾 Save Metrics</button>
+    <div class="cmp" id="mCmp"></div>
+    <table class="mini-t"><thead><tr><th>Date</th><th>Weight</th><th>BF %</th></tr></thead><tbody id="mTab"></tbody></table>
+    <p class="hint">Same time each morning, before food. Read the 7-day average, not yesterday's delta.</p>
+  </div>
+  <div class="card">
+    <h2>🗓 Previous Days</h2>
+    <div class="hl" id="hList"></div>
+    <div class="hv" id="hView">Select a date to preview what you logged.</div>
+  </div>
+  <div class="card">
+    <h2>🎓 Advisees</h2>
+    <div class="roster" id="roster"></div>
+    <p class="hint">Each name is a scheduled block in the week. Thursday is the heavy advising day — five back-to-back.</p>
+  </div>
+</div>
 
-<div class="cards" style="margin-top:16px">
-  <div class="card"><h2>🔗 Daily Sources</h2><div class="links" id="linksBox"></div></div>
+<div class="grid">
+  <div class="card"><h2>🎨 Legend</h2><div class="legend" id="legend"></div></div>
   <div class="card">
     <h2>💾 Data</h2>
-    <div class="btn-row" style="margin-top:0">
-      <button class="secondary" id="exportBtn">📤 Export JSON Backup</button>
-      <button class="danger" id="clearAllBtn">🧨 Clear All Saved Data</button>
+    <div class="btns" style="margin-top:0">
+      <button class="sec" id="expB">📤 Export JSON</button>
+      <button class="dan" id="clrB">🧨 Clear All Data</button>
     </div>
-    <p class="hint">Everything is stored in this browser only. Export before clearing your browser data or switching devices.</p>
+    <p class="hint">Stored in this browser only. Export before clearing site data or switching devices.</p>
   </div>
 </div>
 
 </div>
 
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal"><p id="modalMsg"></p>
-    <div class="modal-actions"><button class="ghost" id="modalCancel">Cancel</button><button class="danger" id="modalOk">Confirm</button></div>
-  </div>
-</div>
+<div class="mo" id="mo"><div class="mod"><p id="moMsg"></p>
+  <div class="moa"><button class="ghost" id="moNo">Cancel</button><button class="dan" id="moYes">Confirm</button></div></div></div>
 
 <script>
-/* ================= storage ================= */
-const MEM = {};
-const LS = (() => { try { const k="__t"; localStorage.setItem(k,"1"); localStorage.removeItem(k); return localStorage; } catch(e){ return null; } })();
-function sGet(key, fb){ try { const raw = LS ? LS.getItem("sos:"+key) : MEM["sos:"+key]; return raw==null ? fb : JSON.parse(raw); } catch(e){ return fb; } }
-function sSet(key, val){ const s=JSON.stringify(val); try{ if(LS) LS.setItem("sos:"+key,s); else MEM["sos:"+key]=s; }catch(e){ MEM["sos:"+key]=s; } }
-function sDel(key){ try{ if(LS) LS.removeItem("sos:"+key); else delete MEM["sos:"+key]; }catch(e){} }
-function allKeys(){ try{ if(LS) return Object.keys(LS).filter(k=>k.startsWith("sos:")); return Object.keys(MEM); }catch(e){ return Object.keys(MEM);} }
+const SCHED = {"Sun": [{"s": 420, "e": 480, "cat": "personal", "title": "Wake & Personal Dev"}, {"s": 480, "e": 600, "cat": "compsys", "title": "Comp Sys Book"}, {"s": 630, "e": 750, "cat": "mlsys", "title": "ML Sys Book Reddy"}, {"s": 750, "e": 780, "cat": "admin", "title": "Email"}, {"s": 780, "e": 810, "cat": "wellness", "title": "Shower"}, {"s": 810, "e": 840, "cat": "yt", "title": "YouTube — Veritasium", "note": "Context · no notes"}, {"s": 840, "e": 870, "cat": "buffer", "title": "Catch up"}, {"s": 900, "e": 990, "cat": "advisee", "title": "Meg's Project"}, {"s": 990, "e": 1020, "cat": "advisee", "title": "Emese's Project"}, {"s": 1020, "e": 1080, "cat": "wellness", "title": "Yeh"}, {"s": 1080, "e": 1170, "cat": "yt", "title": "YouTube — Silicon & Architecture", "channels": ["AI Chip Insider", "Branch Education", "Arivu"], "close": "Name one number you learned"}, {"s": 1170, "e": 1200, "cat": "advisee", "title": "IW Meeting"}], "Mon": [{"s": 420, "e": 480, "cat": "personal", "title": "Wake & Personal Dev"}, {"s": 480, "e": 600, "cat": "ece115", "title": "115 Prep"}, {"s": 630, "e": 750, "cat": "compsys", "title": "Comp Sys Book"}, {"s": 750, "e": 780, "cat": "admin", "title": "Email"}, {"s": 780, "e": 810, "cat": "wellness", "title": "Shower"}, {"s": 810, "e": 840, "cat": "yt", "title": "YouTube — Inside Embedded", "note": "Embedded systems"}, {"s": 840, "e": 870, "cat": "admin", "title": "Drive"}, {"s": 870, "e": 900, "cat": "yt", "title": "YouTube — AIunpackedExplains", "note": "AI concept of the day"}, {"s": 900, "e": 990, "cat": "ece115", "title": "ECE 115 Lecture"}, {"s": 990, "e": 1020, "cat": "wellness", "title": "Yeh"}, {"s": 1020, "e": 1080, "cat": "wellness", "title": "Dinner"}, {"s": 1080, "e": 1170, "cat": "yt", "title": "YouTube — Systems & HPC", "channels": ["ByteByteGo", "Core Dumped", "Codist"], "close": "Redraw one diagram from memory"}, {"s": 1170, "e": 1200, "cat": "ece206", "title": "206 Precept Prep"}, {"s": 1200, "e": 1290, "cat": "ece206", "title": "ECE 206 Precept"}], "Tue": [{"s": 420, "e": 480, "cat": "personal", "title": "Wake & Personal Dev"}, {"s": 480, "e": 600, "cat": "compsys", "title": "Comp Sys Book"}, {"s": 630, "e": 750, "cat": "mlsys", "title": "ML Sys Book Reddy"}, {"s": 750, "e": 780, "cat": "admin", "title": "Email"}, {"s": 780, "e": 810, "cat": "yt", "title": "YouTube — Jia-Bin Huang", "note": "Paper explainers · CV & ML"}, {"s": 810, "e": 840, "cat": "yt", "title": "YouTube — bycloud", "note": "SOTA / efficient-ML roundup"}, {"s": 840, "e": 870, "cat": "yt", "title": "YouTube — Visual AI", "note": "Visual intuition for one method"}, {"s": 870, "e": 900, "cat": "wellness", "title": "Shower"}, {"s": 900, "e": 990, "cat": "advisee", "title": "Aishah's Project"}, {"s": 990, "e": 1020, "cat": "wellness", "title": "Yeh"}, {"s": 1020, "e": 1080, "cat": "wellness", "title": "Dinner"}, {"s": 1080, "e": 1170, "cat": "advisee", "title": "Erika's Project"}, {"s": 1170, "e": 1200, "cat": "ece206", "title": "206 Precept Prep"}, {"s": 1200, "e": 1290, "cat": "ece206", "title": "ECE 206 Precept"}], "Wed": [{"s": 420, "e": 480, "cat": "personal", "title": "Wake & Personal Dev"}, {"s": 480, "e": 600, "cat": "ece115", "title": "115 Prep"}, {"s": 630, "e": 750, "cat": "compsys", "title": "Comp Sys Book"}, {"s": 750, "e": 780, "cat": "admin", "title": "Email"}, {"s": 780, "e": 810, "cat": "wellness", "title": "Shower"}, {"s": 810, "e": 840, "cat": "yt", "title": "YouTube — SimplyDecoded-u4r", "note": "One concept, decoded"}, {"s": 840, "e": 870, "cat": "admin", "title": "Drive"}, {"s": 870, "e": 900, "cat": "yt", "title": "YouTube — News · ONE only", "note": "the AI Search / AI Revolution / WorldofAI"}, {"s": 900, "e": 990, "cat": "ece115", "title": "ECE 115 Lecture"}, {"s": 990, "e": 1020, "cat": "wellness", "title": "Yeh"}, {"s": 1020, "e": 1080, "cat": "wellness", "title": "Dinner"}, {"s": 1080, "e": 1170, "cat": "advisee", "title": "Meg & Brian's Project"}, {"s": 1170, "e": 1290, "cat": "ece302", "title": "302 Lab"}], "Thu": [{"s": 420, "e": 480, "cat": "personal", "title": "Wake & Personal Dev"}, {"s": 480, "e": 600, "cat": "compsys", "title": "Comp Sys Book"}, {"s": 630, "e": 750, "cat": "mlsys", "title": "ML Sys Book Reddy"}, {"s": 750, "e": 780, "cat": "admin", "title": "Email"}, {"s": 780, "e": 810, "cat": "wellness", "title": "Shower"}, {"s": 810, "e": 840, "cat": "advisee", "title": "Caroline's Project"}, {"s": 840, "e": 870, "cat": "advisee", "title": "Brady's Project"}, {"s": 870, "e": 900, "cat": "advisee", "title": "Zara's Project"}, {"s": 900, "e": 990, "cat": "advisee", "title": "Lincoln's Project"}, {"s": 990, "e": 1020, "cat": "wellness", "title": "Yeh"}, {"s": 1020, "e": 1080, "cat": "wellness", "title": "Dinner"}, {"s": 1080, "e": 1170, "cat": "advisee", "title": "Misael & Angel"}, {"s": 1170, "e": 1200, "cat": "ece302", "title": "302 Lab"}, {"s": 1200, "e": 1290, "cat": "advisee", "title": "Meg's Project"}], "Fri": [{"s": 420, "e": 480, "cat": "personal", "title": "Wake & Personal Dev"}, {"s": 480, "e": 600, "cat": "compsys", "title": "Comp Sys Book"}, {"s": 630, "e": 750, "cat": "mlsys", "title": "ML Sys Book Reddy"}, {"s": 750, "e": 780, "cat": "meeting", "title": "Faculty Meeting"}, {"s": 780, "e": 810, "cat": "admin", "title": "Email"}, {"s": 810, "e": 840, "cat": "meeting", "title": "DUS Meeting"}, {"s": 870, "e": 900, "cat": "ece115", "title": "115 OH"}, {"s": 900, "e": 990, "cat": "yt", "title": "YouTube — Hardware Bench", "channels": ["EEVblog", "Electronic Wizard", "ElectArc240"], "close": "One technique to try on your own bench"}, {"s": 990, "e": 1020, "cat": "wellness", "title": "Yeh"}, {"s": 1020, "e": 1080, "cat": "wellness", "title": "Dinner"}, {"s": 1080, "e": 1170, "cat": "buffer", "title": "Catch up"}], "Sat": [{"s": 420, "e": 480, "cat": "personal", "title": "Wake & Personal Dev"}, {"s": 480, "e": 600, "cat": "compsys", "title": "Comp Sys Book"}, {"s": 630, "e": 750, "cat": "mlsys", "title": "ML Sys Book Reddy"}, {"s": 750, "e": 780, "cat": "admin", "title": "Email"}, {"s": 780, "e": 810, "cat": "wellness", "title": "Shower"}, {"s": 810, "e": 840, "cat": "yt", "title": "YouTube — RepoChad", "note": "Read real code"}, {"s": 840, "e": 870, "cat": "yt", "title": "YouTube — ToP Projects Compilation", "note": "Build walkthroughs"}, {"s": 870, "e": 900, "cat": "yt", "title": "YouTube — Animated Physics", "note": "Physical intuition · visuals"}, {"s": 900, "e": 990, "cat": "yt", "title": "YouTube — Circuits & Silicon Depth", "channels": ["SSCS Circuits Insight", "Prof Mad", "AI Chip Insider"], "close": "One sentence: what changed this week"}, {"s": 990, "e": 1020, "cat": "wellness", "title": "Yeh"}, {"s": 1020, "e": 1080, "cat": "wellness", "title": "Dinner"}, {"s": 1080, "e": 1170, "cat": "buffer", "title": "Catch up"}]};
 
-/* =====================================================================
-   PALETTE — 1:1 with the "Fall 2026 Plan" workbook legend.
-   sw = the exact cell fill used in the spreadsheet (swatch / left bar)
-   c  = the workbook's dark ink for that fill (text + accents)
-   s  = light tint of sw, used as the card wash when a block is NOW
-   n  = full legend label (matches the workbook legend text)
-   sn = short tag shown on each block
-   ===================================================================== */
-const CAT = {
-  vidEdge:{sw:"#FFA94D", c:"#5C2600", s:"#FFF0DE", n:"YouTube ladder · Edge AI, Embedded, SSCS", sn:"YT · Edge AI"},
-  vidElec:{sw:"#FFD43B", c:"#5C4200", s:"#FFF8DB", n:"YouTube ladder · Electronics Troubleshooting", sn:"YT · Electronics"},
-  vidML  :{sw:"#63D6FF", c:"#04374D", s:"#E4F7FF", n:"YouTube ladder · ML & AI", sn:"YT · ML & AI"},
-  vidCtx :{sw:"#9FB3C8", c:"#1F3648", s:"#EDF1F5", n:"YouTube ladder · Engineering & Context", sn:"YT · Eng & Context"},
-  sota   :{sw:"#F783AC", c:"#75103D", s:"#FEEBF2", n:"YouTube ladder · SOTA Concepts", sn:"SOTA"},
-  res    :{sw:"#5FD97C", c:"#06401A", s:"#E3F8E9", n:"Research — hands-on, analysis, slides", sn:"Research"},
-  adv    :{sw:"#D8F5A2", c:"#3F5800", s:"#F4FBE6", n:"Supervision — student projects · research meeting & prep", sn:"Supervision"},
-  paper  :{sw:"#74C0FC", c:"#0A3A66", s:"#E6F2FE", n:"Deep study — AI concept understanding · paper reading · curriculum · venue skims", sn:"Deep study"},
-  yt     :{sw:"#FFB366", c:"#7A3300", s:"#FFF1E3", n:"Video — other themed slots", sn:"Video · other"},
-  c115   :{sw:"#FFEB99", c:"#7A5200", s:"#FFFAE6", n:"ECE 115", sn:"ECE 115"},
-  c302   :{sw:"#5BE0C0", c:"#034A36", s:"#E2F9F3", n:"ECE 302 (incl. lab venue list)", sn:"ECE 302"},
-  c206   :{sw:"#E599F7", c:"#5B1470", s:"#F9EDFC", n:"ECE 206", sn:"ECE 206"},
-  meet   :{sw:"#FF8787", c:"#78100F", s:"#FFEDED", n:"Faculty · DUS", sn:"Faculty · DUS"},
-  commute:{sw:"#CED4DA", c:"#2E3438", s:"#F2F4F6", n:"Commute · transit", sn:"Commute"},
-  buffer :{sw:"#EDF0F2", c:"#4A5259", s:"#F7F9FA", n:"Buffer · OPEN · unstructured", sn:"Buffer"},
-  unwind :{sw:"#B197FC", c:"#3A1D78", s:"#EFEAFE", n:"Netflix · unwind — wind-down", sn:"Unwind"},
-  body   :{sw:"#EFD9BE", c:"#6B4423", s:"#FAF2E8", n:"PROTECTED — wake · gym · shower · walk · meals · meditate", sn:"Protected · body"},
-  pd     :{sw:"#E3C39A", c:"#5A3315", s:"#F7EDE0", n:"PROTECTED — Personal Dev. Never a donor block.", sn:"Protected · Pers. Dev"},
-  admin  :{sw:"#9AA7B5", c:"#161E26", s:"#EAEEF2", n:"Email · course admin triage (Gradescope / Canvas posting checks)", sn:"Email · admin"},
-  exam   :{sw:"#FF5B5B", c:"#7A0016", s:"#FDE7EA", n:"Exam · demo day", sn:"Exam"}
+/* ---------- storage ---------- */
+const MEM={};
+const LS=(()=>{try{localStorage.setItem("__t","1");localStorage.removeItem("__t");return localStorage;}catch(e){return null;}})();
+function sg(k,f){try{const r=LS?LS.getItem("fp:"+k):MEM["fp:"+k];return r==null?f:JSON.parse(r);}catch(e){return f;}}
+function ss(k,v){const s=JSON.stringify(v);try{if(LS)LS.setItem("fp:"+k,s);else MEM["fp:"+k]=s;}catch(e){MEM["fp:"+k]=s;}}
+function sd(k){try{if(LS)LS.removeItem("fp:"+k);else delete MEM["fp:"+k];}catch(e){}}
+function keys(){try{if(LS)return Object.keys(LS).filter(k=>k.startsWith("fp:"));return Object.keys(MEM);}catch(e){return Object.keys(MEM);}}
+
+/* ---------- palette (mirrors the workbook) ---------- */
+const CAT={
+  compsys :{c:"#0A3A66",s:"#DCEDFB",n:"Comp Sys Book"},
+  mlsys   :{c:"#06401A",s:"#DDF5E3",n:"ML Sys Book"},
+  advisee :{c:"#3F5800",s:"#EEF7D9",n:"Advisee project"},
+  yt      :{c:"#8A3A00",s:"#FFEBD6",n:"YouTube"},
+  ece115  :{c:"#7A5200",s:"#FFF7D6",n:"ECE 115"},
+  ece206  :{c:"#5B1470",s:"#F7E2FB",n:"ECE 206"},
+  ece302  :{c:"#034A36",s:"#D9F6EE",n:"ECE 302"},
+  meeting :{c:"#78100F",s:"#FFE0E0",n:"Meeting"},
+  admin   :{c:"#2E3438",s:"#E6E9EC",n:"Email · Drive"},
+  wellness:{c:"#6B4423",s:"#F7EBDB",n:"Meals · Shower · Yeh"},
+  personal:{c:"#5A3315",s:"#F2E2CE",n:"Personal Dev · protected"},
+  buffer  :{c:"#4A5259",s:"#EFF2F4",n:"Catch up"}
 };
-/* legend order mirrors workbook rows 40 → 58 */
-const LEGEND_ORDER = ["vidEdge","vidElec","vidML","vidCtx","sota","res","adv","paper","yt",
-                      "c115","c302","c206","meet","commute","buffer","unwind","body","pd","admin"];
+const STUDY=["compsys","mlsys"];
 
-const RESEARCH_CATS = ["res","adv","paper"];
-const VIDEO_CATS = ["vidEdge","vidElec","vidML","vidCtx","sota","yt"];
+/* ---------- helpers ---------- */
+const $=id=>document.getElementById(id);
+const DAYS=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const timers={}; let hDate=null, follow=true, lastIdx=null, cur=[];
+function todayISO(){const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);}
+function dayOf(iso){return DAYS[new Date(iso+"T12:00:00").getDay()];}
+function nice(iso){return new Date(iso+"T12:00:00").toLocaleDateString(undefined,{weekday:"long",month:"short",day:"numeric",year:"numeric"});}
+function dbet(a,b){return Math.round((new Date(b+"T12:00:00")-new Date(a+"T12:00:00"))/864e5);}
+function K(p,d){return p+":"+(d||$("dp").value);}
+function bK(i){return $("dp").value+":"+$("ds").value+":b"+i;}
+function nK(i){return $("dp").value+":"+$("ds").value+":n"+i;}
+function hhmm(m){const h=Math.floor(m/60),x=m%60,ap=h>=12?"PM":"AM",hh=(h%12)||12;return hh+":"+String(x).padStart(2,"0")+" "+ap;}
+function rng(b){return hhmm(b.s)+"–"+hhmm(b.e);}
+function nowMin(){const d=new Date();return d.getHours()*60+d.getMinutes();}
+function live(){const t=todayISO();return $("dp").value===t&&$("ds").value===dayOf(t);}
+function rm(){try{return matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){return false;}}
+function left(m){if(m>=60){const h=Math.floor(m/60),x=m%60;return x?h+"h "+x+"m left":h+"h left";}return Math.max(0,m)+"m left";}
+function clk(s){s=Math.max(0,s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;
+  return h?[h,m,x].map(v=>String(v).padStart(2,"0")).join(":"):[m,x].map(v=>String(v).padStart(2,"0")).join(":");}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function touch(d){const a=sg("dates",[]);if(!a.includes(d)){a.push(d);a.sort((x,y)=>y.localeCompare(x));ss("dates",a);}}
+function ytLink(name){return "https://www.youtube.com/results?search_query="+encodeURIComponent(name);}
+const DIRECT={"Animated Physics":"https://www.youtube.com/channel/UCaNWbEcz3cFJU_VPlv-33bw"};
+function chLink(n){return DIRECT[n]||ytLink(n);}
 
-/* ================= links ================= */
-const L = {
-  semidoped:"https://semidoped.com/", semianalysis:"https://semianalysis.com/",
-  tinyml:"https://sites.google.com/g.harvard.edu/tinyml/home",
-  teman:"https://enicslabs.com/academic-courses/hardware-for-deep-learning/",
-  mlsys:"https://mlsys.org/", edgeai:"https://www.edgeaifoundation.org/",
-  eev:"https://www.youtube.com/@EEVblog", branch:"https://www.youtube.com/@BranchEducation",
-  asiano:"https://www.youtube.com/@Asianometry", mcwhorter:"https://www.youtube.com/@paulmcwhorter",
-  dronebot:"https://www.youtube.com/@Dronebotworkshop", philslab:"https://www.youtube.com/@PhilsLab",
-  b1b:"https://www.youtube.com/@3blue1brown", welch:"https://www.youtube.com/@WelchLabsVideo",
-  beneater:"https://www.youtube.com/@BenEater", ewizard:"https://www.youtube.com/@ElectronicWizard",
-  engmind:"https://www.youtube.com/@TheEngineeringMindset", veritasium:"https://www.youtube.com/@veritasium",
-  aiexplained:"https://www.youtube.com/@aiexplained-official",
-  edgeimpulse:"https://docs.edgeimpulse.com/"
-};
+/* ---------- modal ---------- */
+function mo(on){$("mo").classList.toggle("open",on);}
+function ask(msg){return new Promise(r=>{$("moMsg").textContent=msg;mo(true);
+  const fin=v=>{mo(false);$("moYes").removeEventListener("click",y);$("moNo").removeEventListener("click",n);r(v);};
+  const y=()=>fin(true),n=()=>fin(false);
+  $("moYes").addEventListener("click",y);$("moNo").addEventListener("click",n);});}
 
-/* ================= shared block bodies ================= */
-const RESEARCH_BODY =
-"Rung ladder — work top-down, one rung at a time:\n"+
-"· Colab — model factory: train / quantize / export the suite\n"+
-"· Laptop / workstation CPU+GPU — RAPL + NVML baselines, freeze the results schema\n"+
-"· Raspberry Pi 5 — first true supply-side energy (USB-C meter / INA226)\n"+
-"· Jetson Orin Nano Super — tegrastats + external meter, pin clocks, watch throttling\n"+
-"· STM32 (H7 → U3 → N6) — PPK2 / LPM01A, GPIO-windowed. This is the citable data.\n"+
-"· ESP32-S3 + Arduino Nano 33 BLE — breadth\n"+
-"· NPU add-ons: RPi AI HAT+ (Hailo)\n"+
-"· FPGA (hls4ml / FINN on Pynq-Z2) — last, and optional\n\n"+
-"📏 Predict all four numbers before you measure: flash/RAM footprint, inference latency, peak current, post-quantization accuracy. Being wrong is the point.";
-
-const LAB_VENUES =
-"Lab downtime — venue list:\n"+
-"MLSys · EDGE AI Foundation Symposium\n"+
-"NeurIPS / ICML / ICLR — efficient-ML subset only\n"+
-"DAC · DATE · ICCAD\n"+
-"SenSys · MobiSys · MobiCom · IPSN · EWSN\n"+
-"ISCAS · ICASSP\n"+
-"CoRL · ICRA · IROS\n"+
-"ISCA · MICRO · HPCA · ISSCC\n"+
-"Journals: IEEE ESL · TMLR · IEEE IoT-J · ACM TECS · IEEE TCAS-AI";
-
-const WORKSHOP_BODY = "NeurIPS · ICML · ICLR — efficient-ML subset only.\nChat with AI to understand them better: explain the trick back, then let it push on what you fudged.";
-
-/* ================= schedule builders ================= */
-const B = (time,title,cat,details,extra={}) => Object.assign({time,title,cat,details:details||""},extra);
-const wake = () => B("7:00–7:30","🌅 Wake · Hydrate · Ice Bucket","body",
-  "💧 16 oz water · 🧘 2 min stretch · 🌬 3 slow breaths\n🧊 Ice bucket for face · 📵 no phone · 🎯 one intention for the day.",{water:16});
-const pdev = () => B("7:30–8:30","🤍 Personal Dev","pd","Protected. Not a study block, not a donor block. Do not raid it when the day is behind.");
-const emails = () => B("12:00–12:15","📧 Emails","admin","Triage only. Anything over 5 minutes goes to Later To-Do.");
-const dinner = () => B("5:00–6:00","🍽 Dinner","body","");
-const meditate = () => B("10:45–11:00","🌙 Meditate","body","15 min. Then screens off.");
-const shower = (t) => B(t,"🚿 Shower & get ready","body","Skincare AM · SPF.");
-const gym = (t,split) => B(t,"🏋️ GYM — "+split,"body",
-  "Warm-up 5 min: band pull-aparts 2×20 · cat-cow 1×10 · chin tucks 2×12.\n8–15 reps · slow eccentrics · one posture accessory every session.\n\n📌 Today: "+split);
-const paperSkim = (venue) => B("7:15–7:45","📄 Paper skim — "+venue,"paper","One abstract + one figure. Write one line: what problem, what trick, what number.");
-const researchHandsOn = (t) => B(t,"🔬 Research — hands-on","res",RESEARCH_BODY);
-const lab = () => B("7:45–10:20","🔌 ECE 302 LAB","c302",LAB_VENUES,{loc:"UG Lab"});
-const netflix = (t) => B(t,"🍿 Netflix","unwind","Unwind. No notes, no guilt.");
-const walk = (t,title,details) => B(t,title,"body",(details?details+"\n":"")+"Daily aerobic minimum — protected, same tier as the gym.");
-
-/* the 8:30–10:30 YouTube ladder — Sun · Mon · Wed · Fri */
-const ladder = () => ([
-  B("8:30–8:55","🎬 YouTube — Edge AI · Embedded · SSCS","vidEdge","DroneBot Workshop · Paul McWhorter · Ben Eater"),
-  B("8:55–9:20","🎬 YouTube — Electronics Troubleshooting","vidElec","Electronic Wizard · EEVblog · Phil's Lab"),
-  B("9:20–9:45","🎬 YouTube — ML & AI","vidML","3Blue1Brown “Neural Networks” · Welch Labs"),
-  B("9:45–10:10","🎬 YouTube — Engineering & Context","vidCtx","Branch Education · The Engineering Mindset · Veritasium · Asianometry"),
-  B("10:10–10:30","🎬 YouTube — SOTA Concepts","sota","AI Explained · AI Uncovered")
-]);
-
-const SCHEDULES = {
-Sun:[
- wake(), pdev(), ...ladder(),
- gym("10:30–11:00","Legs"), shower("11:00–11:30"),
- B("11:30–12:00","🎬 YouTube — AI & ML","yt","Evolving AI · research explainers. Transformers · attention · VLM"),
- emails(),
- B("12:15–1:30","⏸ BUFFER","buffer","Unbooked on purpose. If the morning slipped, it lands here."),
- B("1:30–2:30","🔧 ECE 115 Prep","c115",""),
- B("2:30–3:30","🔌 ECE 302 Prep","c302",""),
- B("3:30–4:00","🎬 YouTube — Embedded HW","yt","Paul McWhorter Jetson AI L1–11, 50–53"),
- B("4:00–4:30","🎬 YouTube — Embedded HW","yt","Jetson / Arduino build-along"),
- B("4:30–5:00","🎬 YouTube — Embedded HW","yt","Jetson / Arduino build-along"),
- dinner(),
- B("6:00–7:15","🚗 Leave to school","commute",""),
- B("7:15–10:20","🎓 Research Meeting","adv","60 min paper standup with the platform owners, then 60 min curriculum with the rest.\n\n📌 Three questions you can't answer yourself — bring them.",{loc:"Equad B205"}),
- meditate()
-],
-Mon:[
- wake(), pdev(), ...ladder(),
- gym("10:30–11:00","Push"), shower("11:00–11:30"),
- B("11:30–12:00","📄 Read Workshop Papers","paper",WORKSHOP_BODY),
- emails(),
- B("12:15–1:30","📄 MLSys papers → research slide prep","res","Read, then convert straight into a slide. Reading that doesn't become a slide didn't happen."),
- B("1:30–2:00","🚗 Commute","commute","Listen to Semi Doped"),
- B("2:00–2:55","🔧 115 Lec Prep","c115",""),
- B("2:55–4:15","🔧 ECE 115 Lecture","c115","",{loc:"Jad A10"}),
- walk("4:15–4:30","🚶 Walk + post-class debrief","What landed, what didn't, one fix"),
- B("4:30–5:00","📧 Email","admin",""),
- dinner(),
- researchHandsOn("6:00–7:15"),
- paperSkim("NeurIPS"),
- B("7:45–8:00","⏸ Flex Buffer","buffer",""),
- B("8:00–9:00","🟣 ECE 206 Precept","c206","",{loc:"Equad B205"}),
- B("9:00–9:45","🏠 Home","commute",""),
- netflix("10:00–10:45"),
- meditate()
-],
-Tue:[
- wake(), pdev(),
- B("8:30–8:55","🔌 ECE 302 Rev.","c302","Yesterday's board + today's opener"),
- B("8:55–10:30","📄 Read Workshop Papers","paper",WORKSHOP_BODY),
- shower("10:30–11:00"),
- B("11:00–11:30","📡 Commute — SOTA audio","commute","Semi Doped / SemiAnalysis podcast"),
- B("11:30–12:00","🔌 ECE 302 Lec Prep","c302",""),
- emails(),
- B("12:15–1:05","🔌 ECE 302 Lecture","c302","",{loc:"Bowen Hall 222"}),
- walk("1:05–1:20","🚶 Walk — Bowen → Frist Camp","15 min outdoors; take it at pace."),
- B("1:20–2:55","🟣 ECE 206 Lecture","c206","Official end 2:40 — 2:40–2:55 is reset/transit.\n📌 Post 206 KI, HW, Video",{loc:"Frist Camp 302"}),
- B("2:55–4:30","📘 Curriculum — Efficient AI · Edge AI · Physical AI","paper","Review the source course with AI, then build the advisee-facing version: one analogy · one number · one demo."),
- B("4:30–5:00","🎓 Research Slide","adv","One slide. Cut one, don't add one."),
- dinner(),
- researchHandsOn("6:00–7:15"),
- paperSkim("ISCAS / DAC"),
- B("7:45–8:00","⏸ Flex Buffer","buffer",""),
- B("8:00–9:00","🟣 ECE 206 Precept","c206","",{loc:"Equad B205"}),
- B("9:00–9:45","🏠 Home","commute",""),
- netflix("10:00–10:45"),
- meditate()
-],
-Wed:[
- wake(), pdev(), ...ladder(),
- gym("10:30–11:00","Pull"), shower("11:00–11:30"),
- B("11:30–12:00","📄 Read Workshop Papers","paper",WORKSHOP_BODY),
- emails(),
- B("12:15–1:30","📄 MLSys papers → research slide prep","res","Read, then convert straight into a slide."),
- B("1:30–2:00","🚗 Commute","commute","Listen to Semi Doped"),
- B("2:00–2:55","🔧 115 Lec Prep","c115",""),
- B("2:55–4:15","🔧 ECE 115 Lecture","c115","",{loc:"Jad A10"}),
- walk("4:15–4:30","🚶 Walk + post-class debrief",""),
- B("4:30–5:00","📧 Email + 302 lab dry-run","admin","Instruments on, waveforms confirmed — 3 h before students arrive"),
- dinner(),
- researchHandsOn("6:00–7:15"),
- paperSkim("MLSys"),
- lab(),
- netflix("10:20–10:45"),
- meditate()
-],
-Thu:[
- wake(), pdev(),
- B("8:30–8:55","🔌 ECE 302 Rev.","c302",""),
- B("8:55–10:30","📄 Read Workshop Papers","paper",WORKSHOP_BODY),
- shower("10:30–11:00"),
- B("11:00–11:30","📡 Commute — SOTA audio","commute","Semi Doped / SemiAnalysis podcast"),
- B("11:30–12:00","🔌 ECE 302 Lec Prep","c302",""),
- emails(),
- B("12:15–1:05","🔌 ECE 302 Lecture","c302","",{loc:"Bowen Hall 222"}),
- walk("1:05–1:20","🚶 Walk — Bowen → Frist Camp","15 min outdoors, at pace"),
- B("1:20–2:55","🟣 ECE 206 Lecture","c206","Official end 2:40 — 2:40–2:55 is reset/transit.\n📌 Post 206 KI, Lab, Video",{loc:"Frist Camp 302"}),
- B("2:55–3:30","🔬 Research — experiment runs","res","This week's active question"),
- B("3:30–4:00","🔬 Research — measure & instrument","res","Predict, then measure. Explain the delta."),
- B("4:00–4:30","🔬 Research — writing","res","Two paragraphs that survive to the paper"),
- B("4:30–5:00","🎓 Advisee log review","adv","Written feedback, ready for Saturday"),
- dinner(),
- researchHandsOn("6:00–7:15"),
- paperSkim("ICML / CVPR"),
- lab(),
- netflix("10:20–10:45"),
- meditate()
-],
-Fri:[
- wake(), pdev(), ...ladder(),
- shower("10:30–11:00"),
- B("11:00–11:30","📡 Commute — SOTA audio","commute","Semi Doped / SemiAnalysis podcast"),
- B("11:30–12:00","⏸ BUFFER","buffer",""),
- emails(),
- B("12:15–1:30","🏛 Faculty Meeting","meet",""),
- B("1:30–2:30","🏛 DUS Meeting","meet",""),
- B("2:30–3:30","🔧 ECE 115 Office Hours","c115",""),
- B("3:30–4:00","👨‍👩‍👧 Yeh","body",""),
- B("4:00–5:00","📄 Paper Reading","paper","One paper end to end, then half a page in your own words."),
- dinner(),
- B("6:00–6:40","📋 Check HW Posting","admin","Gradescope · Canvas"),
- researchHandsOn("6:40–8:00"),
- B("8:00–10:45","🟢 OPEN — unstructured","buffer","No plan. AI Revolution / recap-tier channels live here, guilt-free. The one stretch all week with nothing in it."),
- meditate()
-],
-Sat:[
- wake(), pdev(),
- B("8:30–10:30","🔧 ECE 115 Prep","c115",""),
- gym("10:30–11:00","Full body"), shower("11:00–11:30"),
- B("11:30–12:00","📡 SOTA Review — video form","sota","EDGE AI Foundation talk or roundup → one written sentence. Doubles as the priority-2 venue sweep."),
- emails(),
- B("12:15–1:15","⏸ BUFFER","buffer","ECE 302 prep folds here if it slipped"),
- B("1:30–2:00","🎓 Research Meeting Prep","adv","Advisee log review — what changed since Thu"),
- B("2:00–2:30","🎓 Research Meeting Prep","adv","Deck final pass — cut a slide, don't add one"),
- B("2:30–2:55","🎓 Research Meeting Prep","adv","Demo rehearsal — run the hardware yourself"),
- B("2:55–3:30","🎓 Research Meeting Prep","adv","Own-results consolidation — one slide"),
- B("3:30–4:00","🎓 Research Meeting Prep","adv","Agenda + 3 questions you can't answer"),
- B("4:00–4:30","🎓 Research Meeting Prep","adv","Next-week assignments, per advisee"),
- B("4:30–5:00","⏸ Research Meeting Prep — overflow","buffer","Empty by design"),
- dinner(),
- researchHandsOn("6:00–9:30"),
- netflix("9:30–10:45"),
- meditate()
-]
-};
-
-/* ================= semester model ================= */
-const MILESTONES = [
- {date:"2026-10-14", name:"ECE 115 Midterm",  short:"115 Midterm", time:"in class · Jad A10"},
- {date:"2026-10-15", name:"ECE 206 Midterm",  short:"206 Midterm", time:"in class · Frist Camp 302"},
- {date:"2026-12-12", name:"Paper draft done", short:"Paper draft", time:"EDGE AI Symposium / arXiv"},
- {date:"2026-12-15", name:"ECE 302 Demo Day", short:"302 Demo",    time:"UG Lab"},
- {date:"2026-12-18", name:"ECE 206 Final",    short:"206 Final",   time:"8:30–11:30 AM"},
- {date:"2026-12-20", name:"ECE 115 Final",    short:"115 Final",   time:"12:30–3:30 PM"}
-];
-
-const PHASES = [
- {end:"2026-09-27", name:"Phase 1 · Build", focus:"Normal cadence. The only stretch with no exam pressure — spend it on the RPi 5 harness and freezing the results schema, not on getting ahead in lecture prep."},
- {end:"2026-10-13", name:"Phase 2 · Midterm build", focus:"115 and 206 midterms land Oct 14 and 15 — back to back. Drafts done Sep 30 / Oct 1, finalized with solutions Oct 7 / Oct 8, printed Oct 12 / 13. The ECE 115 Prep and 302 Prep blocks are exam-writing blocks this phase."},
- {end:"2026-10-19", name:"Phase 3 · Midterm week + grading", focus:"The hardest 48 hours of the term: exams Wed and Thu, and UG Lab both nights. Research and curriculum blocks are suspended — use them for grading. Expect nothing else to happen this week and you won't be disappointed."},
- {end:"2026-11-22", name:"Phase 4 · Deep work", focus:"Your best five weeks. No exams, no demo pressure. All platforms should be reporting by Nov 8, data frozen Nov 22. Protect Tuesday and Thursday afternoons ruthlessly."},
- {end:"2026-12-14", name:"Phase 5 · Project push", focus:"Paper draft due Dec 12 — before demo day, deliberately. 302 demo day is Dec 15: rubric out by Nov 17, dry-run Dec 8, equipment check Dec 12. Final exams drafted in parallel: 206 by Dec 4, 115 by Dec 6."},
- {end:"2026-12-20", name:"Phase 6 · Demo + finals", focus:"Demo Tue 15th, 206 final Fri 18th at 8:30 AM, 115 final Sun 20th at 12:30 PM. The Friday 8:30 start collides with your entire morning routine — that day starts at 6:30, not 7:00."},
- {end:"2026-12-31", name:"Phase 7 · Grading & close", focus:"Grade, submit, and write the post-mortem while it's fresh: what to change in each course next time. Then stop."},
- {end:"2099-12-31", name:"Between terms", focus:"Maker Day cadence returns. Venue sweeps, canon papers 11–20, and the STM32N6 work all unfreeze in January."}
-];
-
-/* date-specific overrides — time strings match the grid exactly */
-const OVERRIDES = {
- "2026-10-14": {banner:"ECE 115 Midterm today — in class, Jad A10. UG Lab still runs tonight 7:45–10:20. Do not schedule anything else.",
-   replace:{"12:15–1:30":B("12:15–1:30","🚨 Final exam read-through","exam","Read your own exam cold, timed. If you can't finish in half the allotted time, it's too long."),
-            "2:00–2:55":B("2:00–2:55","🚨 Midterm setup","exam","Copies counted, seating plan, aids policy stated out loud. Arrive 20 min early."),
-            "2:55–4:15":B("2:55–4:15","🚨 ECE 115 MIDTERM","exam","Count papers before anyone leaves the room.",{loc:"Jad A10"})}},
- "2026-10-15": {banner:"ECE 206 Midterm today — in class, Frist Camp 302. Second exam day in a row, second lab night in a row.",
-   replace:{"1:20–2:55":B("1:20–2:55","🚨 ECE 206 MIDTERM","exam","Count papers before anyone leaves.",{loc:"Frist Camp 302"}),
-            "2:55–3:30":B("2:55–3:30","📝 Grading — 115 midterm","exam","Rubric first, then grade one question all the way through before starting the next."),
-            "3:30–4:00":B("3:30–4:00","📝 Grading — 115 midterm","exam",""),
-            "4:00–4:30":B("4:00–4:30","📝 Grading — 115 midterm","exam",""),
-            "4:30–5:00":B("4:30–5:00","📝 Grading — 115 midterm","exam","")}},
- "2026-12-15": {banner:"ECE 302 Demo Day. Curriculum build is suspended today — the whole afternoon belongs to demos.",
-   replace:{"2:55–4:30":B("2:55–4:30","🏁 ECE 302 DEMO DAY","exam","",{loc:"UG Lab"}),
-            "4:30–5:00":B("4:30–5:00","🏁 Demo scoring + photos","exam","Score on the spot. Retro-scoring from memory is how disputes start.")}},
- "2026-12-18": {banner:"ECE 206 Final at 8:30 AM. This day starts at 6:30, not 7:00 — the YouTube ladder is cancelled today.",
-   replace:{"7:00–7:30":B("6:30–7:00","🌅 Early wake · hydrate","body","Alarm one hour earlier. Skip the ice bucket if it costs you the buffer.",{water:16}),
-            "7:30–8:30":B("7:00–8:00","🚗 Commute + exam setup","exam","Copies, seating, aids policy. On site by 8:00 for an 8:30 start."),
-            "8:30–8:55":B("8:30–9:20","🚨 ECE 206 FINAL","exam","Proctoring. 8:30–11:30 AM.",{loc:"Frist Camp 302"}),
-            "8:55–9:20":B("9:20–9:45","🚨 ECE 206 FINAL","exam","",{loc:"proctoring"}),
-            "9:20–9:45":B("9:45–10:10","🚨 ECE 206 FINAL","exam","",{loc:"proctoring"}),
-            "9:45–10:10":B("10:10–10:30","🚨 ECE 206 FINAL","exam","",{loc:"proctoring"}),
-            "10:10–10:30":B("10:30–11:00","🚨 ECE 206 FINAL","exam","",{loc:"proctoring"}),
-            "10:30–11:00":B("11:00–11:30","🚨 ECE 206 FINAL — collect","exam","Count before anyone leaves."),
-            "11:00–11:30":B("11:30–12:00","🍽 Eat — you skipped breakfast","body",""),
-            "12:15–1:30":B("12:15–1:30","📝 ECE 115 final — print check","exam","Print the 115 final today. Sunday is too late.")}},
- "2026-12-20": {banner:"ECE 115 Final 12:30–3:30 PM. Sunday afternoon blocks are gone; the morning is yours.",
-   replace:{"11:30–12:00":B("11:30–12:00","🚗 Commute + exam setup","exam","On site by 12:00 for a 12:30 start."),
-            "12:15–1:30":B("12:30–1:30","🚨 ECE 115 FINAL","exam","",{loc:"12:30–3:30 PM"}),
-            "1:30–2:30":B("1:30–2:30","🚨 ECE 115 FINAL","exam","",{loc:"proctoring"}),
-            "2:30–3:30":B("2:30–3:30","🚨 ECE 115 FINAL — collect","exam","Count before anyone leaves.")}}
-};
-
-function phaseNote(phaseName, cat){
-  if(phaseName.startsWith("Phase 2")){
-    if(cat==="c115") return "🎯 This phase: this block is ECE 115 midterm construction. Draft by Sep 30, solutions by Oct 7, printed Oct 12.";
-    if(cat==="c302") return "🎯 This phase: ECE 206 midterm construction. Draft by Oct 1, solutions by Oct 8, printed Oct 13.";
-  }
-  if(phaseName.startsWith("Phase 3")){
-    if(RESEARCH_CATS.includes(cat)) return "⏸ Suspended this week — use this block for grading. Research resumes Oct 20.";
-  }
-  if(phaseName.startsWith("Phase 4")){
-    if(cat==="res") return "🎯 This phase: all platforms reporting by Nov 8, data frozen Nov 22.";
-  }
-  if(phaseName.startsWith("Phase 5")){
-    if(cat==="res") return "🎯 This phase: assembling the 4-page draft. Done Dec 12 — before demo day.";
-    if(cat==="c302") return "🎯 This phase: ECE 302 demo prep. Rubric Nov 17 · dry-run Dec 8 · equipment check Dec 12.";
-    if(cat==="c115") return "🎯 This phase: ECE 115 final construction. Draft by Dec 6, solutions by Dec 13.";
-  }
-  if(phaseName.startsWith("Phase 6")||phaseName.startsWith("Phase 7")){
-    if(cat==="res"||cat==="adv") return "⏸ Low priority through Dec 23. Grading first.";
-  }
-  return "";
+/* ---------- metrics ---------- */
+function getM(){return sg("metrics",{});}
+function saveM(){const m=getM(),d=$("dp").value,w=parseFloat($("wI").value),b=parseFloat($("bI").value);
+  if(isNaN(w)&&isNaN(b))return;
+  m[d]=Object.assign({},m[d]);if(!isNaN(w))m[d].w=w;if(!isNaN(b))m[d].bf=b;
+  ss("metrics",m);touch(d);renderM();renderH();}
+function renderM(){
+  const m=getM(),d=$("dp").value,c=m[d]||{};
+  $("wI").value=c.w!=null?c.w:"";$("bI").value=c.bf!=null?c.bf:"";
+  const ds=Object.keys(m).sort((a,b)=>b.localeCompare(a)),pv=ds.find(x=>x<d),out=[];
+  if(pv){const p=m[pv];
+    if(c.w!=null&&p.w!=null){const v=+(c.w-p.w).toFixed(1);out.push('<span class="d '+(v>0?"up":v<0?"down":"")+'">Weight '+(v>0?"+":"")+v+' lb vs '+pv+'</span>');}
+    if(c.bf!=null&&p.bf!=null){const v=+(c.bf-p.bf).toFixed(1);out.push('<span class="d '+(v>0?"up":v<0?"down":"")+'">BF '+(v>0?"+":"")+v+' % vs '+pv+'</span>');}}
+  const wk=ds.filter(x=>x<=d&&dbet(x,d)<=7&&m[x].w!=null).map(x=>m[x].w);
+  if(wk.length>=2)out.push('<span class="d">7-day avg '+(wk.reduce((a,b)=>a+b,0)/wk.length).toFixed(1)+' lb ('+wk.length+' pts)</span>');
+  $("mCmp").innerHTML=out.join("")||'<span class="d">No comparison yet — log a few days.</span>';
+  $("mTab").innerHTML=ds.slice(0,10).map(x=>"<tr><td>"+x+"</td><td>"+(m[x].w!=null?m[x].w:"—")+"</td><td>"+(m[x].bf!=null?m[x].bf:"—")+"</td></tr>").join("")
+    ||'<tr><td colspan="3" style="color:#8A8F99">No entries yet.</td></tr>';
 }
 
-/* ================= elements ================= */
-const $ = id => document.getElementById(id);
-const datePicker=$("datePicker"), daySelect=$("daySelect"), scheduleEl=$("schedule");
-const timers = {}; let historyDate = null; let autoFollow = true;
+/* ---------- text ---------- */
+function flash(el,man){el.textContent=man?"Saved manually 💾✨":"Autosaved ✨";setTimeout(()=>{el.textContent="Autosaves as you type ✨";},1500);}
+function saveTodo(m){ss(K("todo"),$("todoT").value);touch($("dp").value);flash($("todoS"),m);renderH();}
+function savePerf(m){ss(K("perf"),$("perfT").value);touch($("dp").value);flash($("perfS"),m);renderH();}
 
-/* ================= date/time helpers ================= */
-function todayISO(){ const d=new Date(); return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10); }
-function dayFromDate(iso){ return ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date(iso+"T12:00:00").getDay()]; }
-function friendly(iso){ return new Date(iso+"T12:00:00").toLocaleDateString(undefined,{weekday:"long",month:"short",day:"numeric",year:"numeric"}); }
-function daysBetween(a,b){ return Math.round((new Date(b+"T12:00:00")-new Date(a+"T12:00:00"))/86400000); }
-function key(prefix,date=datePicker.value){ return prefix+":"+date; }
-function blockKey(i,date=datePicker.value,day=daySelect.value){ return date+":"+day+":block-"+i; }
-function noteKey(i,date=datePicker.value,day=daySelect.value){ return date+":"+day+":note-"+i; }
-
-function parseMin(t){ const m=String(t).trim().match(/(\d{1,2})(?::(\d{2}))?/); if(!m) return 0; return Number(m[1])*60+Number(m[2]||0); }
-function durationMin(range){ const p=String(range).split(/[–-]/); if(p.length<2) return 0;
-  let s=parseMin(p[0]), e=parseMin(p[1]); if(s<7*60) s+=12*60; if(e<7*60) e+=12*60; if(e<=s) e+=12*60; return e-s; }
-/* Times are 12-hour with no AM/PM, so walk the day in order and push a start
-   forward by 12 h whenever it would otherwise go backwards. */
-function absRanges(list){
-  const out=[]; let prev=-1;
-  list.forEach(b=>{
-    const p=String(b.time).split(/[–-]/);
-    let s=parseMin(p[0]), e=parseMin(p[1]);
-    while(s<prev) s+=720;
-    while(e<=s) e+=720;
-    out.push({s,e}); prev=s;
-  });
-  return out;
-}
-function nowMin(){ const d=new Date(); return d.getHours()*60+d.getMinutes(); }
-function isLiveDay(){ const t=todayISO(); return datePicker.value===t && daySelect.value===dayFromDate(t); }
-function reduceMotion(){ try{ return matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; } }
-function humanLeft(m){ if(m>=60){ const h=Math.floor(m/60), x=m%60; return x?`${h}h ${x}m left`:`${h}h left`; } return `${Math.max(0,m)}m left`; }
-function clock(sec){ const s=Math.max(0,sec), h=Math.floor(s/3600), m=Math.floor((s%3600)/60), x=s%60;
-  return h>0 ? `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(x).padStart(2,"0")}`
-             : `${String(m).padStart(2,"0")}:${String(x).padStart(2,"0")}`; }
-function touchDate(d){ const arr=sGet("trackedDates",[]); if(!arr.includes(d)){ arr.push(d); arr.sort((a,b)=>b.localeCompare(a)); sSet("trackedDates",arr);} }
-
-/* ================= phases & assembly ================= */
-function phaseFor(iso){ for(const p of PHASES){ if(iso<=p.end) return p; } return PHASES[PHASES.length-1]; }
-function scheduleFor(iso, day){
-  const base = (SCHEDULES[day]||SCHEDULES.Mon).map(b=>Object.assign({},b));
-  const ov = OVERRIDES[iso];
-  if(ov && ov.replace){ return base.map(b => ov.replace[b.time] ? Object.assign({},ov.replace[b.time]) : b); }
-  return base;
-}
-
-/* ================= modal ================= */
-function showModal(on){ $("modalOverlay").classList.toggle("open",on); }
-function confirmModal(msg){ return new Promise(res=>{ $("modalMsg").textContent=msg; showModal(true);
-  const done=v=>{ showModal(false); $("modalOk").removeEventListener("click",ok); $("modalCancel").removeEventListener("click",no); res(v); };
-  const ok=()=>done(true), no=()=>done(false);
-  $("modalOk").addEventListener("click",ok); $("modalCancel").addEventListener("click",no); }); }
-
-/* ================= metrics ================= */
-function getMetrics(){ return sGet("metrics",{}); }
-function saveMetrics(){
-  const m=getMetrics(); const d=datePicker.value;
-  const w=parseFloat($("weightInput").value), bf=parseFloat($("bodyFatInput").value);
-  if(isNaN(w)&&isNaN(bf)) return;
-  m[d]=Object.assign({},m[d]); if(!isNaN(w)) m[d].w=w; if(!isNaN(bf)) m[d].bf=bf;
-  sSet("metrics",m); touchDate(d); renderMetrics(); renderHistory();
-}
-function renderMetrics(){
-  const m=getMetrics(), d=datePicker.value, cur=m[d]||{};
-  $("weightInput").value = cur.w!=null?cur.w:"";
-  $("bodyFatInput").value = cur.bf!=null?cur.bf:"";
-  const dates=Object.keys(m).sort((a,b)=>b.localeCompare(a));
-  const prev=dates.find(x=>x<d);
-  const parts=[];
-  if(prev){
-    const p=m[prev];
-    if(cur.w!=null&&p.w!=null){ const dv=+(cur.w-p.w).toFixed(1);
-      parts.push(`<span class="delta ${dv>0?"up":dv<0?"down":""}">Weight ${dv>0?"+":""}${dv} lb vs ${prev}</span>`); }
-    if(cur.bf!=null&&p.bf!=null){ const dv=+(cur.bf-p.bf).toFixed(1);
-      parts.push(`<span class="delta ${dv>0?"up":dv<0?"down":""}">BF ${dv>0?"+":""}${dv} % vs ${prev}</span>`); }
-  }
-  const week=dates.filter(x=>x<=d&&daysBetween(x,d)<=7&&m[x].w!=null).map(x=>m[x].w);
-  if(week.length>=2){ const avg=(week.reduce((a,b)=>a+b,0)/week.length).toFixed(1);
-    parts.push(`<span class="delta">7-day avg ${avg} lb (${week.length} pts)</span>`); }
-  $("metricCompare").innerHTML = parts.join("") || `<span class="delta">No comparison yet — log a few days.</span>`;
-  $("metricTable").innerHTML = dates.slice(0,10).map(x=>
-    `<tr><td>${x}</td><td>${m[x].w!=null?m[x].w:"—"}</td><td>${m[x].bf!=null?m[x].bf:"—"}</td></tr>`).join("")
-    || `<tr><td colspan="3" style="color:#8A8A9C">No entries yet.</td></tr>`;
-}
-
-/* ================= text boxes ================= */
-function flash(el,manual){ el.textContent = manual?"Saved manually 💾✨":"Autosaved ✨"; setTimeout(()=>{el.textContent="Autosaves as you type ✨";},1500); }
-function saveTodo(m){ sSet(key("laterTodo"),$("laterTodoText").value); touchDate(datePicker.value); flash($("todoStatus"),m); renderHistory(); }
-function savePerfect(m){ sSet(key("mrPerfect"),$("perfectText").value); touchDate(datePicker.value); flash($("perfectStatus"),m); renderHistory(); }
-
-/* ================= semester strip ================= */
-function renderSemester(){
-  const iso=datePicker.value, ph=phaseFor(iso);
-  $("phaseName").textContent=ph.name;
-  $("phaseRange").textContent="through "+ph.end;
-  $("phaseFocus").textContent=ph.focus;
-  $("milestoneChips").innerHTML = MILESTONES.map(ms=>{
-    const dd=daysBetween(iso,ms.date);
-    const cls = dd<0?"past" : dd===0?"now" : dd<=14?"soon":"";
-    const cc = dd===0?"TODAY" : dd<0?`${Math.abs(dd)}d ago`:`T−${dd}`;
-    return `<div class="chip ${cls}"><span class="cn">${ms.short}</span><span class="cd">${ms.date} · ${ms.time}</span><span class="cc">${cc}</span></div>`;
-  }).join("");
-  const ov=OVERRIDES[iso];
-  $("bannerSlot").innerHTML = ov && ov.banner
-    ? `<div class="banner"><b>⚑ ${friendly(iso)}</b>${ov.banner}</div>` : "";
-  $("heroSub").textContent = `${friendly(iso)} · ${ph.name}`;
-}
-
-/* ================= schedule ================= */
-function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
-
-function renderSchedule(){
-  const iso=datePicker.value, day=daySelect.value, ph=phaseFor(iso);
-  const list=scheduleFor(iso,day);
-  const done=sGet(key("done"),{});
-  scheduleEl.innerHTML="";
-  let completed=0, resMin=0, vidMin=0;
-
+/* ---------- schedule ---------- */
+function renderS(){
+  const iso=$("dp").value,day=$("ds").value,list=(SCHED[day]||[]).slice();
+  const done=sg(K("done"),{});
+  cur=list;
+  $("sched").innerHTML="";
+  let c=0,sy=0,yt=0;
   list.forEach((b,i)=>{
-    const meta=CAT[b.cat]||CAT.buffer;
-    const bk=blockKey(i);
-    const isDone=!!done[bk];
-    const mins=durationMin(b.time);
-    if(isDone){
-      completed++;
-      if(RESEARCH_CATS.includes(b.cat)) resMin+=mins;
-      if(VIDEO_CATS.includes(b.cat)) vidMin+=mins;
-    }
-
-    const note=phaseNote(ph.name,b.cat);
-    const body=[
-      b.loc?`<span class="loc">▸ ${esc(b.loc)}</span>`:"",
-      esc(b.details||""),
-      note?(b.details?"\n\n":"")+esc(note):""
-    ].join("");
-
+    const meta=CAT[b.cat]||CAT.buffer,mins=b.e-b.s,bk=bK(i),isDone=!!done[bk];
+    if(isDone){c++;if(STUDY.includes(b.cat))sy+=mins;if(b.cat==="yt")yt+=mins;}
+    const per=b.channels?Math.round(mins/b.channels.length):0;
     const el=document.createElement("div");
-    el.className="block"+(isDone?" done":"");
-    el.style.setProperty("--acc",meta.c);
-    el.style.setProperty("--acc-soft",meta.s);
-    el.style.setProperty("--sw",meta.sw);
-    el.innerHTML=`
-      <div class="block-head">
-        <input type="checkbox" ${isDone?"checked":""} aria-label="Mark complete">
-        <div class="block-meta">
-          <div class="block-time">${esc(b.time)}${b.water?" · 💧"+b.water+" oz":""}</div>
-          <div class="block-title">${esc(b.title)}</div>
-          <span class="block-tag">${esc(meta.sn)} · ${mins}m</span>
-        </div>
-      </div>
-      ${body.trim()?`<div class="block-body">${body}</div>`:""}
-      <div class="block-tools">
-        <span class="timer">${clock(sGet("timer:"+bk,0))}</span>
-        <button class="mini-btn t-start">▶️ Start</button>
-        <button class="mini-btn t-pause">⏸ Pause</button>
-        <button class="mini-btn t-reset">↺ Reset</button>
-      </div>
-      <input class="note" type="text" placeholder="Note for this block…" value="${esc(sGet(noteKey(i),""))}">
-    `;
-
-    el.querySelector('input[type="checkbox"]').addEventListener("change",e=>{
-      const cur=sGet(key("done"),{}); cur[bk]=e.target.checked; sSet(key("done"),cur); touchDate(iso); renderSchedule(); renderHistory();
-    });
-    const tEl=el.querySelector(".timer");
-    el.querySelector(".t-start").addEventListener("click",()=>{
-      if(timers[bk]) return;
-      tEl.classList.add("run");
-      timers[bk]=setInterval(()=>{ const v=sGet("timer:"+bk,0)+1; sSet("timer:"+bk,v); tEl.textContent=clock(v); },1000);
-    });
-    el.querySelector(".t-pause").addEventListener("click",()=>{ clearInterval(timers[bk]); delete timers[bk]; tEl.classList.remove("run"); });
-    el.querySelector(".t-reset").addEventListener("click",()=>{ clearInterval(timers[bk]); delete timers[bk]; sSet("timer:"+bk,0); tEl.textContent=clock(0); tEl.classList.remove("run"); });
-    el.querySelector(".note").addEventListener("input",e=>{ sSet(noteKey(i),e.target.value); touchDate(iso); });
-
-    scheduleEl.appendChild(el);
+    el.className="blk"+(isDone?" done":"");
+    el.style.setProperty("--acc",meta.c);el.style.setProperty("--soft",meta.s);
+    el.innerHTML=
+      '<div class="bh"><input type="checkbox" '+(isDone?"checked":"")+' aria-label="Mark complete">'+
+      '<div class="bm"><div class="bt">'+esc(rng(b))+'</div><div class="bti">'+esc(b.title)+'</div>'+
+      '<span class="tag">'+esc(meta.n)+' · '+mins+'m</span></div></div>'+
+      (b.note?'<div class="bn">'+esc(b.note)+'</div>':"")+
+      (b.channels?'<ul class="chl">'+b.channels.map(n=>'<li><a href="'+chLink(n)+'" target="_blank" rel="noopener noreferrer">'+esc(n)+'</a><span class="mins">'+per+'m</span></li>').join("")+'</ul>':"")+
+      (b.close?'<div class="close">→ '+esc(b.close)+'</div>':"")+
+      '<div class="tools"><span class="tmr">'+clk(sg("t:"+bk,0))+'</span>'+
+      '<button class="mini st">▶️ Start</button><button class="mini pa">⏸ Pause</button><button class="mini re">↺ Reset</button></div>'+
+      '<input class="note" type="text" placeholder="Note for this block…" value="'+esc(sg(nK(i),""))+'">';
+    el.querySelector("input[type=checkbox]").addEventListener("change",e=>{
+      const d2=sg(K("done"),{});d2[bk]=e.target.checked;ss(K("done"),d2);touch(iso);renderS();renderH();});
+    const t=el.querySelector(".tmr");
+    el.querySelector(".st").addEventListener("click",()=>{if(timers[bk])return;t.classList.add("run");
+      timers[bk]=setInterval(()=>{const v=sg("t:"+bk,0)+1;ss("t:"+bk,v);t.textContent=clk(v);},1000);});
+    el.querySelector(".pa").addEventListener("click",()=>{clearInterval(timers[bk]);delete timers[bk];t.classList.remove("run");});
+    el.querySelector(".re").addEventListener("click",()=>{clearInterval(timers[bk]);delete timers[bk];ss("t:"+bk,0);t.textContent=clk(0);t.classList.remove("run");});
+    el.querySelector(".note").addEventListener("input",e=>{ss(nK(i),e.target.value);touch(iso);});
+    $("sched").appendChild(el);
   });
-
-  curList=list; curRanges=absRanges(list);
-
-  const pct = list.length?Math.round(completed/list.length*100):0;
-  $("completedStat").textContent=`${completed}/${list.length}`;
-  $("progressStat").textContent=pct+"%";
-  $("progressBar").style.width=pct+"%";
-  $("resStat").textContent=(resMin/60).toFixed(1)+"h";
-  $("vidStat").textContent=(vidMin/60).toFixed(1)+"h";
-  markNow(false);
+  const pct=list.length?Math.round(c/list.length*100):0;
+  $("cStat").textContent=c+"/"+list.length;
+  $("pStat").textContent=pct+"%";
+  $("pBar").style.width=pct+"%";
+  $("sStat").textContent=(sy/60).toFixed(1)+"h";
+  $("yStat").textContent=(yt/60).toFixed(1)+"h";
+  mark(false);
 }
 
-/* ================= now tracking ================= */
-let curRanges=[], curList=[], lastIdx=null;
-
-function currentIndex(){
-  if(!isLiveDay()) return -1;
-  const n=nowMin();
-  for(let i=0;i<curRanges.length;i++) if(n>=curRanges[i].s && n<curRanges[i].e) return i;
-  return -1;
-}
-function jumpTo(i){
-  const el=scheduleEl.children[i];
-  if(el) el.scrollIntoView({behavior:reduceMotion()?"auto":"smooth",block:"center"});
-}
-function renderNowBar(idx){
-  const bar=$("nowBar");
-  if(!isLiveDay()){ bar.style.display="none"; return; }
-  const n=nowMin(), first=curRanges[0], last=curRanges[curRanges.length-1];
-  bar.style.display="flex";
-  if(idx<0){
-    bar.classList.add("idle");
-    bar.style.setProperty("--acc","#8A8A9C");
-    bar.style.setProperty("--sw","#8A8A9C");
-    let msg="Between blocks.";
-    if(first && n<first.s) msg=`Day starts at 7:00 AM — ${humanLeft(first.s-n).replace(" left"," from now")}`;
-    else if(last && n>=last.e) msg="Day complete. Sleep is the last block.";
-    else {
-      const nxt=curRanges.findIndex(r=>r.s>n);
-      if(nxt>=0) msg=`Gap — next up ${curList[nxt].title} in ${curRanges[nxt].s-n}m`;
-    }
-    bar.innerHTML=`<span class="nb-dot"></span><div class="nb-meta"><div class="nb-label">Not in a block</div>
-      <div class="nb-title">${esc(msg)}</div></div>`;
+/* ---------- now ---------- */
+function idxNow(){if(!live())return -1;const n=nowMin();
+  for(let i=0;i<cur.length;i++)if(n>=cur[i].s&&n<cur[i].e)return i;return -1;}
+function jump(i){const el=$("sched").children[i];if(el)el.scrollIntoView({behavior:rm()?"auto":"smooth",block:"center"});}
+function nowBar(i){
+  const bar=$("nb");
+  if(!live()){bar.style.display="none";return;}
+  bar.style.display="flex";const n=nowMin();
+  if(i<0){
+    bar.classList.add("idle");bar.style.setProperty("--acc","#8A8F99");
+    let msg="Open — nothing scheduled.";
+    if(cur.length&&n<cur[0].s)msg="Day starts "+hhmm(cur[0].s)+" — "+(cur[0].s-n)+"m from now";
+    else if(cur.length&&n>=cur[cur.length-1].e)msg="Day complete.";
+    else{const nx=cur.findIndex(b=>b.s>n);if(nx>=0)msg="Open — next: "+cur[nx].title+" in "+(cur[nx].s-n)+"m";}
+    bar.innerHTML='<span class="dot"></span><div class="nbm"><div class="nbl">Not in a block</div><div class="nbt">'+esc(msg)+'</div></div>';
     return;
   }
   bar.classList.remove("idle");
-  const b=curList[idx], r=curRanges[idx], meta=CAT[b.cat]||CAT.buffer;
-  const pct=Math.round((n-r.s)/(r.e-r.s)*100);
-  const nxt=curList[idx+1];
-  bar.style.setProperty("--acc",meta.c);
-  bar.style.setProperty("--sw",meta.sw);
-  bar.innerHTML=`
-    <span class="nb-dot"></span>
-    <div class="nb-meta">
-      <div class="nb-label">Now · ${esc(b.time)} · ${esc(meta.sn)}</div>
-      <div class="nb-title">${esc(b.title)}</div>
-      ${nxt?`<div class="nb-next">Next: ${esc(nxt.title)} · ${esc(String(nxt.time).split(/[–-]/)[0])}</div>`:`<div class="nb-next">Last block of the day.</div>`}
-    </div>
-    <div class="nb-right">
-      <div class="nb-left-time">${humanLeft(r.e-n)}</div>
-      <div class="nb-prog"><span style="width:${Math.min(100,Math.max(0,pct))}%"></span></div>
-    </div>
-    <button class="mini-btn" id="nbJump">Jump</button>`;
-  const j=$("nbJump"); if(j) j.addEventListener("click",()=>jumpTo(idx));
+  const b=cur[i],m=CAT[b.cat]||CAT.buffer,pct=Math.round((n-b.s)/(b.e-b.s)*100),nx=cur[i+1];
+  bar.style.setProperty("--acc",m.c);
+  bar.innerHTML='<span class="dot"></span><div class="nbm"><div class="nbl">Now · '+esc(rng(b))+'</div>'+
+    '<div class="nbt">'+esc(b.title)+'</div>'+
+    (nx?'<div class="nbn">Next: '+esc(nx.title)+' · '+hhmm(nx.s)+'</div>':'<div class="nbn">Last block of the day.</div>')+
+    '</div><div class="nbr"><div class="nbtime">'+left(b.e-n)+'</div><div class="bar"><span style="width:'+Math.min(100,Math.max(0,pct))+'%"></span></div></div>'+
+    '<button class="mini" id="jB">Jump</button>';
+  const j=$("jB");if(j)j.addEventListener("click",()=>jump(i));
 }
-function markNow(doScroll){
-  const idx=currentIndex(), n=nowMin(), live=isLiveDay();
-  [...scheduleEl.children].forEach((el,i)=>{
-    el.classList.toggle("now", live && i===idx);
-    el.classList.toggle("past", live && curRanges[i] && n>=curRanges[i].e);
-  });
-  renderNowBar(idx);
-  /* auto-follow: when the clock rolls into a new block, scroll to it */
-  const changed = (idx!==lastIdx);
-  if(idx>=0 && (doScroll || (changed && autoFollow && lastIdx!==null))) requestAnimationFrame(()=>jumpTo(idx));
-  lastIdx=idx;
+function mark(scroll){
+  const i=idxNow(),n=nowMin(),lv=live();
+  [...$("sched").children].forEach((el,k)=>{
+    el.classList.toggle("now",lv&&k===i);
+    el.classList.toggle("past",lv&&cur[k]&&n>=cur[k].e);});
+  nowBar(i);
+  const changed=(i!==lastIdx);
+  if(i>=0&&(scroll||(changed&&follow&&lastIdx!==null)))requestAnimationFrame(()=>jump(i));
+  lastIdx=i;
 }
-function tickClock(){
-  const d=new Date();
-  $("wallClock").textContent = d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"})
-    + (isLiveDay()?"":" · viewing another day");
+function tick(){const d=new Date();
+  $("clk").textContent=d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"})+(live()?"":" · viewing another day");}
+
+/* ---------- history ---------- */
+function renderH(){
+  const ds=sg("dates",[]).slice(0,24);
+  $("hList").innerHTML=ds.length?ds.map(d=>'<button data-d="'+d+'">'+d+'</button>').join(""):'<span class="ss">Nothing logged yet.</span>';
+  $("hList").querySelectorAll("button[data-d]").forEach(b=>b.addEventListener("click",()=>{hDate=b.dataset.d;renderP();}));
+  renderP();
+}
+function renderP(){
+  if(!hDate){$("hView").textContent="Select a date to preview what you logged.";return;}
+  const m=getM()[hDate]||{},t=sg("todo:"+hDate,""),p=sg("perf:"+hDate,""),d=sg("done:"+hDate,{});
+  $("hView").textContent=nice(hDate)+"\nBlocks completed: "+Object.values(d).filter(Boolean).length+
+    "\nWeight: "+(m.w!=null?m.w+" lb":"—")+"   Body fat: "+(m.bf!=null?m.bf+" %":"—")+
+    "\n\n🧾 Later To-Do:\n"+(t||"—")+"\n\n🪞 Mr. Perfect:\n"+(p||"—");
 }
 
-/* ================= history ================= */
-function renderHistory(){
-  const dates=sGet("trackedDates",[]).slice(0,24);
-  $("historyList").innerHTML = dates.length
-    ? dates.map(d=>`<button data-d="${d}">${d}</button>`).join("")
-    : `<span class="save-status">Nothing logged yet.</span>`;
-  $("historyList").querySelectorAll("button[data-d]").forEach(b=>
-    b.addEventListener("click",()=>{ historyDate=b.dataset.d; renderPreview(); }));
-  renderPreview();
-}
-function renderPreview(){
-  if(!historyDate){ $("historyPreview").textContent="Select a date to preview what you logged."; return; }
-  const m=getMetrics()[historyDate]||{};
-  const t=sGet("laterTodo:"+historyDate,""), p=sGet("mrPerfect:"+historyDate,"");
-  const done=sGet("done:"+historyDate,{});
-  const nDone=Object.values(done).filter(Boolean).length;
-  $("historyPreview").textContent =
-    `${friendly(historyDate)}\n`+
-    `Blocks completed: ${nDone}\n`+
-    `Weight: ${m.w!=null?m.w+" lb":"—"}   Body fat: ${m.bf!=null?m.bf+" %":"—"}\n\n`+
-    `🧾 Later To-Do:\n${t||"—"}\n\n🪞 Mr. Perfect:\n${p||"—"}`;
-}
+/* ---------- static cards ---------- */
+(function(){
+  const names=new Set();
+  DAYS.forEach(d=>(SCHED[d]||[]).forEach(b=>{if(b.cat==="advisee")names.add(b.title);}));
+  $("roster").innerHTML=[...names].map(n=>"<span>"+esc(n)+"</span>").join("");
+  $("legend").innerHTML=Object.keys(CAT).map(k=>
+    '<span style="color:'+CAT[k].c+';background:'+CAT[k].s+';border-color:'+CAT[k].c+'33"><i style="background:'+CAT[k].c+'"></i>'+CAT[k].n+'</span>').join("");
+})();
 
-/* ================= legend + links ================= */
-$("legendBox").innerHTML = LEGEND_ORDER
-  .map(k=>`<span style="color:${CAT[k].c};background:${CAT[k].s};border-color:${CAT[k].sw}"><i style="background:${CAT[k].sw}"></i>${CAT[k].n}</span>`).join("");
-
-$("linksBox").innerHTML = [
- ["📡 Semi Doped — daily semiconductor brief",L.semidoped],
- ["📡 SemiAnalysis",L.semianalysis],
- ["🏛 MLSys — priority-1 venue",L.mlsys],
- ["🏛 EDGE AI Foundation — symposium + talks",L.edgeai],
- ["📘 Harvard CS249r · TinyML",L.tinyml],
- ["📘 Teman — Hardware for Deep Learning",L.teman],
- ["🛠 Edge Impulse docs",L.edgeimpulse],
- ["🎬 DroneBot Workshop",L.dronebot],["🎬 Paul McWhorter",L.mcwhorter],["🎬 Ben Eater",L.beneater],
- ["🎬 Electronic Wizard",L.ewizard],["🎬 EEVblog",L.eev],["🎬 Phil's Lab",L.philslab],
- ["🎬 3Blue1Brown",L.b1b],["🎬 Welch Labs",L.welch],
- ["🎬 Branch Education",L.branch],["🎬 The Engineering Mindset",L.engmind],
- ["🎬 Veritasium",L.veritasium],["🎬 Asianometry",L.asiano],["🎬 AI Explained",L.aiexplained]
-].map(([t,u])=>`<a href="${u}" target="_blank" rel="noopener noreferrer">${t}</a>`).join("");
-
-/* ================= boot ================= */
-function loadDay(){
-  $("laterTodoText").value=sGet(key("laterTodo"),"");
-  $("perfectText").value=sGet(key("mrPerfect"),"");
-  Object.keys(timers).forEach(k=>{clearInterval(timers[k]); delete timers[k];});
+/* ---------- boot ---------- */
+function load(){
+  $("todoT").value=sg(K("todo"),"");
+  $("perfT").value=sg(K("perf"),"");
+  Object.keys(timers).forEach(k=>{clearInterval(timers[k]);delete timers[k];});
   lastIdx=null;
-  renderSemester(); renderMetrics(); renderSchedule(); renderHistory(); tickClock();
+  $("sub").textContent=nice($("dp").value);
+  renderM();renderS();renderH();tick();
 }
-function goToNow(){
-  datePicker.value=todayISO(); daySelect.value=dayFromDate(datePicker.value);
-  loadDay(); markNow(true);
-}
-datePicker.addEventListener("change",()=>{ daySelect.value=dayFromDate(datePicker.value); loadDay(); });
-daySelect.addEventListener("change",loadDay);
-$("todayBtn").addEventListener("click",goToNow);
-$("nowBtn").addEventListener("click",goToNow);
-$("followBtn").addEventListener("click",()=>{
-  autoFollow=!autoFollow;
-  $("followBtn").classList.toggle("on",autoFollow);
-  $("followBtn").textContent="🎯 Auto-follow: "+(autoFollow?"ON":"OFF");
-  if(autoFollow) markNow(true);
-});
-$("resetDayBtn").addEventListener("click",async()=>{
-  if(!await confirmModal("Reset all checkboxes, timers, and notes for "+friendly(datePicker.value)+"? To-dos, thoughts log and metrics are kept.")) return;
-  sDel(key("done"));
-  allKeys().forEach(k=>{ const kk=k.replace(/^sos:/,"");
-    if(kk.includes(datePicker.value)&&(kk.includes(":note-")||kk.startsWith("timer:"+datePicker.value))) sDel(kk); });
-  loadDay();
-});
-$("saveMetricsBtn").addEventListener("click",saveMetrics);
-["weightInput","bodyFatInput"].forEach(id=>$(id).addEventListener("keydown",e=>{ if(e.key==="Enter") saveMetrics(); }));
-$("saveTodoBtn").addEventListener("click",()=>saveTodo(true));
-$("savePerfectBtn").addEventListener("click",()=>savePerfect(true));
-let tT,tP;
-$("laterTodoText").addEventListener("input",()=>{clearTimeout(tT); tT=setTimeout(()=>saveTodo(false),700);});
-$("perfectText").addEventListener("input",()=>{clearTimeout(tP); tP=setTimeout(()=>savePerfect(false),700);});
-$("exportBtn").addEventListener("click",()=>{
-  const out={}; allKeys().forEach(k=>{ const kk=k.replace(/^sos:/,""); out[kk]=sGet(kk,null); });
-  const blob=new Blob([JSON.stringify(out,null,2)],{type:"application/json"});
-  const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
-  a.download="semester-os-backup-"+todayISO()+".json"; a.click(); URL.revokeObjectURL(a.href);
-});
-$("clearAllBtn").addEventListener("click",async()=>{
-  if(!await confirmModal("Delete every saved entry — metrics, to-dos, notes, timers? This cannot be undone.")) return;
-  allKeys().forEach(k=>sDel(k.replace(/^sos:/,""))); historyDate=null; loadDay();
-});
+function goNow(){$("dp").value=todayISO();$("ds").value=dayOf($("dp").value);load();mark(true);}
+$("dp").addEventListener("change",()=>{$("ds").value=dayOf($("dp").value);load();});
+$("ds").addEventListener("change",load);
+$("todayB").addEventListener("click",goNow);
+$("nowB").addEventListener("click",goNow);
+$("followB").addEventListener("click",()=>{follow=!follow;
+  $("followB").classList.toggle("on",follow);
+  $("followB").textContent="🎯 Auto-follow: "+(follow?"ON":"OFF");
+  if(follow)mark(true);});
+$("resetB").addEventListener("click",async()=>{
+  if(!await ask("Reset checkboxes, timers and notes for "+nice($("dp").value)+"? To-dos, thoughts and metrics are kept."))return;
+  sd(K("done"));
+  keys().forEach(k=>{const kk=k.replace(/^fp:/,"");
+    if(kk.includes($("dp").value)&&(/:n\d+$/.test(kk)||kk.startsWith("t:"+$("dp").value)))sd(kk);});
+  load();});
+$("mB").addEventListener("click",saveM);
+["wI","bI"].forEach(i=>$(i).addEventListener("keydown",e=>{if(e.key==="Enter")saveM();}));
+$("todoB").addEventListener("click",()=>saveTodo(true));
+$("perfB").addEventListener("click",()=>savePerf(true));
+let t1,t2;
+$("todoT").addEventListener("input",()=>{clearTimeout(t1);t1=setTimeout(()=>saveTodo(false),700);});
+$("perfT").addEventListener("input",()=>{clearTimeout(t2);t2=setTimeout(()=>savePerf(false),700);});
+$("expB").addEventListener("click",()=>{
+  const o={};keys().forEach(k=>{const kk=k.replace(/^fp:/,"");o[kk]=sg(kk,null);});
+  const b=new Blob([JSON.stringify(o,null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(b);
+  a.download="daily-plan-backup-"+todayISO()+".json";a.click();URL.revokeObjectURL(a.href);});
+$("clrB").addEventListener("click",async()=>{
+  if(!await ask("Delete every saved entry — metrics, to-dos, notes, timers? This cannot be undone."))return;
+  keys().forEach(k=>sd(k.replace(/^fp:/,"")));hDate=null;load();});
 
-datePicker.value=todayISO();
-daySelect.value=dayFromDate(datePicker.value);
-loadDay();
-
-/* land on the current block, then keep the marker honest */
-requestAnimationFrame(()=>markNow(true));
-setInterval(()=>{ tickClock(); markNow(false); },15000);
-setInterval(tickClock,1000);
+$("dp").value=todayISO();
+$("ds").value=dayOf($("dp").value);
+load();
+requestAnimationFrame(()=>mark(true));
+setInterval(()=>{tick();mark(false);},15000);
+setInterval(tick,1000);
 document.addEventListener("visibilitychange",()=>{
-  if(document.visibilityState!=="visible") return;
-  if(datePicker.value!==todayISO()){ goToNow(); return; }  /* date rolled over while away */
-  tickClock(); markNow(false);
-});
+  if(document.visibilityState!=="visible")return;
+  if($("dp").value!==todayISO()){goNow();return;}
+  tick();mark(false);});
 </script>
 </body>
 </html>
